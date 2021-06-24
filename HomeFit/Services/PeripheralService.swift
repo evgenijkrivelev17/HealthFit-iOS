@@ -13,10 +13,8 @@ import RxSwift
 public class PeriperalService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     
-    
-    public static var shared: PeriperalService = PeriperalService()
+//    public static var shared: PeriperalService = PeriperalService()
     //MARK: - Default values
-    
     private var _devices: [RemoteDevice] = []
     private var manager: CBCentralManager
     
@@ -30,12 +28,14 @@ public class PeriperalService: NSObject, CBCentralManagerDelegate, CBPeripheralD
     
    
     
-    private init() {
-        self.manager = CBCentralManager(delegate: self, queue: nil)
-        super.init()
-    }
-    
-    
+//    private init() {
+//        self.manager = CBCentralManager(delegate: self, queue: nil)
+//    }
+//
+//    required override init(){
+//
+//    }
+//
     
     public func centralManagerDidUpdateState(_ central: CBCentralManager) {
         if central == self.manager {
@@ -48,9 +48,9 @@ public class PeriperalService: NSObject, CBCentralManagerDelegate, CBPeripheralD
         
         guard central == self.manager else { return }
             
-        let device = RemoteDevice(Id:peripheral.identifier ,device: peripheral, data: advertisementData, rssi: RSSI)
+        let device = RemoteDevice(id:peripheral.identifier ,device: peripheral, data: advertisementData, rssi: RSSI)
         
-        guard var oldDevice = self.devices.first(where: { $0.ID.uuidString == device.ID.uuidString }) else {            self._devices.append(device)
+        guard var oldDevice = self.devices.first(where: { $0.id.uuidString == device.id.uuidString }) else {            self._devices.append(device)
             self.foundDevices.onNext(device)
             return
         }
@@ -83,42 +83,32 @@ public class PeriperalService: NSObject, CBCentralManagerDelegate, CBPeripheralD
 extension PeriperalService: PeripheralServiceDelegate {
     
     
-    
     public typealias RemoteDevice = PeripheralModel
     
     public typealias StateManager = CBManagerState
     
     public var devices: [RemoteDevice]  {
-        get {
-            return self._devices
-        }
+        return self._devices
     }
-    
     public var foundDevices: PublishSubject<RemoteDevice> {
         return self._foundDevices
     }
-    
     public var stateService: PublishSubject<StateManager> {
         return self._stateService
     }
-    
     public var isScanning: PublishSubject<Bool> {
         return self._isScanning
     }
-    
     public func startScan(){
         self.manager.scanForPeripherals(withServices: nil, options: nil)
         self._isScanning.onNext(self.manager.isScanning)
     }
-    
     public func stopScan(){
         self.manager.stopScan()
         self._isScanning.onNext(self.manager.isScanning)
     }
-    
     public func connectToDevice(_ device: RemoteDevice) {
         self.manager.connect(device.Device, options: nil)
     }
 }
-
 

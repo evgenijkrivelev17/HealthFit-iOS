@@ -10,40 +10,40 @@ import RxSwift
 import RxCocoa
 import CoreBluetooth
 
-
 public struct PeripheralModel {
     
-    private let _id: UUID
-    public var ID: UUID {
-        return self._id
+    private let id: UUID
+    public var peripheralId: UUID {
+        return id
     }
     
-    public var _device: CBPeripheral
-    public var Device: CBPeripheral {
-        return self._device
+    private var device: CBPeripheral
+    public var peripheralMode: CBPeripheral {
+        return device
     }
     
-    public var _data: [String : Any] = [:]
-    public var Data: [String : Any] {
-        return self._data
+    var data: [String : Any] = [:]
+    public var peripheralData: [String : Any] {
+        return data
     }
     
-    public var _rssi: NSNumber?
-    public var RSSI: NSNumber? {
-        return self._rssi
+    private var rssi: NSNumber
+    public var peripheralRssi: NSNumber {
+        return rssi
     }
     
-    
-    init(Id: UUID, device: CBPeripheral, data: [String : Any] = [:], rssi: NSNumber? = nil) {
-        self._id = Id
-        self._device = device
-        self._data = data
-        self._rssi = rssi
+    init(id: UUID,
+         device: CBPeripheral,
+         data: [String : Any] = [:],
+         rssi: NSNumber = -1000) {
+        self.id = id
+        self.device = device
+        self.data = data
+        self.rssi = rssi
     }
-    
     public mutating func upateValues(_ device: PeripheralModel) {
-        self._device = device.Device
-        self._data = device.Data
-        self._rssi = device.RSSI
+        self.device = device.peripheralMode
+        self.data = device.peripheralData
+        self.rssi = device.peripheralRssi
     }
 }

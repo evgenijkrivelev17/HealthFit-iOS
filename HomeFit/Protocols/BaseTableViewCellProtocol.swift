@@ -5,15 +5,14 @@
 //  Created by Yauheni Kryvialiou on 24.06.21.
 //
 
-
-protocol BaseTableViewCellProtocol{
+protocol BaseTableViewCellProtocol {
     
     associatedtype D
     
-    var Data: D? { get set }
+    var data: D? { get set }
     
     func setData(to data: D)
     
-    func updateBindings()
+    func updateValues()
     
 }

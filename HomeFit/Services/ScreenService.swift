@@ -25,5 +25,4 @@ public class ScreenService {
     public static func getHeight(_ percent: CGFloat) -> CGFloat {
         return self.height * CGFloat(percent / 100)
     }
-    
 }

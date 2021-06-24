@@ -8,6 +8,9 @@ target 'HomeFit' do
   # Pods for HomeFit
   pod 'RxSwift'
   pod 'RxCocoa'
+  pod 'SwiftLint'
+  pod 'SwiftFormat/CLI'
+  pod 'SnapKit'
 
   target 'HomeFitTests' do
     inherit! :search_paths

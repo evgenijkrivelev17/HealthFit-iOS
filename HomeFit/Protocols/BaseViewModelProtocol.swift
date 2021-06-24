@@ -11,9 +11,9 @@ public protocol BaseViewModelProtocol {
     associatedtype I
     associatedtype O
     
-    var Input: I { get }
+    var inputData: I { get }
     
     func configure(_ data: AnyObject)
-    func transform(Input: I) -> O
+    func transform(input: I) -> O
     
 }

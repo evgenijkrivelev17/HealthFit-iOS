@@ -17,7 +17,7 @@ class ViewController: UIViewController, UITableViewDelegate  {
     var perehiralsTable: UITableView = {
         var table = UITableView()
         table.rowHeight = UITableView.automaticDimension
-        table.register(PeripheralCell.self, forCellReuseIdentifier: PeripheralCell.ID_CELL)
+        table.register(PeripheralCell.self, forCellReuseIdentifier: PeripheralCell.IdCell)
         return table
     }()
     
@@ -100,35 +100,35 @@ class ViewController: UIViewController, UITableViewDelegate  {
     
     func setUpLogics(){
         
-        _ = PeriperalService.shared.foundDevices.map({ (devices) -> String in
-            return "Founded devices: \(devices.hhgjhgkjfghjkt)"
-        }).bind(to: self.foundDeviceTitle.rx.text).disposed(by: self.disposeBag)
-        
-        self.perehiralsTable.rx.setDelegate(self).disposed(by: disposeBag)
-        
-        
-        _ = PeriperalService.shared.foundDevices
-            .bind(to: self.perehiralsTable.rx
-                    .items(cellIdentifier: PeripheralCell.ID_CELL, cellType: PeripheralCell.self)) { row, model, cell in
-                cell.setData(to: model)
-            }.disposed(by: self.disposeBag)
+//        _ = PeriperalService.shared.foundDevices.map({ (devices) -> String in
+//            return "Founded devices: \(devices)"
+//        }).bind(to: self.foundDeviceTitle.rx.text).disposed(by: self.disposeBag)
+//
+//        self.perehiralsTable.rx.setDelegate(self).disposed(by: disposeBag)
         
         
+//        _ = PeriperalService.shared.foundDevices
+//            .bind(to: self.perehiralsTable.rx
+//                    .items(cellIdentifier: PeripheralCell.ID_CELL, cellType: PeripheralCell.self)) { row, model, cell in
+//                cell.setData(to: model)
+//            }.disposed(by: self.disposeBag)
+//
+//
+//
+//
+//        self.perehiralsTable.rx.itemSelected.subscribe { (index) in
+//
+//        }.disposed(by: self.disposeBag)
+//
+//
+//        _ = self.scanButton.rx.tap.subscribe { (e) in
+//            PeriperalService.shared.startScanning()
+//        }.disposed(by: self.disposeBag)
         
         
-        self.perehiralsTable.rx.itemSelected.subscribe { (index) in
-        
-        }.disposed(by: self.disposeBag)
-
-        
-        _ = self.scanButton.rx.tap.subscribe { (e) in
-            PeriperalService.shared.startScanning()
-        }.disposed(by: self.disposeBag)
-        
-        
-        _ = PeriperalService.shared.isScanning.observe(on: MainScheduler.instance).subscribe(onNext: { (state) in
-            state ? self.busyIndicator.startAnimating() : self.busyIndicator.stopAnimating()
-        }).disposed(by: self.disposeBag)
+//        _ = PeriperalService.shared.isScanning.observe(on: MainScheduler.instance).subscribe(onNext: { (state) in
+//            state ? self.busyIndicator.startAnimating() : self.busyIndicator.stopAnimating()
+//        }).disposed(by: self.disposeBag)
         
     }
 }

@@ -7,20 +7,15 @@
 
 import UIKit
 
-
-
 public class BaseTableViewCell<T>: UITableViewCell, BaseTableViewCellProtocol {
+    
  
     typealias DataType = T
     
-    var Data: DataType?
+    var data: T?
     
     func setData(to data: DataType) {
-        self.Data = data
+        self.data = data
     }
-    
-    func updateBindings(){
-        
-    }
-    
+    func updateValues(){}
 }

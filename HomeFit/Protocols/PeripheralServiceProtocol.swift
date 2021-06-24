@@ -6,7 +6,7 @@
 //
 import RxSwift
 
-public protocol PeripheralServiceDelegate {
+public protocol PeripheralServiceDelegate: AnyObject {
     
     associatedtype RemoteDevice
     
@@ -23,5 +23,4 @@ public protocol PeripheralServiceDelegate {
     func startScan()
     
     func stopScan()
-    
 }
