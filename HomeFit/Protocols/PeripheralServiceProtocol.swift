@@ -7,20 +7,16 @@
 import RxSwift
 
 public protocol PeripheralServiceDelegate: AnyObject {
-    
     associatedtype RemoteDevice
-    
     associatedtype StateManager
-    
-    var devices: [RemoteDevice] { get }
-    
-    var foundDevices: PublishSubject<RemoteDevice> { get }
-    
+
+    var foundDevices: PublishSubject<[RemoteDevice]> { get }
+
     var stateService: PublishSubject<StateManager> { get }
-    
-    func connectToDevice(_ device: RemoteDevice)
-    
-    func startScan()
-    
+
+    func connect(to device: RemoteDevice)
+    func disconnect(to device: RemoteDevice)
+
+    func start()
     func stopScan()
 }

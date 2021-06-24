@@ -11,6 +11,7 @@ target 'HomeFit' do
   pod 'SwiftLint'
   pod 'SwiftFormat/CLI'
   pod 'SnapKit'
+  pod 'R.swift'
 
   target 'HomeFitTests' do
     inherit! :search_paths

@@ -7,12 +7,11 @@
 //
 
 /**
-Represents a disposable resource which only allows a single assignment of its underlying disposable resource.
+ Represents a disposable resource which only allows a single assignment of its underlying disposable resource.
 
-If an underlying disposable resource has already been set, future attempts to set the underlying disposable resource will throw an exception.
-*/
-public final class SingleAssignmentDisposable : DisposeBase, Cancelable {
-
+ If an underlying disposable resource has already been set, future attempts to set the underlying disposable resource will throw an exception.
+ */
+public final class SingleAssignmentDisposable: DisposeBase, Cancelable {
     private enum DisposeState: Int32 {
         case disposed = 1
         case disposableSet = 2
@@ -28,7 +27,7 @@ public final class SingleAssignmentDisposable : DisposeBase, Cancelable {
     }
 
     /// Initializes a new instance of the `SingleAssignmentDisposable`.
-    public override init() {
+    override public init() {
         super.init()
     }
 
@@ -38,7 +37,7 @@ public final class SingleAssignmentDisposable : DisposeBase, Cancelable {
     public func setDisposable(_ disposable: Disposable) {
         self.disposable = disposable
 
-        let previousState = fetchOr(self.state, DisposeState.disposableSet.rawValue)
+        let previousState = fetchOr(state, DisposeState.disposableSet.rawValue)
 
         if (previousState & DisposeState.disposableSet.rawValue) != 0 {
             rxFatalError("oldState.disposable != nil")
@@ -52,7 +51,7 @@ public final class SingleAssignmentDisposable : DisposeBase, Cancelable {
 
     /// Disposes the underlying disposable.
     public func dispose() {
-        let previousState = fetchOr(self.state, DisposeState.disposed.rawValue)
+        let previousState = fetchOr(state, DisposeState.disposed.rawValue)
 
         if (previousState & DisposeState.disposed.rawValue) != 0 {
             return
@@ -66,5 +65,4 @@ public final class SingleAssignmentDisposable : DisposeBase, Cancelable {
             self.disposable = nil
         }
     }
-
 }
