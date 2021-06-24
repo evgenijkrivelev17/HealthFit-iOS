@@ -1,0 +1,6 @@
+framework module Pods_HomeFit_HomeFitUITests {
+  umbrella header "Pods-HomeFit-HomeFitUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,6 @@
+framework module Pods_HomeFit {
+  umbrella header "Pods-HomeFit-umbrella.h"
+
+  export *
+  module * { export * }
+}
