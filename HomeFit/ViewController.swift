@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  HomeFit
-//
-//  Created by Евгений on 2/9/21.
-//
-
 import CoreBluetooth
 import RxCocoa
 import RxSwift

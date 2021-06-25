@@ -1,19 +1,11 @@
-//
-//  PeripheralViewModel.swift
-//  HomeFit
-//
-//  Created by Евгений on 3/4/21.
-//
-
 import CoreBluetooth
 import Foundation
 import RxCocoa
 import RxSwift
 
 public struct PeripheralModel {
-    private let id: UUID
-    public var peripheralId: UUID {
-        return id
+    public var id: UUID {
+        return device.identifier
     }
 
     private var device: CBPeripheral
@@ -31,12 +23,10 @@ public struct PeripheralModel {
         return rssi
     }
 
-    init(id: UUID,
-         device: CBPeripheral,
+    init(device: CBPeripheral,
          data: [String: Any] = [:],
          rssi: NSNumber = 1)
     {
-        self.id = id
         self.device = device
         self.data = data
         self.rssi = rssi

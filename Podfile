@@ -8,8 +8,6 @@ target 'HomeFit' do
   # Pods for HomeFit
   pod 'RxSwift'
   pod 'RxCocoa'
-  pod 'SwiftLint'
-  pod 'SwiftFormat/CLI'
   pod 'SnapKit'
   pod 'R.swift'
 

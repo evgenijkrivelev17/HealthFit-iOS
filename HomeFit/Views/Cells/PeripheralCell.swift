@@ -1,10 +1,3 @@
-//
-//  PeripheralCell.swift
-//  HomeFit
-//
-//  Created by Евгений on 3/8/21.
-//
-
 import RxCocoa
 import RxSwift
 import UIKit
@@ -114,15 +107,15 @@ public class PeripheralCell: BaseTableViewCell<PeripheralModel> {
         state.rightAnchor.constraint(equalTo: panel.rightAnchor, constant: -10).isActive = true
     }
 
-    override func setData(to data: PeripheralModel) {
-        Data = data
-        updateValues()
-    }
-
-    override func updateValues() {
-        guard let data = Data else { return }
-        name.text = "Name: " + (data.Device.name ?? "Unknown")
-        powerSignal.text = "Signal: " + data.RSSI!.stringValue
-        state.text = data.Device.state == .connected ? "Connected" : ""
-    }
+//    override func setData(to data: PeripheralModel) {
+//        Data = data
+//        updateValues()
+//    }
+//
+//    override func updateValues() {
+//        guard let data = Data else { return }
+//        name.text = "Name: " + (data.Device.name ?? "Unknown")
+//        powerSignal.text = "Signal: " + data.RSSI!.stringValue
+//        state.text = data.Device.state == .connected ? "Connected" : ""
+//    }
 }

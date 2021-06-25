@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  HomeFit
-//
-//  Created by Евгений on 2/9/21.
-//
-
 import CoreData
 import UIKit
 

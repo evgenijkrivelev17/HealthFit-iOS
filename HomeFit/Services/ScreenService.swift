@@ -1,10 +1,3 @@
-//
-//  ScreenService.swift
-//  HomeFit
-//
-//  Created by Евгений on 3/8/21.
-//
-
 import UIKit
 
 public enum ScreenService {

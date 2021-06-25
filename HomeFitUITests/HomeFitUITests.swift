@@ -1,10 +1,3 @@
-//
-//  HomeFitUITests.swift
-//  HomeFitUITests
-//
-//  Created by Евгений on 2/9/21.
-//
-
 import XCTest
 
 class HomeFitUITests: XCTestCase {

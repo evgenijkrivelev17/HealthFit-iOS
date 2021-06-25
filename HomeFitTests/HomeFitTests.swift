@@ -1,10 +1,3 @@
-//
-//  HomeFitTests.swift
-//  HomeFitTests
-//
-//  Created by Евгений on 2/9/21.
-//
-
 @testable import HomeFit
 import XCTest
 

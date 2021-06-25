@@ -294,8 +294,8 @@
 			buildConfigurationList = 3E28C36125D1DF400066D4B7 /* Build configuration list for PBXNativeTarget "HomeFit" */;
 			buildPhases = (
 				C9572F7E3DE90778DAA05A85 /* [CP] Check Pods Manifest.lock */,
-				273560122684A71500F34D53 /* ShellScript */,
-				273560132684BD1300F34D53 /* ShellScript */,
+				273560122684A71500F34D53 /* SwiftLint */,
+				273560132684BD1300F34D53 /* SwiftFormat */,
 				3E28C33025D1DF3C0066D4B7 /* Sources */,
 				3E28C33125D1DF3C0066D4B7 /* Frameworks */,
 				3E28C33225D1DF3C0066D4B7 /* Resources */,
@@ -419,7 +419,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		273560122684A71500F34D53 /* ShellScript */ = {
+		273560122684A71500F34D53 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -428,15 +428,16 @@
 			);
 			inputPaths = (
 			);
+			name = SwiftLint;
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n\n";
+			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n    if which swiftlint >/dev/null; then\n        swiftlint\n    else\n        sh setup.sh\n    fi\nfi\n";
 		};
-		273560132684BD1300F34D53 /* ShellScript */ = {
+		273560132684BD1300F34D53 /* SwiftFormat */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -445,13 +446,14 @@
 			);
 			inputPaths = (
 			);
+			name = SwiftFormat;
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" \"$SRCROOT\"\n";
+			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n    if which swiftformat >/dev/null; then\n        swiftformat .\n    else\n        sh setup.sh\n    fi\nfi\n";
 		};
 		3A0C80681561A45E18F16B35 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

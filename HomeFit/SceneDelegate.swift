@@ -1,10 +1,3 @@
-//
-//  SceneDelegate.swift
-//  HomeFit
-//
-//  Created by Евгений on 2/9/21.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {

@@ -10,13 +10,13 @@ public protocol PeripheralServiceDelegate: AnyObject {
     associatedtype RemoteDevice
     associatedtype StateManager
 
-    var foundDevices: PublishSubject<[RemoteDevice]> { get }
+    var foundDevices: BehaviorSubject<[RemoteDevice]> { get }
 
-    var stateService: PublishSubject<StateManager> { get }
+    var stateService: BehaviorSubject<StateManager> { get }
 
-    func connect(to device: RemoteDevice)
-    func disconnect(to device: RemoteDevice)
+    func connect(device: RemoteDevice, options: [String: Any])
+    func disconnect(device: RemoteDevice)
 
-    func start()
+    func startScan()
     func stopScan()
 }
