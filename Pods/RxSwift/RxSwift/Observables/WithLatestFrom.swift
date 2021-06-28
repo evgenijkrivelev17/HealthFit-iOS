@@ -1,11 +1,3 @@
-//
-//  WithLatestFrom.swift
-//  RxSwift
-//
-//  Created by Yury Korolev on 10/19/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Merges two observable sequences into one observable sequence by combining each element from self with the latest element from the second source, if any.
@@ -72,22 +64,22 @@ private final class WithLatestFromSink<FirstType, SecondType, Observer: Observer
 
     func synchronized_on(_ event: Event<Element>) {
         switch event {
-        case let .next(value):
-            guard let latest = self.latest else { return }
-            do {
-                let res = try parent.resultSelector(value, latest)
+            case let .next(value):
+                guard let latest = self.latest else { return }
+                do {
+                    let res = try parent.resultSelector(value, latest)
 
-                forwardOn(.next(res))
-            } catch let e {
-                self.forwardOn(.error(e))
-                self.dispose()
-            }
-        case .completed:
-            forwardOn(.completed)
-            dispose()
-        case let .error(error):
-            forwardOn(.error(error))
-            dispose()
+                    forwardOn(.next(res))
+                } catch let e {
+                    self.forwardOn(.error(e))
+                    self.dispose()
+                }
+            case .completed:
+                forwardOn(.completed)
+                dispose()
+            case let .error(error):
+                forwardOn(.error(error))
+                dispose()
         }
     }
 }
@@ -119,13 +111,13 @@ private final class WithLatestFromSecond<FirstType, SecondType, Observer: Observ
 
     func synchronized_on(_ event: Event<Element>) {
         switch event {
-        case let .next(value):
-            parent.latest = value
-        case .completed:
-            disposable.dispose()
-        case let .error(error):
-            parent.forwardOn(.error(error))
-            parent.dispose()
+            case let .next(value):
+                parent.latest = value
+            case .completed:
+                disposable.dispose()
+            case let .error(error):
+                parent.forwardOn(.error(error))
+                parent.dispose()
         }
     }
 }

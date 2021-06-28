@@ -1,11 +1,3 @@
-//
-//  TakeLast.swift
-//  RxSwift
-//
-//  Created by Tomi Koskinen on 25/10/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Returns a specified number of contiguous elements from the end of an observable sequence.
@@ -40,20 +32,20 @@ private final class TakeLastSink<Observer: ObserverType>: Sink<Observer>, Observ
 
     func on(_ event: Event<Element>) {
         switch event {
-        case let .next(value):
-            elements.enqueue(value)
-            if elements.count > parent.count {
-                _ = elements.dequeue()
-            }
-        case .error:
-            forwardOn(event)
-            dispose()
-        case .completed:
-            for e in elements {
-                forwardOn(.next(e))
-            }
-            forwardOn(.completed)
-            dispose()
+            case let .next(value):
+                elements.enqueue(value)
+                if elements.count > parent.count {
+                    _ = elements.dequeue()
+                }
+            case .error:
+                forwardOn(event)
+                dispose()
+            case .completed:
+                for e in elements {
+                    forwardOn(.next(e))
+                }
+                forwardOn(.completed)
+                dispose()
         }
     }
 }

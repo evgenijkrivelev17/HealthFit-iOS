@@ -1,11 +1,3 @@
-//
-//  Repeat.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 9/13/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Generates an observable sequence that repeats the given element infinitely, using the specified scheduler to send out observer messages.

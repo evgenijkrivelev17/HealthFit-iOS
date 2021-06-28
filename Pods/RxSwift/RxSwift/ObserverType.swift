@@ -1,11 +1,3 @@
-//
-//  ObserverType.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 2/8/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 /// Supports push-style iteration over an observable sequence.
 public protocol ObserverType {
     /// The type of elements in sequence that observer can observe.

@@ -1,11 +1,3 @@
-//
-//  Filter.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 2/17/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Filters the elements of an observable sequence based on a predicate.
@@ -50,19 +42,19 @@ private final class FilterSink<Observer: ObserverType>: Sink<Observer>, Observer
 
     func on(_ event: Event<Element>) {
         switch event {
-        case let .next(value):
-            do {
-                let satisfies = try predicate(value)
-                if satisfies {
-                    forwardOn(.next(value))
+            case let .next(value):
+                do {
+                    let satisfies = try predicate(value)
+                    if satisfies {
+                        forwardOn(.next(value))
+                    }
+                } catch let e {
+                    self.forwardOn(.error(e))
+                    self.dispose()
                 }
-            } catch let e {
-                self.forwardOn(.error(e))
-                self.dispose()
-            }
-        case .completed, .error:
-            forwardOn(event)
-            dispose()
+            case .completed, .error:
+                forwardOn(event)
+                dispose()
         }
     }
 }

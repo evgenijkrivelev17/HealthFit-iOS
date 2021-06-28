@@ -1,11 +1,3 @@
-//
-//  ObservableConvertibleType+Infallible.swift
-//  RxSwift
-//
-//  Created by Shai Mishali on 27/08/2020.
-//  Copyright © 2020 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableConvertibleType {
     /// Convert to an `Infallible`
     ///

@@ -1,11 +1,3 @@
-//
-//  ControlProperty.swift
-//  RxCocoa
-//
-//  Created by Krunoslav Zaher on 8/28/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 import RxSwift
 
 /// Protocol that enables extension of `ControlProperty`.
@@ -95,12 +87,12 @@ public struct ControlProperty<PropertyType>: ControlPropertyType {
     /// - In case sequence completes, nothing happens.
     public func on(_ event: Event<Element>) {
         switch event {
-        case let .error(error):
-            bindingError(error)
-        case .next:
-            valueSink.on(event)
-        case .completed:
-            valueSink.on(event)
+            case let .error(error):
+                bindingError(error)
+            case .next:
+                valueSink.on(event)
+            case .completed:
+                valueSink.on(event)
         }
     }
 }

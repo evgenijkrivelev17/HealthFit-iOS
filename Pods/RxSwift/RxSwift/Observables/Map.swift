@@ -1,11 +1,3 @@
-//
-//  Map.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 3/15/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Projects each element of an observable sequence into a new form.
@@ -38,20 +30,20 @@ private final class MapSink<SourceType, Observer: ObserverType>: Sink<Observer>,
 
     func on(_ event: Event<SourceType>) {
         switch event {
-        case let .next(element):
-            do {
-                let mappedElement = try transform(element)
-                forwardOn(.next(mappedElement))
-            } catch let e {
-                self.forwardOn(.error(e))
-                self.dispose()
-            }
-        case let .error(error):
-            forwardOn(.error(error))
-            dispose()
-        case .completed:
-            forwardOn(.completed)
-            dispose()
+            case let .next(element):
+                do {
+                    let mappedElement = try transform(element)
+                    forwardOn(.next(mappedElement))
+                } catch let e {
+                    self.forwardOn(.error(e))
+                    self.dispose()
+                }
+            case let .error(error):
+                forwardOn(.error(error))
+                dispose()
+            case .completed:
+                forwardOn(.completed)
+                dispose()
         }
     }
 }

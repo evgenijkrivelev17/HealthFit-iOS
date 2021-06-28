@@ -1,11 +1,3 @@
-//
-//  Completable+AndThen.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 7/2/17.
-//  Copyright © 2017 Krunoslav Zaher. All rights reserved.
-//
-
 public extension PrimitiveSequenceType where Trait == CompletableTrait, Element == Never {
     /**
      Concatenates the second observable sequence to `self` upon successful termination of `self`.
@@ -93,14 +85,14 @@ private final class ConcatCompletableSink<Observer: ObserverType>:
 
     func on(_ event: Event<Element>) {
         switch event {
-        case let .error(error):
-            forwardOn(.error(error))
-            dispose()
-        case .next:
-            break
-        case .completed:
-            let otherSink = ConcatCompletableSinkOther(parent: self)
-            subscription.disposable = parent.second.subscribe(otherSink)
+            case let .error(error):
+                forwardOn(.error(error))
+                dispose()
+            case .next:
+                break
+            case .completed:
+                let otherSink = ConcatCompletableSinkOther(parent: self)
+                subscription.disposable = parent.second.subscribe(otherSink)
         }
     }
 

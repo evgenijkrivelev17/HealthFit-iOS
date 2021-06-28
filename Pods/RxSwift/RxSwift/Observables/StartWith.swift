@@ -1,11 +1,3 @@
-//
-//  StartWith.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 4/6/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Prepends a sequence of values to an observable sequence.

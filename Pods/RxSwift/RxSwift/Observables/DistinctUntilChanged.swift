@@ -1,11 +1,3 @@
-//
-//  DistinctUntilChanged.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 3/15/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType where Element: Equatable {
     /**
      Returns an observable sequence that contains only distinct contiguous elements according to equality operator.
@@ -92,28 +84,28 @@ private final class DistinctUntilChangedSink<Observer: ObserverType, Key>: Sink<
 
     func on(_ event: Event<Element>) {
         switch event {
-        case let .next(value):
-            do {
-                let key = try parent.selector(value)
-                var areEqual = false
-                if let currentKey = self.currentKey {
-                    areEqual = try parent.comparer(currentKey, key)
+            case let .next(value):
+                do {
+                    let key = try parent.selector(value)
+                    var areEqual = false
+                    if let currentKey = self.currentKey {
+                        areEqual = try parent.comparer(currentKey, key)
+                    }
+
+                    if areEqual {
+                        return
+                    }
+
+                    currentKey = key
+
+                    forwardOn(event)
+                } catch {
+                    forwardOn(.error(error))
+                    dispose()
                 }
-
-                if areEqual {
-                    return
-                }
-
-                currentKey = key
-
+            case .error, .completed:
                 forwardOn(event)
-            } catch {
-                forwardOn(.error(error))
                 dispose()
-            }
-        case .error, .completed:
-            forwardOn(event)
-            dispose()
         }
     }
 }

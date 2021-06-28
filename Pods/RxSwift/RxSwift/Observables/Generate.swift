@@ -1,11 +1,3 @@
-//
-//  Generate.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 9/2/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Generates an observable sequence by running a state-driven loop producing the sequence's elements, using the specified scheduler

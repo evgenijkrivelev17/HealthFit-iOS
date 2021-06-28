@@ -1,11 +1,3 @@
-//
-//  Create.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 2/8/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     // MARK: create
 
@@ -43,16 +35,16 @@ private final class AnonymousObservableSink<Observer: ObserverType>: Sink<Observ
             defer { self.synchronizationTracker.unregister() }
         #endif
         switch event {
-        case .next:
-            if load(isStopped) == 1 {
-                return
-            }
-            forwardOn(event)
-        case .error, .completed:
-            if fetchOr(isStopped, 1) == 0 {
+            case .next:
+                if load(isStopped) == 1 {
+                    return
+                }
                 forwardOn(event)
-                dispose()
-            }
+            case .error, .completed:
+                if fetchOr(isStopped, 1) == 0 {
+                    forwardOn(event)
+                    dispose()
+                }
         }
     }
 

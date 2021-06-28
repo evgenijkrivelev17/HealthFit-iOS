@@ -1,11 +1,3 @@
-//
-//  Binder.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 9/17/17.
-//  Copyright © 2017 Krunoslav Zaher. All rights reserved.
-//
-
 /**
  Observer that enforces interface binding rules:
  * can't bind errors (in debug builds binding of errors causes `fatalError` in release builds errors are being logged)
@@ -30,17 +22,17 @@ public struct Binder<Value>: ObserverType {
 
         self.binding = { event in
             switch event {
-            case let .next(element):
-                _ = scheduler.schedule(element) { element in
-                    if let target = weakTarget {
-                        binding(target, element)
+                case let .next(element):
+                    _ = scheduler.schedule(element) { element in
+                        if let target = weakTarget {
+                            binding(target, element)
+                        }
+                        return Disposables.create()
                     }
-                    return Disposables.create()
-                }
-            case let .error(error):
-                rxFatalErrorInDebug("Binding error: \(error)")
-            case .completed:
-                break
+                case let .error(error):
+                    rxFatalErrorInDebug("Binding error: \(error)")
+                case .completed:
+                    break
             }
         }
     }

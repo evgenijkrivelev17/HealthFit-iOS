@@ -1,11 +1,3 @@
-//
-//  RxCollectionViewDataSourcePrefetchingProxy.swift
-//  RxCocoa
-//
-//  Created by Rowan Livingstone on 2/15/18.
-//  Copyright © 2018 Krunoslav Zaher. All rights reserved.
-//
-
 #if os(iOS) || os(tvOS)
 
     import RxSwift

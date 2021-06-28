@@ -1,11 +1,3 @@
-//
-//  WKWebView+Rx.swift
-//  RxCocoa
-//
-//  Created by Giuseppe Lanza on 14/02/2020.
-//  Copyright © 2020 Krunoslav Zaher. All rights reserved.
-//
-
 #if os(iOS) || os(macOS)
 
     import RxSwift
@@ -45,10 +37,8 @@
             navigationDelegate
                 .methodInvoked(#selector(WKNavigationDelegate.webView(_:didFail:withError:)))
                 .map { a in
-                    (
-                        try castOrThrow(WKNavigation.self, a[1]),
-                        try castOrThrow(Error.self, a[2])
-                    )
+                    (try castOrThrow(WKNavigation.self, a[1]),
+                     try castOrThrow(Error.self, a[2]))
                 }
         }
     }

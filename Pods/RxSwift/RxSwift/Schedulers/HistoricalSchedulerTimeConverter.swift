@@ -1,11 +1,3 @@
-//
-//  HistoricalSchedulerTimeConverter.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 12/27/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 import Foundation
 
 /// Converts historical virtual time into real time.
@@ -56,12 +48,12 @@ public struct HistoricalSchedulerTimeConverter: VirtualTimeConverterType {
     /// Compares two `Date`s.
     public func compareVirtualTime(_ lhs: VirtualTimeUnit, _ rhs: VirtualTimeUnit) -> VirtualTimeComparison {
         switch lhs.compare(rhs as Date) {
-        case .orderedAscending:
-            return .lessThan
-        case .orderedSame:
-            return .equal
-        case .orderedDescending:
-            return .greaterThan
+            case .orderedAscending:
+                return .lessThan
+            case .orderedSame:
+                return .equal
+            case .orderedDescending:
+                return .greaterThan
         }
     }
 }

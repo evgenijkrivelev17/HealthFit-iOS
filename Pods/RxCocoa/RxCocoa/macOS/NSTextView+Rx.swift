@@ -1,11 +1,3 @@
-//
-//  NSTextView+Rx.swift
-//  RxCocoa
-//
-//  Created by Cee on 8/5/18.
-//  Copyright © 2018 Krunoslav Zaher. All rights reserved.
-//
-
 #if os(macOS)
 
     import Cocoa

@@ -1,11 +1,3 @@
-//
-//  UINavigationController+Rx.swift
-//  RxCocoa
-//
-//  Created by Diogo on 13/04/17.
-//  Copyright © 2017 Krunoslav Zaher. All rights reserved.
-//
-
 #if os(iOS) || os(tvOS)
 
     import RxSwift

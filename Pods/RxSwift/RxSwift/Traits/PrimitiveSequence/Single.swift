@@ -1,11 +1,3 @@
-//
-//  Single.swift
-//  RxSwift
-//
-//  Created by sergdort on 19/08/2017.
-//  Copyright © 2017 Krunoslav Zaher. All rights reserved.
-//
-
 #if DEBUG
     import Foundation
 #endif
@@ -31,11 +23,11 @@ public extension PrimitiveSequenceType where Trait == SingleTrait {
         let source = Observable<Element>.create { observer in
             subscribe { event in
                 switch event {
-                case let .success(element):
-                    observer.on(.next(element))
-                    observer.on(.completed)
-                case let .failure(error):
-                    observer.on(.error(error))
+                    case let .success(element):
+                        observer.on(.next(element))
+                        observer.on(.completed)
+                    case let .failure(error):
+                        observer.on(.error(error))
                 }
             }
         }
@@ -55,12 +47,12 @@ public extension PrimitiveSequenceType where Trait == SingleTrait {
             stopped = true
 
             switch event {
-            case let .next(element):
-                observer(.success(element))
-            case let .error(error):
-                observer(.failure(error))
-            case .completed:
-                rxFatalErrorInDebug("Singles can't emit a completion event")
+                case let .next(element):
+                    observer(.success(element))
+                case let .error(error):
+                    observer(.failure(error))
+                case .completed:
+                    rxFatalErrorInDebug("Singles can't emit a completion event")
             }
         }
     }
@@ -100,22 +92,20 @@ public extension PrimitiveSequenceType where Trait == SingleTrait {
         with object: Object,
         onSuccess: ((Object, Element) -> Void)? = nil,
         onFailure: ((Object, Swift.Error) -> Void)? = nil,
-        onDisposed: ((Object) -> Void)? = nil
-    ) -> Disposable {
-        subscribe(
-            onSuccess: { [weak object] in
-                guard let object = object else { return }
-                onSuccess?(object, $0)
-            },
-            onFailure: { [weak object] in
-                guard let object = object else { return }
-                onFailure?(object, $0)
-            },
-            onDisposed: { [weak object] in
-                guard let object = object else { return }
-                onDisposed?(object)
-            }
-        )
+        onDisposed: ((Object) -> Void)? = nil) -> Disposable
+    {
+        subscribe(onSuccess: { [weak object] in
+                      guard let object = object else { return }
+                      onSuccess?(object, $0)
+                  },
+                  onFailure: { [weak object] in
+                      guard let object = object else { return }
+                      onFailure?(object, $0)
+                  },
+                  onDisposed: { [weak object] in
+                      guard let object = object else { return }
+                      onDisposed?(object)
+                  })
     }
 
     /**
@@ -146,23 +136,21 @@ public extension PrimitiveSequenceType where Trait == SingleTrait {
 
         let observer: SingleObserver = { event in
             switch event {
-            case let .success(element):
-                onSuccess?(element)
-                disposable.dispose()
-            case let .failure(error):
-                if let onFailure = onFailure {
-                    onFailure(error)
-                } else {
-                    Hooks.defaultErrorHandler(callStack, error)
-                }
-                disposable.dispose()
+                case let .success(element):
+                    onSuccess?(element)
+                    disposable.dispose()
+                case let .failure(error):
+                    if let onFailure = onFailure {
+                        onFailure(error)
+                    } else {
+                        Hooks.defaultErrorHandler(callStack, error)
+                    }
+                    disposable.dispose()
             }
         }
 
-        return Disposables.create(
-            primitiveSequence.subscribe(observer),
-            disposable
-        )
+        return Disposables.create(primitiveSequence.subscribe(observer),
+                                  disposable)
     }
 }
 
@@ -239,15 +227,13 @@ public extension PrimitiveSequenceType where Trait == SingleTrait {
               onDispose: (() -> Void)? = nil)
         -> Single<Element>
     {
-        return Single(raw: primitiveSequence.source.do(
-            onNext: onSuccess,
-            afterNext: afterSuccess,
-            onError: onError,
-            afterError: afterError,
-            onSubscribe: onSubscribe,
-            onSubscribed: onSubscribed,
-            onDispose: onDispose
-        )
+        return Single(raw: primitiveSequence.source.do(onNext: onSuccess,
+                                                       afterNext: afterSuccess,
+                                                       onError: onError,
+                                                       afterError: afterError,
+                                                       onSubscribe: onSubscribe,
+                                                       onSubscribed: onSubscribed,
+                                                       onDispose: onDispose)
         )
     }
 

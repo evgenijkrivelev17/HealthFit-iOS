@@ -1,11 +1,3 @@
-//
-//  ObservableType+PrimitiveSequence.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 9/17/17.
-//  Copyright © 2017 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      The `asSingle` operator throws a `RxError.noElements` or `RxError.moreThanOneElement`

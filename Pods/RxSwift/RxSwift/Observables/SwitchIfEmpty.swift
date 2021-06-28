@@ -1,11 +1,3 @@
-//
-//  SwitchIfEmpty.swift
-//  RxSwift
-//
-//  Created by sergdort on 23/12/2016.
-//  Copyright © 2016 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Returns the elements of the specified sequence or `switchTo` sequence if the sequence is empty.
@@ -60,20 +52,20 @@ private final class SwitchIfEmptySink<Observer: ObserverType>: Sink<Observer>,
 
     func on(_ event: Event<Element>) {
         switch event {
-        case .next:
-            isEmpty = false
-            forwardOn(event)
-        case .error:
-            forwardOn(event)
-            dispose()
-        case .completed:
-            guard isEmpty else {
-                forwardOn(.completed)
+            case .next:
+                isEmpty = false
+                forwardOn(event)
+            case .error:
+                forwardOn(event)
                 dispose()
-                return
-            }
-            let ifEmptySink = SwitchIfEmptySinkIter(parent: self)
-            ifEmptySubscription.setDisposable(ifEmpty.subscribe(ifEmptySink))
+            case .completed:
+                guard isEmpty else {
+                    forwardOn(.completed)
+                    dispose()
+                    return
+                }
+                let ifEmptySink = SwitchIfEmptySinkIter(parent: self)
+                ifEmptySubscription.setDisposable(ifEmpty.subscribe(ifEmptySink))
         }
     }
 }
@@ -92,14 +84,14 @@ private final class SwitchIfEmptySinkIter<Observer: ObserverType>:
 
     func on(_ event: Event<Element>) {
         switch event {
-        case .next:
-            parent.forwardOn(event)
-        case .error:
-            parent.forwardOn(event)
-            parent.dispose()
-        case .completed:
-            parent.forwardOn(event)
-            parent.dispose()
+            case .next:
+                parent.forwardOn(event)
+            case .error:
+                parent.forwardOn(event)
+                parent.dispose()
+            case .completed:
+                parent.forwardOn(event)
+                parent.dispose()
         }
     }
 }

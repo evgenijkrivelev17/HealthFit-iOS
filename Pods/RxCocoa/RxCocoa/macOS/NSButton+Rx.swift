@@ -1,11 +1,3 @@
-//
-//  NSButton+Rx.swift
-//  RxCocoa
-//
-//  Created by Krunoslav Zaher on 5/17/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 #if os(macOS)
 
     import Cocoa
@@ -19,13 +11,11 @@
 
         /// Reactive wrapper for `state` property`.
         var state: ControlProperty<NSControl.StateValue> {
-            return base.rx.controlProperty(
-                getter: { control in
-                    control.state
-                }, setter: { (control: NSButton, state: NSControl.StateValue) in
-                    control.state = state
-                }
-            )
+            return base.rx.controlProperty(getter: { control in
+                control.state
+            }, setter: { (control: NSButton, state: NSControl.StateValue) in
+                control.state = state
+            })
         }
     }
 

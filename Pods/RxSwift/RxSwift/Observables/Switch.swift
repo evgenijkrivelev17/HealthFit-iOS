@@ -1,11 +1,3 @@
-//
-//  Switch.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 3/12/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Projects each element of an observable sequence into a new sequence of observable sequences and then
@@ -110,29 +102,29 @@ private class SwitchSink<SourceType, Source: ObservableConvertibleType, Observer
 
     func on(_ event: Event<Element>) {
         switch event {
-        case let .next(element):
-            if let (latest, observable) = nextElementArrived(element: element) {
-                let d = SingleAssignmentDisposable()
-                innerSubscription.disposable = d
+            case let .next(element):
+                if let (latest, observable) = nextElementArrived(element: element) {
+                    let d = SingleAssignmentDisposable()
+                    innerSubscription.disposable = d
 
-                let observer = SwitchSinkIter(parent: self, id: latest, this: d)
-                let disposable = observable.subscribe(observer)
-                d.setDisposable(disposable)
-            }
-        case let .error(error):
-            lock.lock(); defer { self.lock.unlock() }
-            forwardOn(.error(error))
-            dispose()
-        case .completed:
-            lock.lock(); defer { self.lock.unlock() }
-            stopped = true
-
-            subscriptions.dispose()
-
-            if !hasLatest {
-                forwardOn(.completed)
+                    let observer = SwitchSinkIter(parent: self, id: latest, this: d)
+                    let disposable = observable.subscribe(observer)
+                    d.setDisposable(disposable)
+                }
+            case let .error(error):
+                lock.lock(); defer { self.lock.unlock() }
+                forwardOn(.error(error))
                 dispose()
-            }
+            case .completed:
+                lock.lock(); defer { self.lock.unlock() }
+                stopped = true
+
+                subscriptions.dispose()
+
+                if !hasLatest {
+                    forwardOn(.completed)
+                    dispose()
+                }
         }
     }
 }
@@ -165,9 +157,9 @@ private final class SwitchSinkIter<SourceType, Source: ObservableConvertibleType
 
     func synchronized_on(_ event: Event<Element>) {
         switch event {
-        case .next: break
-        case .error, .completed:
-            this.dispose()
+            case .next: break
+            case .error, .completed:
+                this.dispose()
         }
 
         if parent.latest != id {
@@ -175,17 +167,17 @@ private final class SwitchSinkIter<SourceType, Source: ObservableConvertibleType
         }
 
         switch event {
-        case .next:
-            parent.forwardOn(event)
-        case .error:
-            parent.forwardOn(event)
-            parent.dispose()
-        case .completed:
-            parent.hasLatest = false
-            if parent.stopped {
+            case .next:
+                parent.forwardOn(event)
+            case .error:
                 parent.forwardOn(event)
                 parent.dispose()
-            }
+            case .completed:
+                parent.hasLatest = false
+                if parent.stopped {
+                    parent.forwardOn(event)
+                    parent.dispose()
+                }
         }
     }
 }

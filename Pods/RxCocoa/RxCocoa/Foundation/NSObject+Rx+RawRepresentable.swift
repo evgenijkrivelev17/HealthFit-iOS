@@ -1,11 +1,3 @@
-//
-//  NSObject+Rx+RawRepresentable.swift
-//  RxCocoa
-//
-//  Created by Krunoslav Zaher on 11/9/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 #if !os(Linux)
 
     import RxSwift

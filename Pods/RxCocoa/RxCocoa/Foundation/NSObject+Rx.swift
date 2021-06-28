@@ -1,11 +1,3 @@
-//
-//  NSObject+Rx.swift
-//  RxCocoa
-//
-//  Created by Krunoslav Zaher on 2/21/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 #if !os(Linux)
 
     import Foundation
@@ -231,12 +223,10 @@
                     subject = existingSubject
                 } else {
                     subject = T()
-                    objc_setAssociatedObject(
-                        base,
-                        selectorReference,
-                        subject,
-                        .OBJC_ASSOCIATION_RETAIN_NONATOMIC
-                    )
+                    objc_setAssociatedObject(base,
+                                             selectorReference,
+                                             subject,
+                                             .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
                 }
 
                 if subject.isActive {
@@ -473,8 +463,8 @@
         private func observeWeaklyKeyPathFor(
             _ target: NSObject,
             keyPathSections: [String],
-            options: KeyValueObservingOptions
-        ) -> Observable<AnyObject?> {
+            options: KeyValueObservingOptions) -> Observable<AnyObject?>
+        {
             weak var weakTarget: AnyObject? = target
 
             let propertyName = keyPathSections[0]

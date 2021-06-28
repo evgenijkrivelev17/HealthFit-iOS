@@ -1,11 +1,3 @@
-//
-//  UIControl+Rx.swift
-//  RxCocoa
-//
-//  Created by Daniel Tartaglia on 5/23/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 #if os(iOS) || os(tvOS)
 
     import RxSwift
@@ -43,8 +35,8 @@
         func controlProperty<T>(
             editingEvents: UIControl.Event,
             getter: @escaping (Base) -> T,
-            setter: @escaping (Base, T) -> Void
-        ) -> ControlProperty<T> {
+            setter: @escaping (Base, T) -> Void) -> ControlProperty<T>
+        {
             let source: Observable<T> = Observable.create { [weak weakControl = base] observer in
                 guard let control = weakControl else {
                     observer.on(.completed)
@@ -73,13 +65,11 @@
         internal func controlPropertyWithDefaultEvents<T>(
             editingEvents: UIControl.Event = [.allEditingEvents, .valueChanged],
             getter: @escaping (Base) -> T,
-            setter: @escaping (Base, T) -> Void
-        ) -> ControlProperty<T> {
-            return controlProperty(
-                editingEvents: editingEvents,
-                getter: getter,
-                setter: setter
-            )
+            setter: @escaping (Base, T) -> Void) -> ControlProperty<T>
+        {
+            return controlProperty(editingEvents: editingEvents,
+                                   getter: getter,
+                                   setter: setter)
         }
     }
 

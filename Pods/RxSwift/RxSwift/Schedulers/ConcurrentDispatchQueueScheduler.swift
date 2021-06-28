@@ -1,11 +1,3 @@
-//
-//  ConcurrentDispatchQueueScheduler.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 7/5/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 import Dispatch
 import Foundation
 
@@ -35,13 +27,11 @@ public class ConcurrentDispatchQueueScheduler: SchedulerType {
     /// - parameter qos: Target global dispatch queue, by quality of service class.
     /// - parameter leeway: The amount of time, in nanoseconds, that the system will defer the timer.
     public convenience init(qos: DispatchQoS, leeway: DispatchTimeInterval = DispatchTimeInterval.nanoseconds(0)) {
-        self.init(queue: DispatchQueue(
-            label: "rxswift.queue.\(qos)",
-            qos: qos,
-            attributes: [DispatchQueue.Attributes.concurrent],
-            target: nil
-        ),
-        leeway: leeway)
+        self.init(queue: DispatchQueue(label: "rxswift.queue.\(qos)",
+                                       qos: qos,
+                                       attributes: [DispatchQueue.Attributes.concurrent],
+                                       target: nil),
+                  leeway: leeway)
     }
 
     /**

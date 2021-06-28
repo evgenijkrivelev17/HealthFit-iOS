@@ -1,11 +1,3 @@
-//
-//  Never.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 8/30/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Returns a non-terminating observable sequence, which can be used to denote an infinite duration.

@@ -1,11 +1,3 @@
-//
-//  ReplaySubject.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 4/14/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 /// Represents an object that is both an observable sequence as well as an observer.
 ///
 /// Each notification is broadcasted to all subscribed and future observers, subject to buffer trimming policies.
@@ -130,16 +122,16 @@ private class ReplayBufferBase<Element>:
         }
 
         switch event {
-        case let .next(element):
-            addValueToBuffer(element)
-            trim()
-            return observers
-        case .error, .completed:
-            stoppedEvent = event
-            trim()
-            let observers = self.observers
-            self.observers.removeAll()
-            return observers
+            case let .next(element):
+                addValueToBuffer(element)
+                trim()
+                return observers
+            case .error, .completed:
+                stoppedEvent = event
+                trim()
+                let observers = self.observers
+                self.observers.removeAll()
+                return observers
         }
     }
 

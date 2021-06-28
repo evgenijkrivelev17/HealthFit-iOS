@@ -1,11 +1,3 @@
-//
-//  ReplayRelay.swift
-//  RxRelay
-//
-//  Created by Zsolt Kovacs on 12/22/19.
-//  Copyright © 2019 Krunoslav Zaher. All rights reserved.
-//
-
 import RxSwift
 
 /// ReplayRelay is a wrapper for `ReplaySubject`.

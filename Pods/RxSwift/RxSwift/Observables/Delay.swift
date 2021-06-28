@@ -1,11 +1,3 @@
-//
-//  Delay.swift
-//  RxSwift
-//
-//  Created by tarunon on 2016/02/09.
-//  Copyright © 2016 Krunoslav Zaher. All rights reserved.
-//
-
 import Foundation
 
 public extension ObservableType {
@@ -121,27 +113,27 @@ private final class DelaySink<Observer: ObserverType>:
         }
 
         switch event {
-        case .error:
-            lock.lock()
-            let shouldSendImmediately = !running
-            queue = Queue(capacity: 0)
-            errorEvent = event
-            lock.unlock()
+            case .error:
+                lock.lock()
+                let shouldSendImmediately = !running
+                queue = Queue(capacity: 0)
+                errorEvent = event
+                lock.unlock()
 
-            if shouldSendImmediately {
-                forwardOn(event)
-                dispose()
-            }
-        default:
-            lock.lock()
-            let shouldSchedule = !active
-            active = true
-            queue.enqueue((scheduler.now, event))
-            lock.unlock()
+                if shouldSendImmediately {
+                    forwardOn(event)
+                    dispose()
+                }
+            default:
+                lock.lock()
+                let shouldSchedule = !active
+                active = true
+                queue.enqueue((scheduler.now, event))
+                lock.unlock()
 
-            if shouldSchedule {
-                cancelable.disposable = scheduler.scheduleRecursive((), dueTime: dueTime, action: drainQueue)
-            }
+                if shouldSchedule {
+                    cancelable.disposable = scheduler.scheduleRecursive((), dueTime: dueTime, action: drainQueue)
+                }
         }
     }
 

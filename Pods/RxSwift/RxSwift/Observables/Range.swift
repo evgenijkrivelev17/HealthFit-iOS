@@ -1,11 +1,3 @@
-//
-//  Range.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 9/13/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType where Element: RxAbstractInteger {
     /**
      Generates an observable sequence of integral numbers within a specified range, using the specified scheduler to generate and send out observer messages.

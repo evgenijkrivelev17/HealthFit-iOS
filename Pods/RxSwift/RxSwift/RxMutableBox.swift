@@ -1,11 +1,3 @@
-//
-//  RxMutableBox.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 5/22/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 #if os(Linux)
     /// As Swift 5 was released, A patch to `Thread` for Linux
     /// changed `threadDictionary` to a `NSMutableDictionary` instead of

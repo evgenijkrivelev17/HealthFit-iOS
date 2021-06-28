@@ -1,11 +1,3 @@
-//
-//  Sink.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 2/19/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 class Sink<Observer: ObserverType>: Disposable {
     fileprivate let observer: Observer
     fileprivate let cancel: Cancelable
@@ -65,11 +57,11 @@ final class SinkForward<Observer: ObserverType>: ObserverType {
 
     final func on(_ event: Event<Element>) {
         switch event {
-        case .next:
-            forward.observer.on(event)
-        case .error, .completed:
-            forward.observer.on(event)
-            forward.cancel.dispose()
+            case .next:
+                forward.observer.on(event)
+            case .error, .completed:
+                forward.observer.on(event)
+                forward.cancel.dispose()
         }
     }
 }

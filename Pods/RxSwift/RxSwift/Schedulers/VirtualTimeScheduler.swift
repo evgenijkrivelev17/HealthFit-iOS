@@ -1,11 +1,3 @@
-//
-//  VirtualTimeScheduler.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 2/14/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 /// Base class for virtual time schedulers using a priority queue for scheduled items.
 open class VirtualTimeScheduler<Converter: VirtualTimeConverterType>:
     SchedulerType
@@ -41,12 +33,12 @@ open class VirtualTimeScheduler<Converter: VirtualTimeConverterType>:
         self.converter = converter
         schedulerQueue = PriorityQueue(hasHigherPriority: {
             switch converter.compareVirtualTime($0.time, $1.time) {
-            case .lessThan:
-                return true
-            case .equal:
-                return $0.id < $1.id
-            case .greaterThan:
-                return false
+                case .lessThan:
+                    return true
+                case .equal:
+                    return $0.id < $1.id
+                case .greaterThan:
+                    return false
             }
         }, isEqual: { $0 === $1 })
         #if TRACE_RESOURCES

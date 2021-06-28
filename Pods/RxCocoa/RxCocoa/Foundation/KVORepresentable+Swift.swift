@@ -1,11 +1,3 @@
-//
-//  KVORepresentable+Swift.swift
-//  RxCocoa
-//
-//  Created by Krunoslav Zaher on 11/14/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 import Foundation
 
 extension Int: KVORepresentable {

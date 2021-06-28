@@ -1,11 +1,3 @@
-//
-//  RetryWhen.swift
-//  RxSwift
-//
-//  Created by Junior B. on 06/10/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Repeats the source observable sequence on error when the notifier emits a next value.
@@ -85,15 +77,15 @@ private final class RetryTriggerSink<Sequence: Swift.Sequence, Observer: Observe
 
     func on(_ event: Event<Element>) {
         switch event {
-        case .next:
-            parent.parent.lastError = nil
-            parent.parent.schedule(.moveNext)
-        case let .error(e):
-            parent.parent.forwardOn(.error(e))
-            parent.parent.dispose()
-        case .completed:
-            parent.parent.forwardOn(.completed)
-            parent.parent.dispose()
+            case .next:
+                parent.parent.lastError = nil
+                parent.parent.schedule(.moveNext)
+            case let .error(e):
+                parent.parent.forwardOn(.error(e))
+                parent.parent.dispose()
+            case .completed:
+                parent.parent.forwardOn(.completed)
+                parent.parent.dispose()
         }
     }
 }
@@ -116,25 +108,25 @@ private final class RetryWhenSequenceSinkIter<Sequence: Swift.Sequence, Observer
 
     func on(_ event: Event<Element>) {
         switch event {
-        case .next:
-            parent.forwardOn(event)
-        case let .error(error):
-            parent.lastError = error
+            case .next:
+                parent.forwardOn(event)
+            case let .error(error):
+                parent.lastError = error
 
-            if let failedWith = error as? Error {
-                // dispose current subscription
-                subscription.dispose()
+                if let failedWith = error as? Error {
+                    // dispose current subscription
+                    subscription.dispose()
 
-                let errorHandlerSubscription = parent.notifier.subscribe(RetryTriggerSink(parent: self))
-                self.errorHandlerSubscription.setDisposable(errorHandlerSubscription)
-                parent.errorSubject.on(.next(failedWith))
-            } else {
-                parent.forwardOn(.error(error))
+                    let errorHandlerSubscription = parent.notifier.subscribe(RetryTriggerSink(parent: self))
+                    self.errorHandlerSubscription.setDisposable(errorHandlerSubscription)
+                    parent.errorSubject.on(.next(failedWith))
+                } else {
+                    parent.forwardOn(.error(error))
+                    parent.dispose()
+                }
+            case .completed:
+                parent.forwardOn(event)
                 parent.dispose()
-            }
-        case .completed:
-            parent.forwardOn(event)
-            parent.dispose()
         }
     }
 

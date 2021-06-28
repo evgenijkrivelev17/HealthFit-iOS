@@ -1,11 +1,3 @@
-//
-//  UIBarButtonItem+Rx.swift
-//  RxCocoa
-//
-//  Created by Daniel Tartaglia on 5/31/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 #if os(iOS) || os(tvOS)
 
     import RxSwift

@@ -1,11 +1,3 @@
-//
-//  SkipUntil.swift
-//  RxSwift
-//
-//  Created by Yury Korolev on 10/3/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Returns the elements from the source observable sequence that are emitted after the other observable sequence produces an element.
@@ -66,14 +58,14 @@ private final class SkipUntilSinkOther<Other, Observer: ObserverType>:
 
     func synchronized_on(_ event: Event<Element>) {
         switch event {
-        case .next:
-            parent.forwardElements = true
-            subscription.dispose()
-        case let .error(e):
-            parent.forwardOn(.error(e))
-            parent.dispose()
-        case .completed:
-            subscription.dispose()
+            case .next:
+                parent.forwardElements = true
+                subscription.dispose()
+            case let .error(e):
+                parent.forwardOn(.error(e))
+                parent.dispose()
+            case .completed:
+                subscription.dispose()
         }
     }
 
@@ -110,18 +102,18 @@ private final class SkipUntilSink<Other, Observer: ObserverType>:
 
     func synchronized_on(_ event: Event<Element>) {
         switch event {
-        case .next:
-            if forwardElements {
+            case .next:
+                if forwardElements {
+                    forwardOn(event)
+                }
+            case .error:
                 forwardOn(event)
-            }
-        case .error:
-            forwardOn(event)
-            dispose()
-        case .completed:
-            if forwardElements {
-                forwardOn(event)
-            }
-            dispose()
+                dispose()
+            case .completed:
+                if forwardElements {
+                    forwardOn(event)
+                }
+                dispose()
         }
     }
 

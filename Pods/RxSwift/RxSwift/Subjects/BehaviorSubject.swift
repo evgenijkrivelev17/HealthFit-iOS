@@ -1,11 +1,3 @@
-//
-//  BehaviorSubject.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 5/23/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 /// Represents a value that changes over time.
 ///
 /// Observers can subscribe to the subject to receive the last (or initial) value and all subsequent notifications.
@@ -89,10 +81,10 @@ public final class BehaviorSubject<Element>:
         }
 
         switch event {
-        case let .next(element):
-            self.element = element
-        case .error, .completed:
-            stoppedEvent = event
+            case let .next(element):
+                self.element = element
+            case .error, .completed:
+                stoppedEvent = event
         }
 
         return observers

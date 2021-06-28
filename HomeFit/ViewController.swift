@@ -9,7 +9,7 @@ class ViewController: UIViewController, UITableViewDelegate {
     var perehiralsTable: UITableView = {
         var table = UITableView()
         table.rowHeight = UITableView.automaticDimension
-        table.register(PeripheralCell.self, forCellReuseIdentifier: PeripheralCell.IdCell)
+        table.register(PeripheralCell.self, forCellReuseIdentifier: PeripheralCell.idCell)
         return table
     }()
 
@@ -79,11 +79,6 @@ class ViewController: UIViewController, UITableViewDelegate {
                                      y: ScreenService.getHeight(5),
                                      width: ScreenService.getWidth(5),
                                      height: ScreenService.getWidth(5))
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setUpLogics()
     }
 
     func setUpLogics() {

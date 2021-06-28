@@ -1,11 +1,3 @@
-//
-//  URLSession+Rx.swift
-//  RxCocoa
-//
-//  Created by Krunoslav Zaher on 3/23/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 import Foundation
 import RxSwift
 
@@ -33,14 +25,14 @@ extension RxCocoaURLError:
     /// A textual representation of `self`, suitable for debugging.
     public var debugDescription: String {
         switch self {
-        case .unknown:
-            return "Unknown error has occurred."
-        case let .nonHTTPResponse(response):
-            return "Response is not NSHTTPURLResponse `\(response)`."
-        case let .httpRequestFailed(response, _):
-            return "HTTP request failed with `\(response.statusCode)`."
-        case let .deserializationError(error):
-            return "Error during deserialization of the response: \(error)"
+            case .unknown:
+                return "Unknown error has occurred."
+            case let .nonHTTPResponse(response):
+                return "Response is not NSHTTPURLResponse `\(response)`."
+            case let .httpRequestFailed(response, _):
+                return "HTTP request failed with `\(response.statusCode)`."
+            case let .deserializationError(error):
+                return "Error during deserialization of the response: \(error)"
         }
     }
 }
@@ -76,7 +68,7 @@ private func convertURLRequestToCurlCommand(_ request: URLRequest) -> String {
 }
 
 private func convertResponseToString(_ response: URLResponse?, _ error: NSError?, _ interval: TimeInterval) -> String {
-    let ms = Int(interval * 1000)
+    let ms = Int(interval * 1_000)
 
     if let response = response as? HTTPURLResponse {
         if 200 ..< 300 ~= response.statusCode {

@@ -1,11 +1,3 @@
-//
-//  Skip.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 6/25/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Bypasses a specified number of elements in an observable sequence and then returns the remaining elements.
@@ -57,19 +49,19 @@ private final class SkipCountSink<Observer: ObserverType>: Sink<Observer>, Obser
 
     func on(_ event: Event<Element>) {
         switch event {
-        case let .next(value):
+            case let .next(value):
 
-            if remaining <= 0 {
-                forwardOn(.next(value))
-            } else {
-                remaining -= 1
-            }
-        case .error:
-            forwardOn(event)
-            dispose()
-        case .completed:
-            forwardOn(event)
-            dispose()
+                if remaining <= 0 {
+                    forwardOn(.next(value))
+                } else {
+                    remaining -= 1
+                }
+            case .error:
+                forwardOn(event)
+                dispose()
+            case .completed:
+                forwardOn(event)
+                dispose()
         }
     }
 }
@@ -108,16 +100,16 @@ private final class SkipTimeSink<Element, Observer: ObserverType>: Sink<Observer
 
     func on(_ event: Event<Element>) {
         switch event {
-        case let .next(value):
-            if open {
-                forwardOn(.next(value))
-            }
-        case .error:
-            forwardOn(event)
-            dispose()
-        case .completed:
-            forwardOn(event)
-            dispose()
+            case let .next(value):
+                if open {
+                    forwardOn(.next(value))
+                }
+            case .error:
+                forwardOn(event)
+                dispose()
+            case .completed:
+                forwardOn(event)
+                dispose()
         }
     }
 

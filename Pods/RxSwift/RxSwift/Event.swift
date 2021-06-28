@@ -1,11 +1,3 @@
-//
-//  Event.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 2/8/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 /// Represents a sequence event.
 ///
 /// Sequence grammar:
@@ -25,12 +17,12 @@ extension Event: CustomDebugStringConvertible {
     /// Description of event.
     public var debugDescription: String {
         switch self {
-        case let .next(value):
-            return "next(\(value))"
-        case let .error(error):
-            return "error(\(error))"
-        case .completed:
-            return "completed"
+            case let .next(value):
+                return "next(\(value))"
+            case let .error(error):
+                return "error(\(error))"
+            case .completed:
+                return "completed"
         }
     }
 }
@@ -39,8 +31,8 @@ public extension Event {
     /// Is `completed` or `error` event.
     var isStopEvent: Bool {
         switch self {
-        case .next: return false
-        case .error, .completed: return true
+            case .next: return false
+            case .error, .completed: return true
         }
     }
 
@@ -75,12 +67,12 @@ public extension Event {
     func map<Result>(_ transform: (Element) throws -> Result) -> Event<Result> {
         do {
             switch self {
-            case let .next(element):
-                return .next(try transform(element))
-            case let .error(error):
-                return .error(error)
-            case .completed:
-                return .completed
+                case let .next(element):
+                    return .next(try transform(element))
+                case let .error(error):
+                    return .error(error)
+                case .completed:
+                    return .completed
             }
         } catch let e {
             return .error(e)

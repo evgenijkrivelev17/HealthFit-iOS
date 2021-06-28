@@ -1,11 +1,3 @@
-//
-//  Buffer.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 9/13/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Projects each element of an observable sequence into a buffer that's sent out when either it's full or a given amount of time has elapsed, using the specified scheduler to run timers.
@@ -90,21 +82,21 @@ private final class BufferTimeCountSink<Element, Observer: ObserverType>:
 
     func synchronized_on(_ event: Event<Element>) {
         switch event {
-        case let .next(element):
-            buffer.append(element)
+            case let .next(element):
+                buffer.append(element)
 
-            if buffer.count == parent.count {
-                startNewWindowAndSendCurrentOne()
-            }
+                if buffer.count == parent.count {
+                    startNewWindowAndSendCurrentOne()
+                }
 
-        case let .error(error):
-            buffer = []
-            forwardOn(.error(error))
-            dispose()
-        case .completed:
-            forwardOn(.next(buffer))
-            forwardOn(.completed)
-            dispose()
+            case let .error(error):
+                buffer = []
+                forwardOn(.error(error))
+                dispose()
+            case .completed:
+                forwardOn(.next(buffer))
+                forwardOn(.completed)
+                dispose()
         }
     }
 

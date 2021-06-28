@@ -1,11 +1,3 @@
-//
-//  Timeout.swift
-//  RxSwift
-//
-//  Created by Tomi Koskinen on 13/11/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Applies a timeout policy for each element in the observable sequence. If the next element isn't received within the specified timeout duration starting from its predecessor, a TimeoutError is propagated to the observer.
@@ -71,34 +63,34 @@ private final class TimeoutSink<Observer: ObserverType>: Sink<Observer>, LockOwn
 
     func on(_ event: Event<Element>) {
         switch event {
-        case .next:
-            var onNextWins = false
+            case .next:
+                var onNextWins = false
 
-            lock.performLocked {
-                onNextWins = !self.switched
+                lock.performLocked {
+                    onNextWins = !self.switched
+                    if onNextWins {
+                        self.id = self.id &+ 1
+                    }
+                }
+
                 if onNextWins {
-                    self.id = self.id &+ 1
+                    forwardOn(event)
+                    createTimeoutTimer()
                 }
-            }
+            case .error, .completed:
+                var onEventWins = false
 
-            if onNextWins {
-                forwardOn(event)
-                createTimeoutTimer()
-            }
-        case .error, .completed:
-            var onEventWins = false
+                lock.performLocked {
+                    onEventWins = !self.switched
+                    if onEventWins {
+                        self.id = self.id &+ 1
+                    }
+                }
 
-            lock.performLocked {
-                onEventWins = !self.switched
                 if onEventWins {
-                    self.id = self.id &+ 1
+                    forwardOn(event)
+                    dispose()
                 }
-            }
-
-            if onEventWins {
-                forwardOn(event)
-                dispose()
-            }
         }
     }
 

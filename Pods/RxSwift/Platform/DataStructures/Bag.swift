@@ -1,11 +1,3 @@
-//
-//  Bag.swift
-//  Platform
-//
-//  Created by Krunoslav Zaher on 2/28/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 import Swift
 
 let arrayDictionaryMaxSize = 30

@@ -1,11 +1,3 @@
-//
-//  SkipWhile.swift
-//  RxSwift
-//
-//  Created by Yury Korolev on 10/9/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Bypasses elements in an observable sequence as long as a specified condition is true and then returns the remaining elements.
@@ -47,23 +39,23 @@ private final class SkipWhileSink<Observer: ObserverType>: Sink<Observer>, Obser
 
     func on(_ event: Event<Element>) {
         switch event {
-        case let .next(value):
-            if !running {
-                do {
-                    running = try !parent.predicate(value)
-                } catch let e {
-                    self.forwardOn(.error(e))
-                    self.dispose()
-                    return
+            case let .next(value):
+                if !running {
+                    do {
+                        running = try !parent.predicate(value)
+                    } catch let e {
+                        self.forwardOn(.error(e))
+                        self.dispose()
+                        return
+                    }
                 }
-            }
 
-            if running {
-                forwardOn(.next(value))
-            }
-        case .error, .completed:
-            forwardOn(event)
-            dispose()
+                if running {
+                    forwardOn(.next(value))
+                }
+            case .error, .completed:
+                forwardOn(event)
+                dispose()
         }
     }
 }

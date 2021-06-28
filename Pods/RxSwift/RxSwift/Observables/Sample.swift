@@ -1,11 +1,3 @@
-//
-//  Sample.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 5/1/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Samples the source observable sequence using a sampler observable sequence producing sampling ticks.
@@ -53,19 +45,19 @@ private final class SamplerSink<Observer: ObserverType, SampleType>:
 
     func synchronized_on(_ event: Event<Element>) {
         switch event {
-        case .next, .completed:
-            if let element = parent.element ?? parent.defaultValue {
-                parent.element = nil
-                parent.forwardOn(.next(element))
-            }
+            case .next, .completed:
+                if let element = parent.element ?? parent.defaultValue {
+                    parent.element = nil
+                    parent.forwardOn(.next(element))
+                }
 
-            if parent.atEnd {
-                parent.forwardOn(.completed)
+                if parent.atEnd {
+                    parent.forwardOn(.completed)
+                    parent.dispose()
+                }
+            case let .error(e):
+                parent.forwardOn(.error(e))
                 parent.dispose()
-            }
-        case let .error(e):
-            parent.forwardOn(.error(e))
-            parent.dispose()
         }
     }
 }
@@ -109,14 +101,14 @@ private final class SampleSequenceSink<Observer: ObserverType, SampleType>:
 
     func synchronized_on(_ event: Event<Element>) {
         switch event {
-        case let .next(element):
-            self.element = element
-        case .error:
-            forwardOn(event)
-            dispose()
-        case .completed:
-            atEnd = true
-            sourceSubscription.dispose()
+            case let .next(element):
+                self.element = element
+            case .error:
+                forwardOn(event)
+                dispose()
+            case .completed:
+                atEnd = true
+                sourceSubscription.dispose()
         }
     }
 }

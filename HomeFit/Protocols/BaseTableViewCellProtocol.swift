@@ -1,8 +1,8 @@
 protocol BaseTableViewCellProtocol {
-    associatedtype D
+    associatedtype Data
 
-    var data: D? { get set }
+    var data: Data? { get set }
 
-    func setData(to data: D)
+    func setData(to data: Data)
     func updateValues()
 }

@@ -1,11 +1,3 @@
-//
-//  SerialDisposable.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 3/12/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 /// Represents a disposable resource whose underlying disposable resource can be replaced by another disposable resource, causing automatic disposal of the previous underlying disposable resource.
 public final class SerialDisposable: DisposeBase, Cancelable {
     private var lock = SpinLock()

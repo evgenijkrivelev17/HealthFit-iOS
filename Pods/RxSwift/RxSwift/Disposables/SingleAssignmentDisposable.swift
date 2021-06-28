@@ -1,11 +1,3 @@
-//
-//  SingleAssignmentDisposable.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 2/15/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 /**
  Represents a disposable resource which only allows a single assignment of its underlying disposable resource.
 

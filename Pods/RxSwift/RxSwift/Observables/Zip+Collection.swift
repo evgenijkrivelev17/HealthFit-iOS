@@ -1,11 +1,3 @@
-//
-//  Zip+Collection.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 8/30/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Merges the specified observable sequences into one observable sequence by using the selector function whenever all of the observable sequences have produced an element at a corresponding index.
@@ -70,59 +62,59 @@ private final class ZipCollectionTypeSink<Collection: Swift.Collection, Observer
     func on(_ event: Event<SourceElement>, atIndex: Int) {
         lock.lock(); defer { self.lock.unlock() }
         switch event {
-        case let .next(element):
-            values[atIndex].enqueue(element)
+            case let .next(element):
+                values[atIndex].enqueue(element)
 
-            if values[atIndex].count == 1 {
-                numberOfValues += 1
-            }
+                if values[atIndex].count == 1 {
+                    numberOfValues += 1
+                }
 
-            if numberOfValues < parent.count {
-                if numberOfDone == parent.count - 1 {
-                    forwardOn(.completed)
+                if numberOfValues < parent.count {
+                    if numberOfDone == parent.count - 1 {
+                        forwardOn(.completed)
+                        dispose()
+                    }
+                    return
+                }
+
+                do {
+                    var arguments = [SourceElement]()
+                    arguments.reserveCapacity(parent.count)
+
+                    // recalculate number of values
+                    numberOfValues = 0
+
+                    for i in 0 ..< values.count {
+                        arguments.append(values[i].dequeue()!)
+                        if !values[i].isEmpty {
+                            numberOfValues += 1
+                        }
+                    }
+
+                    let result = try parent.resultSelector(arguments)
+                    forwardOn(.next(result))
+                } catch {
+                    forwardOn(.error(error))
                     dispose()
                 }
-                return
-            }
 
-            do {
-                var arguments = [SourceElement]()
-                arguments.reserveCapacity(parent.count)
-
-                // recalculate number of values
-                numberOfValues = 0
-
-                for i in 0 ..< values.count {
-                    arguments.append(values[i].dequeue()!)
-                    if !values[i].isEmpty {
-                        numberOfValues += 1
-                    }
-                }
-
-                let result = try parent.resultSelector(arguments)
-                forwardOn(.next(result))
-            } catch {
+            case let .error(error):
                 forwardOn(.error(error))
                 dispose()
-            }
+            case .completed:
+                if isDone[atIndex] {
+                    return
+                }
 
-        case let .error(error):
-            forwardOn(.error(error))
-            dispose()
-        case .completed:
-            if isDone[atIndex] {
-                return
-            }
+                isDone[atIndex] = true
+                numberOfDone += 1
 
-            isDone[atIndex] = true
-            numberOfDone += 1
-
-            if numberOfDone == parent.count {
-                forwardOn(.completed)
-                dispose()
-            } else {
-                subscriptions[atIndex].dispose()
-            }
+                if numberOfDone == parent.count {
+                    forwardOn(.completed)
+                    dispose()
+                } else {
+                    subscriptions[atIndex].dispose()
+                }
         }
     }
 

@@ -1,11 +1,3 @@
-//
-//  GroupedObservable.swift
-//  RxSwift
-//
-//  Created by Tomi Koskinen on 01/12/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 /// Represents an observable sequence of elements that have a common key.
 public struct GroupedObservable<Key, Element>: ObservableType {
     /// Gets the common key.

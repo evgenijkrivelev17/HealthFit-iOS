@@ -1,11 +1,3 @@
-//
-//  VirtualTimeConverterType.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 12/23/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 import Foundation
 
 /// Parametrization for virtual time used by `VirtualTimeScheduler`s.

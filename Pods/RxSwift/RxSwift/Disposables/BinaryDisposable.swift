@@ -1,11 +1,3 @@
-//
-//  BinaryDisposable.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 6/12/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 /// Represents two disposable resources that are disposed together.
 private final class BinaryDisposable: DisposeBase, Cancelable {
     private let disposed = AtomicInt(0)

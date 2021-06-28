@@ -1,11 +1,3 @@
-//
-//  Catch.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 4/19/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Continues an observable sequence that is terminated by an error with the observable sequence produced by the handler.
@@ -142,10 +134,10 @@ private final class CatchSinkProxy<Observer: ObserverType>: ObserverType {
         parent.forwardOn(event)
 
         switch event {
-        case .next:
-            break
-        case .error, .completed:
-            parent.dispose()
+            case .next:
+                break
+            case .error, .completed:
+                parent.dispose()
         }
     }
 }
@@ -172,22 +164,22 @@ private final class CatchSink<Observer: ObserverType>: Sink<Observer>, ObserverT
 
     func on(_ event: Event<Element>) {
         switch event {
-        case .next:
-            forwardOn(event)
-        case .completed:
-            forwardOn(event)
-            dispose()
-        case let .error(error):
-            do {
-                let catchSequence = try parent.handler(error)
+            case .next:
+                forwardOn(event)
+            case .completed:
+                forwardOn(event)
+                dispose()
+            case let .error(error):
+                do {
+                    let catchSequence = try parent.handler(error)
 
-                let observer = CatchSinkProxy(parent: self)
+                    let observer = CatchSinkProxy(parent: self)
 
-                subscription.disposable = catchSequence.subscribe(observer)
-            } catch let e {
-                self.forwardOn(.error(e))
-                self.dispose()
-            }
+                    subscription.disposable = catchSequence.subscribe(observer)
+                } catch let e {
+                    self.forwardOn(.error(e))
+                    self.dispose()
+                }
         }
     }
 }
@@ -227,14 +219,14 @@ private final class CatchSequenceSink<Sequence: Swift.Sequence, Observer: Observ
 
     func on(_ event: Event<Element>) {
         switch event {
-        case .next:
-            forwardOn(event)
-        case let .error(error):
-            lastError = error
-            schedule(.moveNext)
-        case .completed:
-            forwardOn(event)
-            dispose()
+            case .next:
+                forwardOn(event)
+            case let .error(error):
+                lastError = error
+                schedule(.moveNext)
+            case .completed:
+                forwardOn(event)
+                dispose()
         }
     }
 

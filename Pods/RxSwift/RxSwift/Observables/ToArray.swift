@@ -1,11 +1,3 @@
-//
-//  ToArray.swift
-//  RxSwift
-//
-//  Created by Junior B. on 20/10/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Converts an Observable into a Single that emits the whole sequence as a single array and then terminates.
@@ -37,15 +29,15 @@ private final class ToArraySink<SourceType, Observer: ObserverType>: Sink<Observ
 
     func on(_ event: Event<SourceType>) {
         switch event {
-        case let .next(value):
-            list.append(value)
-        case let .error(e):
-            forwardOn(.error(e))
-            dispose()
-        case .completed:
-            forwardOn(.next(list))
-            forwardOn(.completed)
-            dispose()
+            case let .next(value):
+                list.append(value)
+            case let .error(e):
+                forwardOn(.error(e))
+                dispose()
+            case .completed:
+                forwardOn(.next(list))
+                forwardOn(.completed)
+                dispose()
         }
     }
 }

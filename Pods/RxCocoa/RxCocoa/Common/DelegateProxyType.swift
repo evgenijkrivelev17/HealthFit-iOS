@@ -1,11 +1,3 @@
-//
-//  DelegateProxyType.swift
-//  RxCocoa
-//
-//  Created by Krunoslav Zaher on 6/15/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 #if !os(Linux)
 
     import Foundation
@@ -343,13 +335,13 @@
                         binding(proxy, event)
 
                         switch event {
-                        case let .error(error):
-                            bindingError(error)
-                            unregisterDelegate.dispose()
-                        case .completed:
-                            unregisterDelegate.dispose()
-                        default:
-                            break
+                            case let .error(error):
+                                bindingError(error)
+                                unregisterDelegate.dispose()
+                            case .completed:
+                                unregisterDelegate.dispose()
+                            default:
+                                break
                         }
                     }
 

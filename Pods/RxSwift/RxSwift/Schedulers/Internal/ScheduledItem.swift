@@ -1,11 +1,3 @@
-//
-//  ScheduledItem.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 9/2/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 struct ScheduledItem<T>:
     ScheduledItemType,
     InvocableType

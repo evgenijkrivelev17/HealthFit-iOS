@@ -1,11 +1,3 @@
-//
-//  Maybe.swift
-//  RxSwift
-//
-//  Created by sergdort on 19/08/2017.
-//  Copyright © 2017 Krunoslav Zaher. All rights reserved.
-//
-
 #if DEBUG
     import Foundation
 #endif
@@ -41,13 +33,13 @@ public extension PrimitiveSequenceType where Trait == MaybeTrait {
         let source = Observable<Element>.create { observer in
             subscribe { event in
                 switch event {
-                case let .success(element):
-                    observer.on(.next(element))
-                    observer.on(.completed)
-                case let .error(error):
-                    observer.on(.error(error))
-                case .completed:
-                    observer.on(.completed)
+                    case let .success(element):
+                        observer.on(.next(element))
+                        observer.on(.completed)
+                    case let .error(error):
+                        observer.on(.error(error))
+                    case .completed:
+                        observer.on(.completed)
                 }
             }
         }
@@ -67,12 +59,12 @@ public extension PrimitiveSequenceType where Trait == MaybeTrait {
             stopped = true
 
             switch event {
-            case let .next(element):
-                observer(.success(element))
-            case let .error(error):
-                observer(.error(error))
-            case .completed:
-                observer(.completed)
+                case let .next(element):
+                    observer(.success(element))
+                case let .error(error):
+                    observer(.error(error))
+                case .completed:
+                    observer(.completed)
             }
         }
     }
@@ -97,26 +89,24 @@ public extension PrimitiveSequenceType where Trait == MaybeTrait {
         onSuccess: ((Object, Element) -> Void)? = nil,
         onError: ((Object, Swift.Error) -> Void)? = nil,
         onCompleted: ((Object) -> Void)? = nil,
-        onDisposed: ((Object) -> Void)? = nil
-    ) -> Disposable {
-        subscribe(
-            onSuccess: { [weak object] in
-                guard let object = object else { return }
-                onSuccess?(object, $0)
-            },
-            onError: { [weak object] in
-                guard let object = object else { return }
-                onError?(object, $0)
-            },
-            onCompleted: { [weak object] in
-                guard let object = object else { return }
-                onCompleted?(object)
-            },
-            onDisposed: { [weak object] in
-                guard let object = object else { return }
-                onDisposed?(object)
-            }
-        )
+        onDisposed: ((Object) -> Void)? = nil) -> Disposable
+    {
+        subscribe(onSuccess: { [weak object] in
+                      guard let object = object else { return }
+                      onSuccess?(object, $0)
+                  },
+                  onError: { [weak object] in
+                      guard let object = object else { return }
+                      onError?(object, $0)
+                  },
+                  onCompleted: { [weak object] in
+                      guard let object = object else { return }
+                      onCompleted?(object)
+                  },
+                  onDisposed: { [weak object] in
+                      guard let object = object else { return }
+                      onDisposed?(object)
+                  })
     }
 
     /**
@@ -148,26 +138,24 @@ public extension PrimitiveSequenceType where Trait == MaybeTrait {
 
         let observer: MaybeObserver = { event in
             switch event {
-            case let .success(element):
-                onSuccess?(element)
-                disposable.dispose()
-            case let .error(error):
-                if let onError = onError {
-                    onError(error)
-                } else {
-                    Hooks.defaultErrorHandler(callStack, error)
-                }
-                disposable.dispose()
-            case .completed:
-                onCompleted?()
-                disposable.dispose()
+                case let .success(element):
+                    onSuccess?(element)
+                    disposable.dispose()
+                case let .error(error):
+                    if let onError = onError {
+                        onError(error)
+                    } else {
+                        Hooks.defaultErrorHandler(callStack, error)
+                    }
+                    disposable.dispose()
+                case .completed:
+                    onCompleted?()
+                    disposable.dispose()
             }
         }
 
-        return Disposables.create(
-            primitiveSequence.subscribe(observer),
-            disposable
-        )
+        return Disposables.create(primitiveSequence.subscribe(observer),
+                                  disposable)
     }
 }
 
@@ -259,17 +247,15 @@ public extension PrimitiveSequenceType where Trait == MaybeTrait {
               onDispose: (() -> Void)? = nil)
         -> Maybe<Element>
     {
-        return Maybe(raw: primitiveSequence.source.do(
-            onNext: onNext,
-            afterNext: afterNext,
-            onError: onError,
-            afterError: afterError,
-            onCompleted: onCompleted,
-            afterCompleted: afterCompleted,
-            onSubscribe: onSubscribe,
-            onSubscribed: onSubscribed,
-            onDispose: onDispose
-        )
+        return Maybe(raw: primitiveSequence.source.do(onNext: onNext,
+                                                      afterNext: afterNext,
+                                                      onError: onError,
+                                                      afterError: afterError,
+                                                      onCompleted: onCompleted,
+                                                      afterCompleted: afterCompleted,
+                                                      onSubscribe: onSubscribe,
+                                                      onSubscribed: onSubscribed,
+                                                      onDispose: onDispose)
         )
     }
 

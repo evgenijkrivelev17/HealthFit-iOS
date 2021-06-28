@@ -1,11 +1,3 @@
-//
-//  Amb.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 6/14/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Propagates the observable sequence that reacts first.

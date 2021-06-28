@@ -1,11 +1,3 @@
-//
-//  CombineLatest.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 3/21/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 protocol CombineLatestProtocol: AnyObject {
     func next(_ index: Int)
     func fail(_ error: Swift.Error)
@@ -117,15 +109,15 @@ final class CombineLatestObserver<Element>:
 
     func synchronized_on(_ event: Event<Element>) {
         switch event {
-        case let .next(value):
-            setLatestValue(value)
-            parent.next(index)
-        case let .error(error):
-            this.dispose()
-            parent.fail(error)
-        case .completed:
-            this.dispose()
-            parent.done(index)
+            case let .next(value):
+                setLatestValue(value)
+                parent.next(index)
+            case let .error(error):
+                this.dispose()
+                parent.fail(error)
+            case .completed:
+                this.dispose()
+                parent.done(index)
         }
     }
 }

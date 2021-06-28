@@ -1,11 +1,3 @@
-//
-//  UISegmentedControl+Rx.swift
-//  RxCocoa
-//
-//  Created by Carlos García on 8/7/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 #if os(iOS) || os(tvOS)
 
     import RxSwift
@@ -19,13 +11,11 @@
 
         /// Reactive wrapper for `selectedSegmentIndex` property.
         var value: ControlProperty<Int> {
-            return base.rx.controlPropertyWithDefaultEvents(
-                getter: { segmentedControl in
-                    segmentedControl.selectedSegmentIndex
-                }, setter: { segmentedControl, value in
-                    segmentedControl.selectedSegmentIndex = value
-                }
-            )
+            return base.rx.controlPropertyWithDefaultEvents(getter: { segmentedControl in
+                segmentedControl.selectedSegmentIndex
+            }, setter: { segmentedControl, value in
+                segmentedControl.selectedSegmentIndex = value
+            })
         }
 
         /// Reactive wrapper for `setEnabled(_:forSegmentAt:)`

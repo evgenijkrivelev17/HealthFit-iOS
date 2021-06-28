@@ -1,11 +1,3 @@
-//
-//  Scan.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 6/14/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Applies an accumulator function over an observable sequence and returns each intermediate result. The specified seed value is used as the initial accumulator value.
@@ -60,20 +52,20 @@ private final class ScanSink<Element, Observer: ObserverType>: Sink<Observer>, O
 
     func on(_ event: Event<Element>) {
         switch event {
-        case let .next(element):
-            do {
-                try parent.accumulator(&accumulate, element)
-                forwardOn(.next(accumulate))
-            } catch {
+            case let .next(element):
+                do {
+                    try parent.accumulator(&accumulate, element)
+                    forwardOn(.next(accumulate))
+                } catch {
+                    forwardOn(.error(error))
+                    dispose()
+                }
+            case let .error(error):
                 forwardOn(.error(error))
                 dispose()
-            }
-        case let .error(error):
-            forwardOn(.error(error))
-            dispose()
-        case .completed:
-            forwardOn(.completed)
-            dispose()
+            case .completed:
+                forwardOn(.completed)
+                dispose()
         }
     }
 }

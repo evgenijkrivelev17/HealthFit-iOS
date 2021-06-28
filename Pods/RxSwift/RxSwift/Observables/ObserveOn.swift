@@ -1,11 +1,3 @@
-//
-//  ObserveOn.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 7/25/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Wraps the source sequence in order to run its observer callbacks on the specified scheduler.
@@ -107,11 +99,11 @@ private final class ObserveOnSink<Observer: ObserverType>: ObserverBase<Observer
             self.queue.enqueue(event)
 
             switch self.state {
-            case .stopped:
-                self.state = .running
-                return true
-            case .running:
-                return false
+                case .stopped:
+                    self.state = .running
+                    return true
+                case .running:
+                    return false
             }
         }
 

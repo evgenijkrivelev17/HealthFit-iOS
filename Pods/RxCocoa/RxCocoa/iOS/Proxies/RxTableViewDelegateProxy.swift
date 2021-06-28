@@ -1,11 +1,3 @@
-//
-//  RxTableViewDelegateProxy.swift
-//  RxCocoa
-//
-//  Created by Krunoslav Zaher on 6/15/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 #if os(iOS) || os(tvOS)
 
     import RxSwift

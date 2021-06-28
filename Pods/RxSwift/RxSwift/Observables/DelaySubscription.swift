@@ -1,11 +1,3 @@
-//
-//  DelaySubscription.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 6/14/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Time shifts the observable sequence by delaying the subscription with the specified relative time duration, using the specified scheduler to run timers.

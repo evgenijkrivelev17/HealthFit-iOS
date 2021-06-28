@@ -1,11 +1,3 @@
-//
-//  UICollectionView+Rx.swift
-//  RxCocoa
-//
-//  Created by Krunoslav Zaher on 4/2/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 #if os(iOS) || os(tvOS)
 
     import RxSwift
@@ -131,10 +123,8 @@
                  .bind(to: collectionView.rx.items(dataSource: dataSource))
                  .disposed(by: disposeBag)
          */
-        func items<
-            DataSource: RxCollectionViewDataSourceType & UICollectionViewDataSource,
-            Source: ObservableType
-        >
+        func items<DataSource: RxCollectionViewDataSourceType & UICollectionViewDataSource,
+            Source: ObservableType>
         (dataSource: DataSource)
             -> (_ source: Source)
             -> Disposable where DataSource.Element == Source.Element

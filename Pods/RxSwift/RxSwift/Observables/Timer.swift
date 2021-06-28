@@ -1,11 +1,3 @@
-//
-//  Timer.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 6/7/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType where Element: RxAbstractInteger {
     /**
      Returns an observable sequence that produces a value after each period, using the specified scheduler to run timers and to send out observer messages.
@@ -19,11 +11,9 @@ public extension ObservableType where Element: RxAbstractInteger {
     static func interval(_ period: RxTimeInterval, scheduler: SchedulerType)
         -> Observable<Element>
     {
-        return Timer(
-            dueTime: period,
-            period: period,
-            scheduler: scheduler
-        )
+        return Timer(dueTime: period,
+                     period: period,
+                     scheduler: scheduler)
     }
 }
 
@@ -41,11 +31,9 @@ public extension ObservableType where Element: RxAbstractInteger {
     static func timer(_ dueTime: RxTimeInterval, period: RxTimeInterval? = nil, scheduler: SchedulerType)
         -> Observable<Element>
     {
-        return Timer(
-            dueTime: dueTime,
-            period: period,
-            scheduler: scheduler
-        )
+        return Timer(dueTime: dueTime,
+                     period: period,
+                     scheduler: scheduler)
     }
 }
 

@@ -1,11 +1,3 @@
-//
-//  Do.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 2/21/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Invokes an action for each event in the observable sequence, and propagates all observer messages through the result sequence.
@@ -28,21 +20,21 @@ public extension ObservableType {
     {
         return Do(source: asObservable(), eventHandler: { e in
             switch e {
-            case let .next(element):
-                try onNext?(element)
-            case let .error(e):
-                try onError?(e)
-            case .completed:
-                try onCompleted?()
+                case let .next(element):
+                    try onNext?(element)
+                case let .error(e):
+                    try onError?(e)
+                case .completed:
+                    try onCompleted?()
             }
         }, afterEventHandler: { e in
             switch e {
-            case let .next(element):
-                try afterNext?(element)
-            case let .error(e):
-                try afterError?(e)
-            case .completed:
-                try afterCompleted?()
+                case let .next(element):
+                    try afterNext?(element)
+                case let .error(e):
+                    try afterError?(e)
+                case .completed:
+                    try afterCompleted?()
             }
         }, onSubscribe: onSubscribe, onSubscribed: onSubscribed, onDispose: onDispose)
     }

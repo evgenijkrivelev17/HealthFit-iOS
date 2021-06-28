@@ -1,11 +1,3 @@
-//
-//  SchedulerServices+Emulation.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 6/6/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 enum SchedulePeriodicRecursiveCommand {
     case tick
     case dispatchStart
@@ -40,22 +32,22 @@ final class SchedulePeriodicRecursive<State> {
         // The problem that could arise is if handling periodic ticks take too long, or
         // tick interval is short.
         switch command {
-        case .tick:
-            scheduler.schedule(.tick, dueTime: period)
+            case .tick:
+                scheduler.schedule(.tick, dueTime: period)
 
-            // The idea is that if on tick there wasn't any item enqueued, schedule to perform work immediately.
-            // Else work will be scheduled after previous enqueued work completes.
-            if increment(pendingTickCount) == 0 {
-                tick(.dispatchStart, scheduler: scheduler)
-            }
+                // The idea is that if on tick there wasn't any item enqueued, schedule to perform work immediately.
+                // Else work will be scheduled after previous enqueued work completes.
+                if increment(pendingTickCount) == 0 {
+                    tick(.dispatchStart, scheduler: scheduler)
+                }
 
-        case .dispatchStart:
-            state = action(state)
-            // Start work and schedule check is this last batch of work
-            if decrement(pendingTickCount) > 1 {
-                // This gives priority to scheduler emulation, it's not perfect, but helps
-                scheduler.schedule(SchedulePeriodicRecursiveCommand.dispatchStart)
-            }
+            case .dispatchStart:
+                state = action(state)
+                // Start work and schedule check is this last batch of work
+                if decrement(pendingTickCount) > 1 {
+                    // This gives priority to scheduler emulation, it's not perfect, but helps
+                    scheduler.schedule(SchedulePeriodicRecursiveCommand.dispatchStart)
+                }
         }
     }
 }

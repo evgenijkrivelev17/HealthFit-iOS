@@ -1,11 +1,3 @@
-//
-//  Infallible.swift
-//  RxSwift
-//
-//  Created by Shai Mishali on 27/08/2020.
-//  Copyright © 2020 Krunoslav Zaher. All rights reserved.
-//
-
 /// `Infallible` is an `Observable`-like push-style interface
 /// which is guaranteed to not emit error events.
 ///
@@ -50,14 +42,12 @@ public extension InfallibleType {
         with object: Object,
         onNext: ((Object, Element) -> Void)? = nil,
         onCompleted: ((Object) -> Void)? = nil,
-        onDisposed: ((Object) -> Void)? = nil
-    ) -> Disposable {
-        asObservable().subscribe(
-            with: object,
-            onNext: onNext,
-            onCompleted: onCompleted,
-            onDisposed: onDisposed
-        )
+        onDisposed: ((Object) -> Void)? = nil) -> Disposable
+    {
+        asObservable().subscribe(with: object,
+                                 onNext: onNext,
+                                 onCompleted: onCompleted,
+                                 onDisposed: onDisposed)
     }
 
     /**

@@ -1,11 +1,3 @@
-//
-//  ElementAt.swift
-//  RxSwift
-//
-//  Created by Junior B. on 21/10/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Returns a sequence emitting only element _n_ emitted by an Observable
@@ -53,33 +45,33 @@ private final class ElementAtSink<Observer: ObserverType>: Sink<Observer>, Obser
 
     func on(_ event: Event<SourceType>) {
         switch event {
-        case .next:
+            case .next:
 
-            if i == 0 {
-                forwardOn(event)
-                forwardOn(.completed)
+                if i == 0 {
+                    forwardOn(event)
+                    forwardOn(.completed)
+                    dispose()
+                }
+
+                do {
+                    _ = try decrementChecked(&i)
+                } catch let e {
+                    self.forwardOn(.error(e))
+                    self.dispose()
+                    return
+                }
+
+            case let .error(e):
+                forwardOn(.error(e))
                 dispose()
-            }
+            case .completed:
+                if parent.throwOnEmpty {
+                    forwardOn(.error(RxError.argumentOutOfRange))
+                } else {
+                    forwardOn(.completed)
+                }
 
-            do {
-                _ = try decrementChecked(&i)
-            } catch let e {
-                self.forwardOn(.error(e))
-                self.dispose()
-                return
-            }
-
-        case let .error(e):
-            forwardOn(.error(e))
-            dispose()
-        case .completed:
-            if parent.throwOnEmpty {
-                forwardOn(.error(RxError.argumentOutOfRange))
-            } else {
-                forwardOn(.completed)
-            }
-
-            dispose()
+                dispose()
         }
     }
 }

@@ -1,11 +1,3 @@
-//
-//  GroupBy.swift
-//  RxSwift
-//
-//  Created by Tomi Koskinen on 01/12/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /*
      Groups the elements of an observable sequence according to a specified key selector function.
@@ -71,10 +63,8 @@ private final class GroupBySink<Key: Hashable, Element, Observer: ObserverType>:
             let writer = PublishSubject<Element>()
             groupedSubjectTable[key] = writer
 
-            let group = GroupedObservable(
-                key: key,
-                source: GroupedObservableImpl(subject: writer, refCount: refCountDisposable)
-            )
+            let group = GroupedObservable(key: key,
+                                          source: GroupedObservableImpl(subject: writer, refCount: refCountDisposable))
 
             forwardOn(.next(group))
             writer.on(.next(value))
@@ -83,21 +73,21 @@ private final class GroupBySink<Key: Hashable, Element, Observer: ObserverType>:
 
     final func on(_ event: Event<Element>) {
         switch event {
-        case let .next(value):
-            do {
-                let groupKey = try parent.selector(value)
-                onGroupEvent(key: groupKey, value: value)
-            } catch let e {
-                self.error(e)
-                return
-            }
-        case let .error(e):
-            error(e)
-        case .completed:
-            forwardOnGroups(event: .completed)
-            forwardOn(.completed)
-            subscription.dispose()
-            dispose()
+            case let .next(value):
+                do {
+                    let groupKey = try parent.selector(value)
+                    onGroupEvent(key: groupKey, value: value)
+                } catch let e {
+                    self.error(e)
+                    return
+                }
+            case let .error(e):
+                error(e)
+            case .completed:
+                forwardOnGroups(event: .completed)
+                forwardOn(.completed)
+                subscription.dispose()
+                dispose()
         }
     }
 

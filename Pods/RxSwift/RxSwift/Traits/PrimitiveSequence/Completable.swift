@@ -1,11 +1,3 @@
-//
-//  Completable.swift
-//  RxSwift
-//
-//  Created by sergdort on 19/08/2017.
-//  Copyright © 2017 Krunoslav Zaher. All rights reserved.
-//
-
 #if DEBUG
     import Foundation
 #endif
@@ -38,10 +30,10 @@ public extension PrimitiveSequenceType where Trait == CompletableTrait, Element 
         let source = Observable<Element>.create { observer in
             subscribe { event in
                 switch event {
-                case let .error(error):
-                    observer.on(.error(error))
-                case .completed:
-                    observer.on(.completed)
+                    case let .error(error):
+                        observer.on(.error(error))
+                    case .completed:
+                        observer.on(.completed)
                 }
             }
         }
@@ -61,12 +53,12 @@ public extension PrimitiveSequenceType where Trait == CompletableTrait, Element 
             stopped = true
 
             switch event {
-            case .next:
-                rxFatalError("Completables can't emit values")
-            case let .error(error):
-                observer(.error(error))
-            case .completed:
-                observer(.completed)
+                case .next:
+                    rxFatalError("Completables can't emit values")
+                case let .error(error):
+                    observer(.error(error))
+                case .completed:
+                    observer(.completed)
             }
         }
     }
@@ -89,20 +81,18 @@ public extension PrimitiveSequenceType where Trait == CompletableTrait, Element 
         with object: Object,
         onCompleted: ((Object) -> Void)? = nil,
         onError: ((Object, Swift.Error) -> Void)? = nil,
-        onDisposed: ((Object) -> Void)? = nil
-    ) -> Disposable {
-        subscribe(
-            onCompleted: { [weak object] in
-                guard let object = object else { return }
-                onCompleted?(object)
-            }, onError: { [weak object] in
-                guard let object = object else { return }
-                onError?(object, $0)
-            }, onDisposed: { [weak object] in
-                guard let object = object else { return }
-                onDisposed?(object)
-            }
-        )
+        onDisposed: ((Object) -> Void)? = nil) -> Disposable
+    {
+        subscribe(onCompleted: { [weak object] in
+            guard let object = object else { return }
+            onCompleted?(object)
+        }, onError: { [weak object] in
+            guard let object = object else { return }
+            onError?(object, $0)
+        }, onDisposed: { [weak object] in
+            guard let object = object else { return }
+            onDisposed?(object)
+        })
     }
 
     /**
@@ -133,23 +123,21 @@ public extension PrimitiveSequenceType where Trait == CompletableTrait, Element 
 
         let observer: CompletableObserver = { event in
             switch event {
-            case let .error(error):
-                if let onError = onError {
-                    onError(error)
-                } else {
-                    Hooks.defaultErrorHandler(callStack, error)
-                }
-                disposable.dispose()
-            case .completed:
-                onCompleted?()
-                disposable.dispose()
+                case let .error(error):
+                    if let onError = onError {
+                        onError(error)
+                    } else {
+                        Hooks.defaultErrorHandler(callStack, error)
+                    }
+                    disposable.dispose()
+                case .completed:
+                    onCompleted?()
+                    disposable.dispose()
             }
         }
 
-        return Disposables.create(
-            primitiveSequence.subscribe(observer),
-            disposable
-        )
+        return Disposables.create(primitiveSequence.subscribe(observer),
+                                  disposable)
     }
 }
 
@@ -213,15 +201,13 @@ public extension PrimitiveSequenceType where Trait == CompletableTrait, Element 
               onDispose: (() -> Void)? = nil)
         -> Completable
     {
-        return Completable(raw: primitiveSequence.source.do(
-            onError: onError,
-            afterError: afterError,
-            onCompleted: onCompleted,
-            afterCompleted: afterCompleted,
-            onSubscribe: onSubscribe,
-            onSubscribed: onSubscribed,
-            onDispose: onDispose
-        )
+        return Completable(raw: primitiveSequence.source.do(onError: onError,
+                                                            afterError: afterError,
+                                                            onCompleted: onCompleted,
+                                                            afterCompleted: afterCompleted,
+                                                            onSubscribe: onSubscribe,
+                                                            onSubscribed: onSubscribed,
+                                                            onDispose: onDispose)
         )
     }
 

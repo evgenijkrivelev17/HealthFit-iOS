@@ -1,11 +1,3 @@
-//
-//  Reduce.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 4/1/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Applies an `accumulator` function over an observable sequence, returning the result of the aggregation as a single element in the result sequence. The specified `seed` value is used as the initial accumulator value.
@@ -59,26 +51,26 @@ private final class ReduceSink<SourceType, AccumulateType, Observer: ObserverTyp
 
     func on(_ event: Event<SourceType>) {
         switch event {
-        case let .next(value):
-            do {
-                accumulation = try parent.accumulator(accumulation, value)
-            } catch let e {
-                self.forwardOn(.error(e))
-                self.dispose()
-            }
-        case let .error(e):
-            forwardOn(.error(e))
-            dispose()
-        case .completed:
-            do {
-                let result = try parent.mapResult(accumulation)
-                forwardOn(.next(result))
-                forwardOn(.completed)
+            case let .next(value):
+                do {
+                    accumulation = try parent.accumulator(accumulation, value)
+                } catch let e {
+                    self.forwardOn(.error(e))
+                    self.dispose()
+                }
+            case let .error(e):
+                forwardOn(.error(e))
                 dispose()
-            } catch let e {
-                self.forwardOn(.error(e))
-                self.dispose()
-            }
+            case .completed:
+                do {
+                    let result = try parent.mapResult(accumulation)
+                    forwardOn(.next(result))
+                    forwardOn(.completed)
+                    dispose()
+                } catch let e {
+                    self.forwardOn(.error(e))
+                    self.dispose()
+                }
         }
     }
 }

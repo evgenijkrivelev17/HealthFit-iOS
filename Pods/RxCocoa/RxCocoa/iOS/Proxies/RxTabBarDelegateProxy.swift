@@ -1,11 +1,3 @@
-//
-//  RxTabBarDelegateProxy.swift
-//  RxCocoa
-//
-//  Created by Jesse Farless on 5/14/16.
-//  Copyright © 2016 Krunoslav Zaher. All rights reserved.
-//
-
 #if os(iOS) || os(tvOS)
 
     import RxSwift

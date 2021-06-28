@@ -1,11 +1,3 @@
-//
-//  KVORepresentable.swift
-//  RxCocoa
-//
-//  Created by Krunoslav Zaher on 11/14/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 /// Type that is KVO representable (KVO mechanism can be used to observe it).
 public protocol KVORepresentable {
     /// Associated KVO type.

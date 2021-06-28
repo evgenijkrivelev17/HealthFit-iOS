@@ -1,9 +1,12 @@
-public protocol BaseViewModelProtocol {
-    associatedtype I
-    associatedtype O
+import RxSwift
 
-    var inputData: I { get }
+protocol BaseViewModelProtocol {
+    associatedtype InputViewModel
+    associatedtype OutputViewModel
 
-    func configure(_ data: AnyObject)
-    func transform(input: I) -> O
+    var input: InputViewModel { get }
+
+    func configure() -> OutputViewModel
+
+    var isBusy: Observable<Bool> { get }
 }

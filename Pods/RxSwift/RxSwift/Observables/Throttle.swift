@@ -1,11 +1,3 @@
-//
-//  Throttle.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 3/22/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 import Foundation
 
 public extension ObservableType {
@@ -66,51 +58,51 @@ private final class ThrottleSink<Observer: ObserverType>:
 
     func synchronized_on(_ event: Event<Element>) {
         switch event {
-        case let .next(element):
-            let now = parent.scheduler.now
+            case let .next(element):
+                let now = parent.scheduler.now
 
-            let reducedScheduledTime: RxTimeInterval
+                let reducedScheduledTime: RxTimeInterval
 
-            if let lastSendingTime = lastSentTime {
-                reducedScheduledTime = parent.dueTime.reduceWithSpanBetween(earlierDate: lastSendingTime, laterDate: now)
-            } else {
-                reducedScheduledTime = .nanoseconds(0)
-            }
+                if let lastSendingTime = lastSentTime {
+                    reducedScheduledTime = parent.dueTime.reduceWithSpanBetween(earlierDate: lastSendingTime, laterDate: now)
+                } else {
+                    reducedScheduledTime = .nanoseconds(0)
+                }
 
-            if reducedScheduledTime.isNow {
-                sendNow(element: element)
-                return
-            }
+                if reducedScheduledTime.isNow {
+                    sendNow(element: element)
+                    return
+                }
 
-            if !parent.latest {
-                return
-            }
+                if !parent.latest {
+                    return
+                }
 
-            let isThereAlreadyInFlightRequest = lastUnsentElement != nil
+                let isThereAlreadyInFlightRequest = lastUnsentElement != nil
 
-            lastUnsentElement = element
+                lastUnsentElement = element
 
-            if isThereAlreadyInFlightRequest {
-                return
-            }
+                if isThereAlreadyInFlightRequest {
+                    return
+                }
 
-            let scheduler = parent.scheduler
+                let scheduler = parent.scheduler
 
-            let d = SingleAssignmentDisposable()
-            cancellable.disposable = d
+                let d = SingleAssignmentDisposable()
+                cancellable.disposable = d
 
-            d.setDisposable(scheduler.scheduleRelative(0, dueTime: reducedScheduledTime, action: propagate))
-        case .error:
-            lastUnsentElement = nil
-            forwardOn(event)
-            dispose()
-        case .completed:
-            if lastUnsentElement != nil {
-                completed = true
-            } else {
-                forwardOn(.completed)
+                d.setDisposable(scheduler.scheduleRelative(0, dueTime: reducedScheduledTime, action: propagate))
+            case .error:
+                lastUnsentElement = nil
+                forwardOn(event)
                 dispose()
-            }
+            case .completed:
+                if lastUnsentElement != nil {
+                    completed = true
+                } else {
+                    forwardOn(.completed)
+                    dispose()
+                }
         }
     }
 

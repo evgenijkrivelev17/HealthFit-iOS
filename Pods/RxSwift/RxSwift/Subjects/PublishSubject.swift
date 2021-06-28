@@ -1,11 +1,3 @@
-//
-//  PublishSubject.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 2/11/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 /// Represents an object that is both an observable sequence as well as an observer.
 ///
 /// Each notification is broadcasted to all subscribed observers.
@@ -65,22 +57,22 @@ public final class PublishSubject<Element>:
     func synchronized_on(_ event: Event<Element>) -> Observers {
         lock.lock(); defer { self.lock.unlock() }
         switch event {
-        case .next:
-            if isDisposed || stopped {
-                return Observers()
-            }
+            case .next:
+                if isDisposed || stopped {
+                    return Observers()
+                }
 
-            return observers
-        case .completed, .error:
-            if stoppedEvent == nil {
-                stoppedEvent = event
-                stopped = true
-                let observers = self.observers
-                self.observers.removeAll()
                 return observers
-            }
+            case .completed, .error:
+                if stoppedEvent == nil {
+                    stoppedEvent = event
+                    stopped = true
+                    let observers = self.observers
+                    self.observers.removeAll()
+                    return observers
+                }
 
-            return Observers()
+                return Observers()
         }
     }
 

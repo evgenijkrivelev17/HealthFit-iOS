@@ -1,11 +1,3 @@
-//
-//  UITabBarController+Rx.swift
-//  RxCocoa
-//
-//  Created by Yusuke Kita on 2016/12/07.
-//  Copyright © 2016 Krunoslav Zaher. All rights reserved.
-//
-
 #if os(iOS) || os(tvOS)
 
     import RxSwift

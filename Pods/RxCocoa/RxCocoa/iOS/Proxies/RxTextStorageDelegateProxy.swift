@@ -1,11 +1,3 @@
-//
-//  RxTextStorageDelegateProxy.swift
-//  RxCocoa
-//
-//  Created by Segii Shulga on 12/30/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 #if os(iOS) || os(tvOS)
 
     import RxSwift

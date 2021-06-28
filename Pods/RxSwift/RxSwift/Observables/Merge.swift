@@ -1,11 +1,3 @@
-//
-//  Merge.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 3/28/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Projects each element of an observable sequence to an observable sequence and merges the resulting observable sequences into one observable sequence.
@@ -162,23 +154,23 @@ private final class MergeLimitedSinkIter<SourceElement, SourceSequence: Observab
 
     func synchronized_on(_ event: Event<Element>) {
         switch event {
-        case .next:
-            parent.forwardOn(event)
-        case .error:
-            parent.forwardOn(event)
-            parent.dispose()
-        case .completed:
-            parent.group.remove(for: disposeKey)
-            if let next = parent.queue.dequeue() {
-                parent.subscribe(next, group: parent.group)
-            } else {
-                parent.activeCount -= 1
+            case .next:
+                parent.forwardOn(event)
+            case .error:
+                parent.forwardOn(event)
+                parent.dispose()
+            case .completed:
+                parent.group.remove(for: disposeKey)
+                if let next = parent.queue.dequeue() {
+                    parent.subscribe(next, group: parent.group)
+                } else {
+                    parent.activeCount -= 1
 
-                if parent.stopped, parent.activeCount == 0 {
-                    parent.forwardOn(.completed)
-                    parent.dispose()
+                    if parent.stopped, parent.activeCount == 0 {
+                        parent.forwardOn(.completed)
+                        parent.dispose()
+                    }
                 }
-            }
         }
     }
 }
@@ -285,26 +277,26 @@ private class MergeLimitedSink<SourceElement, SourceSequence: ObservableConverti
 
     func on(_ event: Event<SourceElement>) {
         switch event {
-        case let .next(element):
-            if let sequence = nextElementArrived(element: element) {
-                subscribe(sequence, group: group)
-            }
-        case let .error(error):
-            lock.performLocked {
-                self.forwardOn(.error(error))
-                self.dispose()
-            }
-        case .completed:
-            lock.performLocked {
-                if self.activeCount == 0 {
-                    self.forwardOn(.completed)
-                    self.dispose()
-                } else {
-                    self.sourceSubscription.dispose()
+            case let .next(element):
+                if let sequence = nextElementArrived(element: element) {
+                    subscribe(sequence, group: group)
                 }
+            case let .error(error):
+                lock.performLocked {
+                    self.forwardOn(.error(error))
+                    self.dispose()
+                }
+            case .completed:
+                lock.performLocked {
+                    if self.activeCount == 0 {
+                        self.forwardOn(.completed)
+                        self.dispose()
+                    } else {
+                        self.sourceSubscription.dispose()
+                    }
 
-                self.stopped = true
-            }
+                    self.stopped = true
+                }
         }
     }
 }
@@ -387,15 +379,15 @@ private final class MergeSinkIter<SourceElement, SourceSequence: ObservableConve
     func on(_ event: Event<Element>) {
         parent.lock.performLocked {
             switch event {
-            case let .next(value):
-                self.parent.forwardOn(.next(value))
-            case let .error(error):
-                self.parent.forwardOn(.error(error))
-                self.parent.dispose()
-            case .completed:
-                self.parent.group.remove(for: self.disposeKey)
-                self.parent.activeCount -= 1
-                self.parent.checkCompleted()
+                case let .next(value):
+                    self.parent.forwardOn(.next(value))
+                case let .error(error):
+                    self.parent.forwardOn(.error(error))
+                    self.parent.dispose()
+                case .completed:
+                    self.parent.group.remove(for: self.disposeKey)
+                    self.parent.activeCount -= 1
+                    self.parent.checkCompleted()
             }
         }
     }
@@ -450,21 +442,21 @@ private class MergeSink<SourceElement, SourceSequence: ObservableConvertibleType
 
     func on(_ event: Event<SourceElement>) {
         switch event {
-        case let .next(element):
-            if let value = nextElementArrived(element: element) {
-                subscribeInner(value.asObservable())
-            }
-        case let .error(error):
-            lock.performLocked {
-                self.forwardOn(.error(error))
-                self.dispose()
-            }
-        case .completed:
-            lock.performLocked {
-                self.stopped = true
-                self.sourceSubscription.dispose()
-                self.checkCompleted()
-            }
+            case let .next(element):
+                if let value = nextElementArrived(element: element) {
+                    subscribeInner(value.asObservable())
+                }
+            case let .error(error):
+                lock.performLocked {
+                    self.forwardOn(.error(error))
+                    self.dispose()
+                }
+            case .completed:
+                lock.performLocked {
+                    self.stopped = true
+                    self.sourceSubscription.dispose()
+                    self.checkCompleted()
+                }
         }
     }
 

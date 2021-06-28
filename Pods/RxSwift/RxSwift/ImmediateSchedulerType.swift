@@ -1,11 +1,3 @@
-//
-//  ImmediateSchedulerType.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 5/31/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 /// Represents an object that immediately schedules units of work.
 public protocol ImmediateSchedulerType {
     /**

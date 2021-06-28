@@ -1,11 +1,3 @@
-//
-//  RefCountDisposable.swift
-//  RxSwift
-//
-//  Created by Junior B. on 10/29/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 /// Represents a disposable resource that only disposes its underlying disposable resource when all dependent disposable objects have been disposed.
 public final class RefCountDisposable: DisposeBase, Cancelable {
     private var lock = SpinLock()

@@ -1,11 +1,3 @@
-//
-//  Enumerated.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 8/6/17.
-//  Copyright © 2017 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Enumerates the elements of an observable sequence.
@@ -26,21 +18,21 @@ private final class EnumeratedSink<Element, Observer: ObserverType>: Sink<Observ
 
     func on(_ event: Event<Element>) {
         switch event {
-        case let .next(value):
-            do {
-                let nextIndex = try incrementChecked(&index)
-                let next = (index: nextIndex, element: value)
-                forwardOn(.next(next))
-            } catch let e {
-                self.forwardOn(.error(e))
-                self.dispose()
-            }
-        case .completed:
-            forwardOn(.completed)
-            dispose()
-        case let .error(error):
-            forwardOn(.error(error))
-            dispose()
+            case let .next(value):
+                do {
+                    let nextIndex = try incrementChecked(&index)
+                    let next = (index: nextIndex, element: value)
+                    forwardOn(.next(next))
+                } catch let e {
+                    self.forwardOn(.error(e))
+                    self.dispose()
+                }
+            case .completed:
+                forwardOn(.completed)
+                dispose()
+            case let .error(error):
+                forwardOn(.error(error))
+                dispose()
         }
     }
 }

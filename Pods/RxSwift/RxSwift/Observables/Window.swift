@@ -1,11 +1,3 @@
-//
-//  Window.swift
-//  RxSwift
-//
-//  Created by Junior B. on 29/10/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Projects each element of an observable sequence into a window that is completed when either it’s full or a given amount of time has elapsed.
@@ -77,32 +69,32 @@ private final class WindowTimeCountSink<Element, Observer: ObserverType>:
         var newId = 0
 
         switch event {
-        case let .next(element):
-            subject.on(.next(element))
+            case let .next(element):
+                subject.on(.next(element))
 
-            do {
-                _ = try incrementChecked(&count)
-            } catch let e {
-                self.subject.on(.error(e as Swift.Error))
-                self.dispose()
-            }
+                do {
+                    _ = try incrementChecked(&count)
+                } catch let e {
+                    self.subject.on(.error(e as Swift.Error))
+                    self.dispose()
+                }
 
-            if count == parent.count {
-                newWindow = true
-                count = 0
-                windowId += 1
-                newId = windowId
-                startNewWindowAndCompleteCurrentOne()
-            }
+                if count == parent.count {
+                    newWindow = true
+                    count = 0
+                    windowId += 1
+                    newId = windowId
+                    startNewWindowAndCompleteCurrentOne()
+                }
 
-        case let .error(error):
-            subject.on(.error(error))
-            forwardOn(.error(error))
-            dispose()
-        case .completed:
-            subject.on(.completed)
-            forwardOn(.completed)
-            dispose()
+            case let .error(error):
+                subject.on(.error(error))
+                forwardOn(.error(error))
+                dispose()
+            case .completed:
+                subject.on(.completed)
+                forwardOn(.completed)
+                dispose()
         }
 
         if newWindow {

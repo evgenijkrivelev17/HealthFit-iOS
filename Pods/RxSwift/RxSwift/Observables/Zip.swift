@@ -1,11 +1,3 @@
-//
-//  Zip.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 5/23/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 protocol ZipSinkProtocol: class {
     func next(_ index: Int)
     func fail(_ error: Swift.Error)
@@ -111,24 +103,24 @@ final class ZipObserver<Element>:
     func synchronized_on(_ event: Event<Element>) {
         if parent != nil {
             switch event {
-            case .next:
-                break
-            case .error:
-                this.dispose()
-            case .completed:
-                this.dispose()
+                case .next:
+                    break
+                case .error:
+                    this.dispose()
+                case .completed:
+                    this.dispose()
             }
         }
 
         if let parent = self.parent {
             switch event {
-            case let .next(value):
-                setNextValue(value)
-                parent.next(index)
-            case let .error(error):
-                parent.fail(error)
-            case .completed:
-                parent.done(index)
+                case let .next(value):
+                    setNextValue(value)
+                    parent.next(index)
+                case let .error(error):
+                    parent.fail(error)
+                case .completed:
+                    parent.done(index)
             }
         }
     }

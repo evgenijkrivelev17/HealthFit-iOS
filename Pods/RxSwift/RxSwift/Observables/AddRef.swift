@@ -1,11 +1,3 @@
-//
-//  AddRef.swift
-//  RxSwift
-//
-//  Created by Junior B. on 30/10/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 final class AddRefSink<Observer: ObserverType>: Sink<Observer>, ObserverType {
     typealias Element = Observer.Element
 
@@ -15,11 +7,11 @@ final class AddRefSink<Observer: ObserverType>: Sink<Observer>, ObserverType {
 
     func on(_ event: Event<Element>) {
         switch event {
-        case .next:
-            forwardOn(event)
-        case .completed, .error:
-            forwardOn(event)
-            dispose()
+            case .next:
+                forwardOn(event)
+            case .completed, .error:
+                forwardOn(event)
+                dispose()
         }
     }
 }

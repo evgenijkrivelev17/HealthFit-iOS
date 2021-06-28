@@ -1,11 +1,3 @@
-//
-//  TakeWithPredicate.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 6/7/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Returns the elements from the source observable sequence until the other observable sequence produces an element.
@@ -143,14 +135,14 @@ private final class TakeUntilSinkOther<Other, Observer: ObserverType>:
 
     func synchronized_on(_ event: Event<Element>) {
         switch event {
-        case .next:
-            parent.forwardOn(.completed)
-            parent.dispose()
-        case let .error(e):
-            parent.forwardOn(.error(e))
-            parent.dispose()
-        case .completed:
-            subscription.dispose()
+            case .next:
+                parent.forwardOn(.completed)
+                parent.dispose()
+            case let .error(e):
+                parent.forwardOn(.error(e))
+                parent.dispose()
+            case .completed:
+                subscription.dispose()
         }
     }
 
@@ -185,14 +177,14 @@ private final class TakeUntilSink<Other, Observer: ObserverType>:
 
     func synchronized_on(_ event: Event<Element>) {
         switch event {
-        case .next:
-            forwardOn(event)
-        case .error:
-            forwardOn(event)
-            dispose()
-        case .completed:
-            forwardOn(event)
-            dispose()
+            case .next:
+                forwardOn(event)
+            case .error:
+                forwardOn(event)
+                dispose()
+            case .completed:
+                forwardOn(event)
+                dispose()
         }
     }
 
@@ -240,32 +232,32 @@ private final class TakeUntilPredicateSink<Observer: ObserverType>:
 
     func on(_ event: Event<Element>) {
         switch event {
-        case let .next(value):
-            if !running {
-                return
-            }
-
-            do {
-                running = try !parent.predicate(value)
-            } catch let e {
-                self.forwardOn(.error(e))
-                self.dispose()
-                return
-            }
-
-            if running {
-                forwardOn(.next(value))
-            } else {
-                if parent.behavior == .inclusive {
-                    forwardOn(.next(value))
+            case let .next(value):
+                if !running {
+                    return
                 }
 
-                forwardOn(.completed)
+                do {
+                    running = try !parent.predicate(value)
+                } catch let e {
+                    self.forwardOn(.error(e))
+                    self.dispose()
+                    return
+                }
+
+                if running {
+                    forwardOn(.next(value))
+                } else {
+                    if parent.behavior == .inclusive {
+                        forwardOn(.next(value))
+                    }
+
+                    forwardOn(.completed)
+                    dispose()
+                }
+            case .error, .completed:
+                forwardOn(event)
                 dispose()
-            }
-        case .error, .completed:
-            forwardOn(event)
-            dispose()
         }
     }
 }

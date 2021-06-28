@@ -1,11 +1,3 @@
-//
-//  Concat.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 3/21/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Concatenates the second observable sequence to `self` upon successful termination of `self`.
@@ -89,13 +81,13 @@ private final class ConcatSink<Sequence: Swift.Sequence, Observer: ObserverType>
 
     func on(_ event: Event<Element>) {
         switch event {
-        case .next:
-            forwardOn(event)
-        case .error:
-            forwardOn(event)
-            dispose()
-        case .completed:
-            schedule(.moveNext)
+            case .next:
+                forwardOn(event)
+            case .error:
+                forwardOn(event)
+                dispose()
+            case .completed:
+                schedule(.moveNext)
         }
     }
 

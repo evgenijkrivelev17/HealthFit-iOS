@@ -1,11 +1,3 @@
-//
-//  SingleAsync.swift
-//  RxSwift
-//
-//  Created by Junior B. on 09/11/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      The single operator is similar to first, but throws a `RxError.noElements` or `RxError.moreThanOneElement`
@@ -51,36 +43,36 @@ private final class SingleAsyncSink<Observer: ObserverType>: Sink<Observer>, Obs
 
     func on(_ event: Event<Element>) {
         switch event {
-        case let .next(value):
-            do {
-                let forward = try parent.predicate?(value) ?? true
-                if !forward {
+            case let .next(value):
+                do {
+                    let forward = try parent.predicate?(value) ?? true
+                    if !forward {
+                        return
+                    }
+                } catch {
+                    forwardOn(.error(error as Swift.Error))
+                    dispose()
                     return
                 }
-            } catch {
-                forwardOn(.error(error as Swift.Error))
-                dispose()
-                return
-            }
 
-            if seenValue {
-                forwardOn(.error(RxError.moreThanOneElement))
-                dispose()
-                return
-            }
+                if seenValue {
+                    forwardOn(.error(RxError.moreThanOneElement))
+                    dispose()
+                    return
+                }
 
-            seenValue = true
-            forwardOn(.next(value))
-        case .error:
-            forwardOn(event)
-            dispose()
-        case .completed:
-            if seenValue {
-                forwardOn(.completed)
-            } else {
-                forwardOn(.error(RxError.noElements))
-            }
-            dispose()
+                seenValue = true
+                forwardOn(.next(value))
+            case .error:
+                forwardOn(event)
+                dispose()
+            case .completed:
+                if seenValue {
+                    forwardOn(.completed)
+                } else {
+                    forwardOn(.error(RxError.noElements))
+                }
+                dispose()
         }
     }
 }

@@ -1,11 +1,3 @@
-//
-//  DefaultIfEmpty.swift
-//  RxSwift
-//
-//  Created by sergdort on 23/12/2016.
-//  Copyright © 2016 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Emits elements from the source observable sequence, or a default element if the source observable sequence is empty.
@@ -32,18 +24,18 @@ private final class DefaultIfEmptySink<Observer: ObserverType>: Sink<Observer>, 
 
     func on(_ event: Event<Element>) {
         switch event {
-        case .next:
-            isEmpty = false
-            forwardOn(event)
-        case .error:
-            forwardOn(event)
-            dispose()
-        case .completed:
-            if isEmpty {
-                forwardOn(.next(self.default))
-            }
-            forwardOn(.completed)
-            dispose()
+            case .next:
+                isEmpty = false
+                forwardOn(event)
+            case .error:
+                forwardOn(event)
+                dispose()
+            case .completed:
+                if isEmpty {
+                    forwardOn(.next(self.default))
+                }
+                forwardOn(.completed)
+                dispose()
         }
     }
 }

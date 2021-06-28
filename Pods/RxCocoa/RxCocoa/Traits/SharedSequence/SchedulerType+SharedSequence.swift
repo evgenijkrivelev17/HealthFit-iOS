@@ -1,11 +1,3 @@
-//
-//  SchedulerType+SharedSequence.swift
-//  RxCocoa
-//
-//  Created by Krunoslav Zaher on 8/27/17.
-//  Copyright © 2017 Krunoslav Zaher. All rights reserved.
-//
-
 import RxSwift
 
 public enum SharingScheduler {

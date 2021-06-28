@@ -1,11 +1,3 @@
-//
-//  DispatchQueueConfiguration.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 7/23/16.
-//  Copyright © 2016 Krunoslav Zaher. All rights reserved.
-//
-
 import Dispatch
 import Foundation
 

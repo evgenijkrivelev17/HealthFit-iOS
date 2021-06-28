@@ -1,11 +1,3 @@
-//
-//  CompositeDisposable.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 2/20/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 /// Represents a group of disposable resources that are disposed together.
 public final class CompositeDisposable: DisposeBase, Cancelable {
     /// Key used to remove disposable from composite disposable
@@ -136,10 +128,10 @@ public extension Disposables {
     /// Creates a disposable with the given disposables.
     static func create(_ disposables: [Disposable]) -> Cancelable {
         switch disposables.count {
-        case 2:
-            return Disposables.create(disposables[0], disposables[1])
-        default:
-            return CompositeDisposable(disposables: disposables)
+            case 2:
+                return Disposables.create(disposables[0], disposables[1])
+            default:
+                return CompositeDisposable(disposables: disposables)
         }
     }
 }

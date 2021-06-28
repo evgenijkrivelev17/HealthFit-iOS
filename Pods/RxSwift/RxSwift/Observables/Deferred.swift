@@ -1,11 +1,3 @@
-//
-//  Deferred.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 4/19/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Returns an observable sequence that invokes the specified factory function whenever a new observer subscribes.
@@ -47,12 +39,12 @@ private final class DeferredSink<Source: ObservableType, Observer: ObserverType>
         forwardOn(event)
 
         switch event {
-        case .next:
-            break
-        case .error:
-            dispose()
-        case .completed:
-            dispose()
+            case .next:
+                break
+            case .error:
+                dispose()
+            case .completed:
+                dispose()
         }
     }
 }

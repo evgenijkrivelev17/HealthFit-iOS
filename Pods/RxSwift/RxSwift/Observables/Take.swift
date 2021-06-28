@@ -1,11 +1,3 @@
-//
-//  Take.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 6/12/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Returns a specified number of contiguous elements from the start of an observable sequence.
@@ -77,24 +69,24 @@ private final class TakeCountSink<Observer: ObserverType>: Sink<Observer>, Obser
 
     func on(_ event: Event<Element>) {
         switch event {
-        case let .next(value):
+            case let .next(value):
 
-            if remaining > 0 {
-                remaining -= 1
+                if remaining > 0 {
+                    remaining -= 1
 
-                forwardOn(.next(value))
+                    forwardOn(.next(value))
 
-                if remaining == 0 {
-                    forwardOn(.completed)
-                    dispose()
+                    if remaining == 0 {
+                        forwardOn(.completed)
+                        dispose()
+                    }
                 }
-            }
-        case .error:
-            forwardOn(event)
-            dispose()
-        case .completed:
-            forwardOn(event)
-            dispose()
+            case .error:
+                forwardOn(event)
+                dispose()
+            case .completed:
+                forwardOn(event)
+                dispose()
         }
     }
 }
@@ -143,14 +135,14 @@ private final class TakeTimeSink<Element, Observer: ObserverType>:
 
     func synchronized_on(_ event: Event<Element>) {
         switch event {
-        case let .next(value):
-            forwardOn(.next(value))
-        case .error:
-            forwardOn(event)
-            dispose()
-        case .completed:
-            forwardOn(event)
-            dispose()
+            case let .next(value):
+                forwardOn(.next(value))
+            case .error:
+                forwardOn(event)
+                dispose()
+            case .completed:
+                forwardOn(event)
+                dispose()
         }
     }
 

@@ -1,11 +1,3 @@
-//
-//  Rx.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 2/14/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 #if TRACE_RESOURCES
     private let resourceCount = AtomicInt(0)
 

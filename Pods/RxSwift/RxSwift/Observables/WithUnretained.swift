@@ -1,11 +1,3 @@
-//
-//  WithUnretained.swift
-//  RxSwift
-//
-//  Created by Vincent Pradeilles on 01/01/2021.
-//  Copyright © 2020 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Provides an unretained, safe to use (i.e. not implicitly unwrapped), reference to an object along with the events emitted by the sequence.
@@ -20,8 +12,8 @@ public extension ObservableType {
      */
     func withUnretained<Object: AnyObject, Out>(
         _ obj: Object,
-        resultSelector: @escaping (Object, Element) -> Out
-    ) -> Observable<Out> {
+        resultSelector: @escaping (Object, Element) -> Out) -> Observable<Out>
+    {
         map { [weak obj] element -> Out in
             guard let obj = obj else { throw UnretainedError.failedRetaining }
 

@@ -1,11 +1,3 @@
-//
-//  AsMaybe.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 3/12/17.
-//  Copyright © 2017 Krunoslav Zaher. All rights reserved.
-//
-
 private final class AsMaybeSink<Observer: ObserverType>: Sink<Observer>, ObserverType {
     typealias Element = Observer.Element
 
@@ -13,22 +5,22 @@ private final class AsMaybeSink<Observer: ObserverType>: Sink<Observer>, Observe
 
     func on(_ event: Event<Element>) {
         switch event {
-        case .next:
-            if element != nil {
-                forwardOn(.error(RxError.moreThanOneElement))
-                dispose()
-            }
+            case .next:
+                if element != nil {
+                    forwardOn(.error(RxError.moreThanOneElement))
+                    dispose()
+                }
 
-            element = event
-        case .error:
-            forwardOn(event)
-            dispose()
-        case .completed:
-            if let element = self.element {
-                forwardOn(element)
-            }
-            forwardOn(.completed)
-            dispose()
+                element = event
+            case .error:
+                forwardOn(event)
+                dispose()
+            case .completed:
+                if let element = self.element {
+                    forwardOn(element)
+                }
+                forwardOn(.completed)
+                dispose()
         }
     }
 }

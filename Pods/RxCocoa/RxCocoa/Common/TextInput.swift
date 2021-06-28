@@ -1,11 +1,3 @@
-//
-//  TextInput.swift
-//  RxCocoa
-//
-//  Created by Krunoslav Zaher on 5/12/16.
-//  Copyright © 2016 Krunoslav Zaher. All rights reserved.
-//
-
 import RxSwift
 
 #if os(iOS) || os(tvOS)

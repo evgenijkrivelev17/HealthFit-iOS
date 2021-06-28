@@ -1,11 +1,3 @@
-//
-//  OperationQueueScheduler.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 4/4/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 import Dispatch
 import Foundation
 

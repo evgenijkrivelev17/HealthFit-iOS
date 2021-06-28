@@ -1,11 +1,3 @@
-//
-//  DelegateProxy.swift
-//  RxCocoa
-//
-//  Created by Krunoslav Zaher on 6/14/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 #if !os(Linux)
 
     import RxSwift

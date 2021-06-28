@@ -1,13 +1,3 @@
-//
-//  Infallible+Operators.swift
-//  RxSwift
-//
-//  Created by Shai Mishali on 27/08/2020.
-//  Copyright © 2020 Krunoslav Zaher. All rights reserved.
-//
-
-// MARK: - Static allocation
-
 public extension InfallibleType {
     /**
      Returns an infallible sequence that contains a single element.
@@ -695,8 +685,8 @@ public extension InfallibleType {
      */
     func withUnretained<Object: AnyObject, Out>(
         _ obj: Object,
-        resultSelector: @escaping (Object, Element) -> Out
-    ) -> Infallible<Out> {
+        resultSelector: @escaping (Object, Element) -> Out) -> Infallible<Out>
+    {
         Infallible(asObservable().withUnretained(obj, resultSelector: resultSelector))
     }
 

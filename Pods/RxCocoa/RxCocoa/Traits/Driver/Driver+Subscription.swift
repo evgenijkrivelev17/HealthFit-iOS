@@ -1,11 +1,3 @@
-//
-//  Driver+Subscription.swift
-//  RxCocoa
-//
-//  Created by Krunoslav Zaher on 9/19/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 import RxRelay
 import RxSwift
 
@@ -159,8 +151,8 @@ public extension SharedSequenceConvertibleType where SharingStrategy == DriverSh
         with object: Object,
         onNext: ((Object, Element) -> Void)? = nil,
         onCompleted: ((Object) -> Void)? = nil,
-        onDisposed: ((Object) -> Void)? = nil
-    ) -> Disposable {
+        onDisposed: ((Object) -> Void)? = nil) -> Disposable
+    {
         MainScheduler.ensureRunningOnMainThread(errorMessage: errorMessage)
         return asObservable().subscribe(with: object, onNext: onNext, onCompleted: onCompleted, onDisposed: onDisposed)
     }
@@ -181,8 +173,8 @@ public extension SharedSequenceConvertibleType where SharingStrategy == DriverSh
     func drive(
         onNext: ((Element) -> Void)? = nil,
         onCompleted: (() -> Void)? = nil,
-        onDisposed: (() -> Void)? = nil
-    ) -> Disposable {
+        onDisposed: (() -> Void)? = nil) -> Disposable
+    {
         MainScheduler.ensureRunningOnMainThread(errorMessage: errorMessage)
         return asObservable().subscribe(onNext: onNext, onCompleted: onCompleted, onDisposed: onDisposed)
     }

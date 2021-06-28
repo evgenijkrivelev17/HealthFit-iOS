@@ -1,11 +1,3 @@
-//
-//  Errors.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 3/28/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 let RxErrorDomain = "RxErrorDomain"
 let RxCompositeFailures = "RxCompositeFailures"
 
@@ -34,20 +26,20 @@ public extension RxError {
     /// A textual representation of `self`, suitable for debugging.
     var debugDescription: String {
         switch self {
-        case .unknown:
-            return "Unknown error occurred."
-        case let .disposed(object):
-            return "Object `\(object)` was already disposed."
-        case .overflow:
-            return "Arithmetic overflow occurred."
-        case .argumentOutOfRange:
-            return "Argument out of range."
-        case .noElements:
-            return "Sequence doesn't contain any elements."
-        case .moreThanOneElement:
-            return "Sequence contains more than one element."
-        case .timeout:
-            return "Sequence timeout."
+            case .unknown:
+                return "Unknown error occurred."
+            case let .disposed(object):
+                return "Object `\(object)` was already disposed."
+            case .overflow:
+                return "Arithmetic overflow occurred."
+            case .argumentOutOfRange:
+                return "Argument out of range."
+            case .noElements:
+                return "Sequence doesn't contain any elements."
+            case .moreThanOneElement:
+                return "Sequence contains more than one element."
+            case .timeout:
+                return "Sequence timeout."
         }
     }
 }

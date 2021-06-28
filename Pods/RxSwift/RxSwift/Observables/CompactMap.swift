@@ -1,11 +1,3 @@
-//
-//  CompactMap.swift
-//  RxSwift
-//
-//  Created by Michael Long on 04/09/2019.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Projects each element of an observable sequence into an optional form and filters all optional results.
@@ -36,21 +28,21 @@ private final class CompactMapSink<SourceType, Observer: ObserverType>: Sink<Obs
 
     func on(_ event: Event<SourceType>) {
         switch event {
-        case let .next(element):
-            do {
-                if let mappedElement = try transform(element) {
-                    forwardOn(.next(mappedElement))
+            case let .next(element):
+                do {
+                    if let mappedElement = try transform(element) {
+                        forwardOn(.next(mappedElement))
+                    }
+                } catch let e {
+                    self.forwardOn(.error(e))
+                    self.dispose()
                 }
-            } catch let e {
-                self.forwardOn(.error(e))
-                self.dispose()
-            }
-        case let .error(error):
-            forwardOn(.error(error))
-            dispose()
-        case .completed:
-            forwardOn(.completed)
-            dispose()
+            case let .error(error):
+                forwardOn(.error(error))
+                dispose()
+            case .completed:
+                forwardOn(.completed)
+                dispose()
         }
     }
 }

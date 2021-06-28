@@ -1,11 +1,3 @@
-//
-//  UIRefreshControl+Rx.swift
-//  RxCocoa
-//
-//  Created by Yosuke Ishikawa on 1/31/16.
-//  Copyright © 2016 Krunoslav Zaher. All rights reserved.
-//
-
 #if os(iOS)
 
     import RxSwift

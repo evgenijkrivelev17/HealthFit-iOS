@@ -1,11 +1,3 @@
-//
-//  CombineLatest+Collection.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 8/29/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Merges the specified observable sequences into one observable sequence by using the selector function whenever any of the observable sequences produces an element.
@@ -70,47 +62,47 @@ private final class CombineLatestCollectionTypeSink<Collection: Swift.Collection
     func on(_ event: Event<SourceElement>, atIndex: Int) {
         lock.lock(); defer { self.lock.unlock() }
         switch event {
-        case let .next(element):
-            if values[atIndex] == nil {
-                numberOfValues += 1
-            }
+            case let .next(element):
+                if values[atIndex] == nil {
+                    numberOfValues += 1
+                }
 
-            values[atIndex] = element
+                values[atIndex] = element
 
-            if numberOfValues < parent.count {
-                let numberOfOthersThatAreDone = numberOfDone - (isDone[atIndex] ? 1 : 0)
-                if numberOfOthersThatAreDone == parent.count - 1 {
-                    forwardOn(.completed)
+                if numberOfValues < parent.count {
+                    let numberOfOthersThatAreDone = numberOfDone - (isDone[atIndex] ? 1 : 0)
+                    if numberOfOthersThatAreDone == parent.count - 1 {
+                        forwardOn(.completed)
+                        dispose()
+                    }
+                    return
+                }
+
+                do {
+                    let result = try parent.resultSelector(values.map { $0! })
+                    forwardOn(.next(result))
+                } catch {
+                    forwardOn(.error(error))
                     dispose()
                 }
-                return
-            }
 
-            do {
-                let result = try parent.resultSelector(values.map { $0! })
-                forwardOn(.next(result))
-            } catch {
+            case let .error(error):
                 forwardOn(.error(error))
                 dispose()
-            }
+            case .completed:
+                if isDone[atIndex] {
+                    return
+                }
 
-        case let .error(error):
-            forwardOn(.error(error))
-            dispose()
-        case .completed:
-            if isDone[atIndex] {
-                return
-            }
+                isDone[atIndex] = true
+                numberOfDone += 1
 
-            isDone[atIndex] = true
-            numberOfDone += 1
-
-            if numberOfDone == parent.count {
-                forwardOn(.completed)
-                dispose()
-            } else {
-                subscriptions[atIndex].dispose()
-            }
+                if numberOfDone == parent.count {
+                    forwardOn(.completed)
+                    dispose()
+                } else {
+                    subscriptions[atIndex].dispose()
+                }
         }
     }
 

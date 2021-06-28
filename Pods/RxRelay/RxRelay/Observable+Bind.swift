@@ -1,11 +1,3 @@
-//
-//  Observable+Bind.swift
-//  RxRelay
-//
-//  Created by Shai Mishali on 09/04/2019.
-//  Copyright © 2019 Krunoslav Zaher. All rights reserved.
-//
-
 import RxSwift
 
 public extension ObservableType {
@@ -43,14 +35,14 @@ public extension ObservableType {
     private func bind(to relays: [PublishRelay<Element>]) -> Disposable {
         subscribe { e in
             switch e {
-            case let .next(element):
-                relays.forEach {
-                    $0.accept(element)
-                }
-            case let .error(error):
-                rxFatalErrorInDebug("Binding error to publish relay: \(error)")
-            case .completed:
-                break
+                case let .next(element):
+                    relays.forEach {
+                        $0.accept(element)
+                    }
+                case let .error(error):
+                    rxFatalErrorInDebug("Binding error to publish relay: \(error)")
+                case .completed:
+                    break
             }
         }
     }
@@ -89,14 +81,14 @@ public extension ObservableType {
     private func bind(to relays: [BehaviorRelay<Element>]) -> Disposable {
         subscribe { e in
             switch e {
-            case let .next(element):
-                relays.forEach {
-                    $0.accept(element)
-                }
-            case let .error(error):
-                rxFatalErrorInDebug("Binding error to behavior relay: \(error)")
-            case .completed:
-                break
+                case let .next(element):
+                    relays.forEach {
+                        $0.accept(element)
+                    }
+                case let .error(error):
+                    rxFatalErrorInDebug("Binding error to behavior relay: \(error)")
+                case .completed:
+                    break
             }
         }
     }
@@ -135,14 +127,14 @@ public extension ObservableType {
     private func bind(to relays: [ReplayRelay<Element>]) -> Disposable {
         subscribe { e in
             switch e {
-            case let .next(element):
-                relays.forEach {
-                    $0.accept(element)
-                }
-            case let .error(error):
-                rxFatalErrorInDebug("Binding error to behavior relay: \(error)")
-            case .completed:
-                break
+                case let .next(element):
+                    relays.forEach {
+                        $0.accept(element)
+                    }
+                case let .error(error):
+                    rxFatalErrorInDebug("Binding error to behavior relay: \(error)")
+                case .completed:
+                    break
             }
         }
     }

@@ -1,11 +1,3 @@
-//
-//  NSControl+Rx.swift
-//  RxCocoa
-//
-//  Created by Krunoslav Zaher on 5/31/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 #if os(macOS)
 
     import Cocoa
@@ -47,8 +39,8 @@
         /// - parameter setter: Property value setter.
         func controlProperty<T>(
             getter: @escaping (Base) -> T,
-            setter: @escaping (Base, T) -> Void
-        ) -> ControlProperty<T> {
+            setter: @escaping (Base, T) -> Void) -> ControlProperty<T>
+        {
             MainScheduler.ensureRunningOnMainThread()
 
             let source = base.rx.lazyInstanceObservable(&rx_value_key) { () -> Observable<Void> in

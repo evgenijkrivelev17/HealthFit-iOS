@@ -1,11 +1,3 @@
-//
-//  RxCocoa.swift
-//  RxCocoa
-//
-//  Created by Krunoslav Zaher on 2/21/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 import Foundation
 
 // Importing RxCocoa also imports RxRelay
@@ -43,20 +35,20 @@ public extension RxCocoaError {
     /// A textual representation of `self`, suitable for debugging.
     var debugDescription: String {
         switch self {
-        case .unknown:
-            return "Unknown error occurred."
-        case let .invalidOperation(object):
-            return "Invalid operation was attempted on `\(object)`."
-        case let .itemsNotYetBound(object):
-            return "Data source is set, but items are not yet bound to user interface for `\(object)`."
-        case let .invalidPropertyName(object, propertyName):
-            return "Object `\(object)` doesn't have a property named `\(propertyName)`."
-        case let .invalidObjectOnKeyPath(object, sourceObject, propertyName):
-            return "Unobservable object `\(object)` was observed as `\(propertyName)` of `\(sourceObject)`."
-        case .errorDuringSwizzling:
-            return "Error during swizzling."
-        case let .castingError(object, targetType):
-            return "Error casting `\(object)` to `\(targetType)`"
+            case .unknown:
+                return "Unknown error occurred."
+            case let .invalidOperation(object):
+                return "Invalid operation was attempted on `\(object)`."
+            case let .itemsNotYetBound(object):
+                return "Data source is set, but items are not yet bound to user interface for `\(object)`."
+            case let .invalidPropertyName(object, propertyName):
+                return "Object `\(object)` doesn't have a property named `\(propertyName)`."
+            case let .invalidObjectOnKeyPath(object, sourceObject, propertyName):
+                return "Unobservable object `\(object)` was observed as `\(propertyName)` of `\(sourceObject)`."
+            case .errorDuringSwizzling:
+                return "Error during swizzling."
+            case let .castingError(object, targetType):
+                return "Error casting `\(object)` to `\(targetType)`"
         }
     }
 }

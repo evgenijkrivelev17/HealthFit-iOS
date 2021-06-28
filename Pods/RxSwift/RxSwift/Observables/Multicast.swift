@@ -1,11 +1,3 @@
-//
-//  Multicast.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 2/27/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 /**
  Represents an observable wrapper that can be connected and disconnected from its underlying observable sequence.
  */
@@ -40,11 +32,9 @@ public extension ObservableType {
     func multicast<Subject: SubjectType, Result>(_ subjectSelector: @escaping () throws -> Subject, selector: @escaping (Observable<Subject.Element>) throws -> Observable<Result>)
         -> Observable<Result> where Subject.Observer.Element == Element
     {
-        return Multicast(
-            source: asObservable(),
-            subjectSelector: subjectSelector,
-            selector: selector
-        )
+        return Multicast(source: asObservable(),
+                         subjectSelector: subjectSelector,
+                         selector: selector)
     }
 }
 
@@ -301,20 +291,20 @@ private final class RefCountSink<ConnectableSource: ConnectableObservableType, O
 
     func on(_ event: Event<Element>) {
         switch event {
-        case .next:
-            forwardOn(event)
-        case .error, .completed:
-            parent.lock.lock()
-            if parent.connectionId == connectionIdSnapshot {
-                let connection = parent.connectableSubscription
-                defer { connection?.dispose() }
-                parent.count = 0
-                parent.connectionId = parent.connectionId &+ 1
-                parent.connectableSubscription = nil
-            }
-            parent.lock.unlock()
-            forwardOn(event)
-            dispose()
+            case .next:
+                forwardOn(event)
+            case .error, .completed:
+                parent.lock.lock()
+                if parent.connectionId == connectionIdSnapshot {
+                    let connection = parent.connectableSubscription
+                    defer { connection?.dispose() }
+                    parent.count = 0
+                    parent.connectionId = parent.connectionId &+ 1
+                    parent.connectableSubscription = nil
+                }
+                parent.lock.unlock()
+                forwardOn(event)
+                dispose()
         }
     }
 }
@@ -375,9 +365,9 @@ private final class MulticastSink<Subject: SubjectType, Observer: ObserverType>:
     func on(_ event: Event<ResultType>) {
         forwardOn(event)
         switch event {
-        case .next: break
-        case .error, .completed:
-            dispose()
+            case .next: break
+            case .error, .completed:
+                dispose()
         }
     }
 }

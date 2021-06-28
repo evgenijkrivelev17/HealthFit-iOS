@@ -1,11 +1,3 @@
-//
-//  Debounce.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 9/11/16.
-//  Copyright © 2016 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Ignores elements from an observable sequence which are followed by another element within a specified relative time duration, using the specified scheduler to run throttling timers.
@@ -60,28 +52,28 @@ private final class DebounceSink<Observer: ObserverType>:
 
     func synchronized_on(_ event: Event<Element>) {
         switch event {
-        case let .next(element):
-            id = id &+ 1
-            let currentId = id
-            value = element
+            case let .next(element):
+                id = id &+ 1
+                let currentId = id
+                value = element
 
-            let scheduler = parent.scheduler
-            let dueTime = parent.dueTime
+                let scheduler = parent.scheduler
+                let dueTime = parent.dueTime
 
-            let d = SingleAssignmentDisposable()
-            cancellable.disposable = d
-            d.setDisposable(scheduler.scheduleRelative(currentId, dueTime: dueTime, action: propagate))
-        case .error:
-            value = nil
-            forwardOn(event)
-            dispose()
-        case .completed:
-            if let value = self.value {
-                self.value = nil
-                forwardOn(.next(value))
-            }
-            forwardOn(.completed)
-            dispose()
+                let d = SingleAssignmentDisposable()
+                cancellable.disposable = d
+                d.setDisposable(scheduler.scheduleRelative(currentId, dueTime: dueTime, action: propagate))
+            case .error:
+                value = nil
+                forwardOn(event)
+                dispose()
+            case .completed:
+                if let value = self.value {
+                    self.value = nil
+                    forwardOn(.next(value))
+                }
+                forwardOn(.completed)
+                dispose()
         }
     }
 

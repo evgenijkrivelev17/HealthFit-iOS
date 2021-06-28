@@ -1,11 +1,3 @@
-//
-//  UITextView+Rx.swift
-//  RxCocoa
-//
-//  Created by Yuta ToKoRo on 7/19/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 #if os(iOS) || os(tvOS)
 
     import RxSwift

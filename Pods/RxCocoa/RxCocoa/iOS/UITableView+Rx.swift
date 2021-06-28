@@ -1,11 +1,3 @@
-//
-//  UITableView+Rx.swift
-//  RxCocoa
-//
-//  Created by Krunoslav Zaher on 4/2/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 #if os(iOS) || os(tvOS)
 
     import RxSwift
@@ -104,10 +96,8 @@
          - parameter source: Observable sequence of items.
          - returns: Disposable object that can be used to unbind.
          */
-        func items<
-            DataSource: RxTableViewDataSourceType & UITableViewDataSource,
-            Source: ObservableType
-        >
+        func items<DataSource: RxTableViewDataSourceType & UITableViewDataSource,
+            Source: ObservableType>
         (dataSource: DataSource)
             -> (_ source: Source)
             -> Disposable

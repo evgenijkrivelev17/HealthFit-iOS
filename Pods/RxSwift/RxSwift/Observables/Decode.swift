@@ -1,11 +1,3 @@
-//
-//  Decode.swift
-//  RxSwift
-//
-//  Created by Shai Mishali on 24/07/2020.
-//  Copyright © 2020 Krunoslav Zaher. All rights reserved.
-//
-
 import Foundation
 
 public extension ObservableType where Element == Data {

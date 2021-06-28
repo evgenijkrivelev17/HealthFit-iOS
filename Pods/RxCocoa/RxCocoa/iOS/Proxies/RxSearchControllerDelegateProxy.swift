@@ -1,11 +1,3 @@
-//
-//  RxSearchControllerDelegateProxy.swift
-//  RxCocoa
-//
-//  Created by Segii Shulga on 3/17/16.
-//  Copyright © 2016 Krunoslav Zaher. All rights reserved.
-//
-
 #if os(iOS)
 
     import RxSwift

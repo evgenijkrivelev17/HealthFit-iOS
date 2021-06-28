@@ -1,11 +1,3 @@
-//
-//  Using.swift
-//  RxSwift
-//
-//  Created by Yury Korolev on 10/15/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Constructs an observable sequence that depends on a resource object, whose lifetime is tied to the resulting observable sequence's lifetime.
@@ -40,28 +32,24 @@ private final class UsingSink<ResourceType: Disposable, Observer: ObserverType>:
             disposable = resource
             let source = try parent.observableFactory(resource)
 
-            return Disposables.create(
-                source.subscribe(self),
-                disposable
-            )
+            return Disposables.create(source.subscribe(self),
+                                      disposable)
         } catch {
-            return Disposables.create(
-                Observable.error(error).subscribe(self),
-                disposable
-            )
+            return Disposables.create(Observable.error(error).subscribe(self),
+                                      disposable)
         }
     }
 
     func on(_ event: Event<SourceType>) {
         switch event {
-        case let .next(value):
-            forwardOn(.next(value))
-        case let .error(error):
-            forwardOn(.error(error))
-            dispose()
-        case .completed:
-            forwardOn(.completed)
-            dispose()
+            case let .next(value):
+                forwardOn(.next(value))
+            case let .error(error):
+                forwardOn(.error(error))
+                dispose()
+            case .completed:
+                forwardOn(.completed)
+                dispose()
         }
     }
 }

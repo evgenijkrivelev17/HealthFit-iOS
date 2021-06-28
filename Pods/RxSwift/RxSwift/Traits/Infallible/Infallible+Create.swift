@@ -1,11 +1,3 @@
-//
-//  Infallible+Create.swift
-//  RxSwift
-//
-//  Created by Shai Mishali on 27/08/2020.
-//  Copyright © 2020 Krunoslav Zaher. All rights reserved.
-//
-
 import Foundation
 
 public enum InfallibleEvent<Element> {
@@ -31,10 +23,10 @@ public extension Infallible {
         let source = Observable<Element>.create { observer in
             subscribe { event in
                 switch event {
-                case let .next(element):
-                    observer.onNext(element)
-                case .completed:
-                    observer.onCompleted()
+                    case let .next(element):
+                        observer.onNext(element)
+                    case .completed:
+                        observer.onCompleted()
                 }
             }
         }

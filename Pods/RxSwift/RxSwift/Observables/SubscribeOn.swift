@@ -1,11 +1,3 @@
-//
-//  SubscribeOn.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 6/14/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Wraps the source sequence in order to run its subscription and unsubscription logic on the specified

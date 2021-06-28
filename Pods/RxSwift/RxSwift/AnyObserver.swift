@@ -1,11 +1,3 @@
-//
-//  AnyObserver.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 2/28/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 /// A type-erased `ObserverType`.
 ///
 /// Forwards operations to an arbitrary underlying observer with the same `Element` type, hiding the specifics of the underlying observer type.

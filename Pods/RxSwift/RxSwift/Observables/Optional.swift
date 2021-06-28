@@ -1,11 +1,3 @@
-//
-//  Optional.swift
-//  RxSwift
-//
-//  Created by tarunon on 2016/12/13.
-//  Copyright © 2016 Krunoslav Zaher. All rights reserved.
-//
-
 public extension ObservableType {
     /**
      Converts a optional to an observable sequence.

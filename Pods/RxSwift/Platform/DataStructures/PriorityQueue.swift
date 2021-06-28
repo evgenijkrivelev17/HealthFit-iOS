@@ -1,11 +1,3 @@
-//
-//  PriorityQueue.swift
-//  Platform
-//
-//  Created by Krunoslav Zaher on 12/27/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 struct PriorityQueue<Element> {
     private let hasHigherPriority: (Element, Element) -> Bool
     private let isEqual: (Element, Element) -> Bool

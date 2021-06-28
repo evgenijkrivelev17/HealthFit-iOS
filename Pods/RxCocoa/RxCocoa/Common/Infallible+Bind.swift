@@ -1,11 +1,3 @@
-//
-//  Infallible+Bind.swift
-//  RxCocoa
-//
-//  Created by Shai Mishali on 27/08/2020.
-//  Copyright © 2020 Krunoslav Zaher. All rights reserved.
-//
-
 import RxSwift
 
 public extension InfallibleType {

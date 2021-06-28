@@ -1,11 +1,3 @@
-//
-//  ShareReplayScope.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 5/28/17.
-//  Copyright © 2017 Krunoslav Zaher. All rights reserved.
-//
-
 /// Subject lifetime scope
 public enum SubjectLifetimeScope {
     /**
@@ -139,17 +131,17 @@ public extension ObservableType {
         -> Observable<Element>
     {
         switch scope {
-        case .forever:
-            switch replay {
-            case 0: return multicast(PublishSubject()).refCount()
-            default: return multicast(ReplaySubject.create(bufferSize: replay)).refCount()
-            }
-        case .whileConnected:
-            switch replay {
-            case 0: return ShareWhileConnected(source: asObservable())
-            case 1: return ShareReplay1WhileConnected(source: asObservable())
-            default: return multicast(makeSubject: { ReplaySubject.create(bufferSize: replay) }).refCount()
-            }
+            case .forever:
+                switch replay {
+                    case 0: return multicast(PublishSubject()).refCount()
+                    default: return multicast(ReplaySubject.create(bufferSize: replay)).refCount()
+                }
+            case .whileConnected:
+                switch replay {
+                    case 0: return ShareWhileConnected(source: asObservable())
+                    case 1: return ShareReplay1WhileConnected(source: asObservable())
+                    default: return multicast(makeSubject: { ReplaySubject.create(bufferSize: replay) }).refCount()
+                }
         }
     }
 }
@@ -190,13 +182,13 @@ private final class ShareReplay1WhileConnectedConnection<Element>:
         }
 
         switch event {
-        case let .next(element):
-            self.element = element
-            return observers
-        case .error, .completed:
-            let observers = self.observers
-            synchronized_dispose()
-            return observers
+            case let .next(element):
+                self.element = element
+                return observers
+            case .error, .completed:
+                let observers = self.observers
+                synchronized_dispose()
+                return observers
         }
     }
 
@@ -290,10 +282,8 @@ private final class ShareReplay1WhileConnected<Element>:
         if let existingConnection = self.connection {
             connection = existingConnection
         } else {
-            connection = ShareReplay1WhileConnectedConnection<Element>(
-                parent: self,
-                lock: lock
-            )
+            connection = ShareReplay1WhileConnectedConnection<Element>(parent: self,
+                                                                       lock: lock)
             self.connection = connection
         }
 
@@ -336,12 +326,12 @@ private final class ShareWhileConnectedConnection<Element>:
         }
 
         switch event {
-        case .next:
-            return observers
-        case .error, .completed:
-            let observers = self.observers
-            synchronized_dispose()
-            return observers
+            case .next:
+                return observers
+            case .error, .completed:
+                let observers = self.observers
+                synchronized_dispose()
+                return observers
         }
     }
 
@@ -431,10 +421,8 @@ private final class ShareWhileConnected<Element>:
         if let existingConnection = self.connection {
             connection = existingConnection
         } else {
-            connection = ShareWhileConnectedConnection<Element>(
-                parent: self,
-                lock: lock
-            )
+            connection = ShareWhileConnectedConnection<Element>(parent: self,
+                                                                lock: lock)
             self.connection = connection
         }
 

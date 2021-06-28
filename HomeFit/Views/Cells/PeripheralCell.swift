@@ -3,7 +3,7 @@ import RxSwift
 import UIKit
 
 public class PeripheralCell: BaseTableViewCell<PeripheralModel> {
-    public static var IdCell = "PeripheralCell-ID"
+    public static var idCell = "PeripheralCell-ID"
 
     var panel: UIView = {
         var view = UIView()

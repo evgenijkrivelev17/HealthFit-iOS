@@ -1,11 +1,3 @@
-//
-//  ObservableType+Extensions.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 2/21/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 #if DEBUG
     import Foundation
 #endif
@@ -44,26 +36,24 @@ public extension ObservableType {
         onNext: ((Object, Element) -> Void)? = nil,
         onError: ((Object, Swift.Error) -> Void)? = nil,
         onCompleted: ((Object) -> Void)? = nil,
-        onDisposed: ((Object) -> Void)? = nil
-    ) -> Disposable {
-        subscribe(
-            onNext: { [weak object] in
-                guard let object = object else { return }
-                onNext?(object, $0)
-            },
-            onError: { [weak object] in
-                guard let object = object else { return }
-                onError?(object, $0)
-            },
-            onCompleted: { [weak object] in
-                guard let object = object else { return }
-                onCompleted?(object)
-            },
-            onDisposed: { [weak object] in
-                guard let object = object else { return }
-                onDisposed?(object)
-            }
-        )
+        onDisposed: ((Object) -> Void)? = nil) -> Disposable
+    {
+        subscribe(onNext: { [weak object] in
+                      guard let object = object else { return }
+                      onNext?(object, $0)
+                  },
+                  onError: { [weak object] in
+                      guard let object = object else { return }
+                      onError?(object, $0)
+                  },
+                  onCompleted: { [weak object] in
+                      guard let object = object else { return }
+                      onCompleted?(object)
+                  },
+                  onDisposed: { [weak object] in
+                      guard let object = object else { return }
+                      onDisposed?(object)
+                  })
     }
 
     /**
@@ -80,8 +70,8 @@ public extension ObservableType {
         onNext: ((Element) -> Void)? = nil,
         onError: ((Swift.Error) -> Void)? = nil,
         onCompleted: (() -> Void)? = nil,
-        onDisposed: (() -> Void)? = nil
-    ) -> Disposable {
+        onDisposed: (() -> Void)? = nil) -> Disposable
+    {
         let disposable: Disposable
 
         if let disposed = onDisposed {
@@ -104,24 +94,22 @@ public extension ObservableType {
             #endif
 
             switch event {
-            case let .next(value):
-                onNext?(value)
-            case let .error(error):
-                if let onError = onError {
-                    onError(error)
-                } else {
-                    Hooks.defaultErrorHandler(callStack, error)
-                }
-                disposable.dispose()
-            case .completed:
-                onCompleted?()
-                disposable.dispose()
+                case let .next(value):
+                    onNext?(value)
+                case let .error(error):
+                    if let onError = onError {
+                        onError(error)
+                    } else {
+                        Hooks.defaultErrorHandler(callStack, error)
+                    }
+                    disposable.dispose()
+                case .completed:
+                    onCompleted?()
+                    disposable.dispose()
             }
         }
-        return Disposables.create(
-            asObservable().subscribe(observer),
-            disposable
-        )
+        return Disposables.create(asObservable().subscribe(observer),
+                                  disposable)
     }
 }
 

@@ -3,7 +3,11 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-public struct PeripheralModel {
+public struct PeripheralModel: Equatable {
+    public static func == (lhs: PeripheralModel, rhs: PeripheralModel) -> Bool {
+        return lhs.id.uuidString == rhs.id.uuidString
+    }
+
     public var id: UUID {
         return device.identifier
     }

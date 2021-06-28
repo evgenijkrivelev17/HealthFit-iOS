@@ -1,11 +1,3 @@
-//
-//  TailRecursiveSink.swift
-//  RxSwift
-//
-//  Created by Krunoslav Zaher on 3/21/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 enum TailRecursiveSinkCommand {
     case moveNext
     case dispose
@@ -45,10 +37,10 @@ class TailRecursiveSink<Sequence: Swift.Sequence, Observer: ObserverType>:
 
     func invoke(_ command: TailRecursiveSinkCommand) {
         switch command {
-        case .dispose:
-            disposeCommand()
-        case .moveNext:
-            moveNextCommand()
+            case .dispose:
+                disposeCommand()
+            case .moveNext:
+                moveNextCommand()
         }
     }
 

@@ -1,11 +1,3 @@
-//
-//  Observable+Bind.swift
-//  RxCocoa
-//
-//  Created by Krunoslav Zaher on 8/29/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 import RxSwift
 
 public extension ObservableType {
@@ -75,8 +67,8 @@ public extension ObservableType {
      */
     func bind<Object: AnyObject>(
         with object: Object,
-        onNext: @escaping (Object, Element) -> Void
-    ) -> Disposable {
+        onNext: @escaping (Object, Element) -> Void) -> Disposable
+    {
         subscribe(onNext: { [weak object] in
                       guard let object = object else { return }
                       onNext(object, $0)

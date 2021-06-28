@@ -1,11 +1,3 @@
-//
-//  SharedSequence.swift
-//  RxCocoa
-//
-//  Created by Krunoslav Zaher on 8/27/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 import RxSwift
 
 /**

@@ -1,11 +1,3 @@
-//
-//  SectionedViewDataSourceType.swift
-//  RxCocoa
-//
-//  Created by Krunoslav Zaher on 1/10/16.
-//  Copyright © 2016 Krunoslav Zaher. All rights reserved.
-//
-
 import Foundation
 
 /// Data source with access to underlying sectioned model.

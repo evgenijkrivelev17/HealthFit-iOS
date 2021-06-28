@@ -1,11 +1,3 @@
-//
-//  SharedSequence+Operators.swift
-//  RxCocoa
-//
-//  Created by Krunoslav Zaher on 9/19/15.
-//  Copyright © 2015 Krunoslav Zaher. All rights reserved.
-//
-
 import RxSwift
 
 // MARK: map
@@ -471,8 +463,8 @@ public extension SharedSequenceConvertibleType where SharingStrategy == SignalSh
      */
     func withUnretained<Object: AnyObject, Out>(
         _ obj: Object,
-        resultSelector: @escaping (Object, Element) -> Out
-    ) -> SharedSequence<SharingStrategy, Out> {
+        resultSelector: @escaping (Object, Element) -> Out) -> SharedSequence<SharingStrategy, Out>
+    {
         SharedSequence(asObservable().withUnretained(obj, resultSelector: resultSelector))
     }
 
@@ -495,8 +487,8 @@ public extension SharedSequenceConvertibleType where SharingStrategy == DriverSh
     @available(*, message: "withUnretained has been deprecated for Driver. Consider using `drive(with:onNext:onCompleted:onDisposed:)`, instead", unavailable)
     func withUnretained<Object: AnyObject, Out>(
         _ obj: Object,
-        resultSelector: @escaping (Object, Element) -> Out
-    ) -> SharedSequence<SharingStrategy, Out> {
+        resultSelector: @escaping (Object, Element) -> Out) -> SharedSequence<SharingStrategy, Out>
+    {
         SharedSequence(asObservable().withUnretained(obj, resultSelector: resultSelector))
     }
 

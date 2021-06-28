@@ -1,11 +1,3 @@
-//
-//  AsyncSubject.swift
-//  RxSwift
-//
-//  Created by Victor Galán on 07/01/2017.
-//  Copyright © 2017 Krunoslav Zaher. All rights reserved.
-//
-
 /// An AsyncSubject emits the last value (and only the last value) emitted by the source Observable,
 /// and only after that source Observable completes.
 ///
@@ -63,13 +55,13 @@ public final class AsyncSubject<Element>:
         #endif
         let (observers, event) = synchronized_on(event)
         switch event {
-        case .next:
-            dispatch(observers, event)
-            dispatch(observers, .completed)
-        case .completed:
-            dispatch(observers, event)
-        case .error:
-            dispatch(observers, event)
+            case .next:
+                dispatch(observers, event)
+                dispatch(observers, .completed)
+            case .completed:
+                dispatch(observers, event)
+            case .error:
+                dispatch(observers, event)
         }
     }
 
@@ -80,28 +72,28 @@ public final class AsyncSubject<Element>:
         }
 
         switch event {
-        case let .next(element):
-            lastElement = element
-            return (Observers(), .completed)
-        case .error:
-            stoppedEvent = event
-
-            let observers = self.observers
-            self.observers.removeAll()
-
-            return (observers, event)
-        case .completed:
-
-            let observers = self.observers
-            self.observers.removeAll()
-
-            if let lastElement = self.lastElement {
-                stoppedEvent = .next(lastElement)
-                return (observers, .next(lastElement))
-            } else {
+            case let .next(element):
+                lastElement = element
+                return (Observers(), .completed)
+            case .error:
                 stoppedEvent = event
-                return (observers, .completed)
-            }
+
+                let observers = self.observers
+                self.observers.removeAll()
+
+                return (observers, event)
+            case .completed:
+
+                let observers = self.observers
+                self.observers.removeAll()
+
+                if let lastElement = self.lastElement {
+                    stoppedEvent = .next(lastElement)
+                    return (observers, .next(lastElement))
+                } else {
+                    stoppedEvent = event
+                    return (observers, .completed)
+                }
         }
     }
 
@@ -116,13 +108,13 @@ public final class AsyncSubject<Element>:
     func synchronized_subscribe<Observer: ObserverType>(_ observer: Observer) -> Disposable where Observer.Element == Element {
         if let stoppedEvent = self.stoppedEvent {
             switch stoppedEvent {
-            case .next:
-                observer.on(stoppedEvent)
-                observer.on(.completed)
-            case .completed:
-                observer.on(stoppedEvent)
-            case .error:
-                observer.on(stoppedEvent)
+                case .next:
+                    observer.on(stoppedEvent)
+                    observer.on(.completed)
+                case .completed:
+                    observer.on(stoppedEvent)
+                case .error:
+                    observer.on(stoppedEvent)
             }
             return Disposables.create()
         }
