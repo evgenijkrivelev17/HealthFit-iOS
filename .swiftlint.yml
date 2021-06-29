@@ -87,6 +87,8 @@ excluded:
   - Templates
   - theVillageLedger/Resources
   - Pods
+  - R.generated.swift
+
 
 attributes:
   always_on_same_line: ["@objc", "@IBAction", "@NSManaged"]
@@ -113,8 +115,10 @@ file_length:
 - 600 # error
 
 line_length:
- warning: 350
- ignores_comments: true
+- 350 # warning
+- 650 # error
+
+ignores_comments: true
 
 function_parameter_count:
 - 7 # warning

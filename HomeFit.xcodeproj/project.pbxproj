@@ -12,6 +12,7 @@
 		2735600F26847FB400F34D53 /* PeripheralServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2735600E26847FB400F34D53 /* PeripheralServiceProtocol.swift */; };
 		27DAD9092689D28E00BE0868 /* SearchDevicesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAD9082689D28E00BE0868 /* SearchDevicesController.swift */; };
 		27DAD90B2689D2C200BE0868 /* SearchDevicesVIewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAD90A2689D2C200BE0868 /* SearchDevicesVIewModel.swift */; };
+		27E230C8268B24030094B08D /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E230C7268B24030094B08D /* R.generated.swift */; };
 		3E273A6925F6C17B007BE951 /* ScreenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E273A6825F6C17B007BE951 /* ScreenService.swift */; };
 		3E273A7025F6C35D007BE951 /* PeripheralCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E273A6F25F6C35D007BE951 /* PeripheralCell.swift */; };
 		3E28C33825D1DF3C0066D4B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E28C33725D1DF3C0066D4B7 /* AppDelegate.swift */; };
@@ -59,6 +60,7 @@
 		2735600E26847FB400F34D53 /* PeripheralServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralServiceProtocol.swift; sourceTree = "<group>"; };
 		27DAD9082689D28E00BE0868 /* SearchDevicesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDevicesController.swift; sourceTree = "<group>"; };
 		27DAD90A2689D2C200BE0868 /* SearchDevicesVIewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDevicesVIewModel.swift; sourceTree = "<group>"; };
+		27E230C7268B24030094B08D /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.generated.swift; path = HomeFit/Resources/R.generated.swift; sourceTree = SOURCE_ROOT; };
 		355ECA882579C203B55A1A9F /* Pods_HomeFit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HomeFit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E273A6825F6C17B007BE951 /* ScreenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenService.swift; sourceTree = "<group>"; };
 		3E273A6F25F6C35D007BE951 /* PeripheralCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralCell.swift; sourceTree = "<group>"; };
@@ -151,6 +153,14 @@
 			path = SearchDevicesScreen;
 			sourceTree = "<group>";
 		};
+		27E230C9268B24EB0094B08D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				27E230C7268B24030094B08D /* R.generated.swift */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		3E273A6D25F6C346007BE951 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -193,6 +203,7 @@
 		3E28C33625D1DF3C0066D4B7 /* HomeFit */ = {
 			isa = PBXGroup;
 			children = (
+				27E230C9268B24EB0094B08D /* Resources */,
 				2714665E2689D1E300DDF1BE /* PresentLayer */,
 				273560102684806000F34D53 /* ViewModel */,
 				3E87927625F180FF006A10C9 /* Services */,
@@ -322,6 +333,7 @@
 				3E28C33125D1DF3C0066D4B7 /* Frameworks */,
 				3E28C33225D1DF3C0066D4B7 /* Resources */,
 				3A0C80681561A45E18F16B35 /* [CP] Embed Pods Frameworks */,
+				27973E07268B13D900AA1510 /* R.Swift */,
 			);
 			buildRules = (
 			);
@@ -477,6 +489,26 @@
 			shellPath = /bin/sh;
 			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n    if which swiftformat >/dev/null; then\n        swiftformat .\n    else\n        sh setup.sh\n    fi\nfi\n";
 		};
+		27973E07268B13D900AA1510 /* R.Swift */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$TEMP_DIR/rswift-lastrun",
+			);
+			name = R.Swift;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				$SRCROOT/R.generated.swift,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/R.generated.swift\"\n";
+		};
 		3A0C80681561A45E18F16B35 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -595,6 +627,7 @@
 				27DAD90B2689D2C200BE0868 /* SearchDevicesVIewModel.swift in Sources */,
 				3E79583225F3E91800979FD0 /* CBCentralManager.swift in Sources */,
 				3EF06CF225F0F8DA0012BCA5 /* PeripheralModel.swift in Sources */,
+				27E230C8268B24030094B08D /* R.generated.swift in Sources */,
 				2735600D26847F2B00F34D53 /* BaseTableViewCellProtocol.swift in Sources */,
 				3E7B8EB9262E22C4001D9BA7 /* BaseTableViewCell.swift in Sources */,
 				3EB4517E2664304A00ECCA7D /* BaseViewControllerProtocol.swift in Sources */,
