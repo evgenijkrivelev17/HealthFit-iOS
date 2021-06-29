@@ -13,7 +13,7 @@ class SearchDevicesController: BaseViewController<SearchDevicesViewModel> {
     var scanButton: UIButton = {
         var button = UIButton()
         button.setTitle("Scan", for: .normal)
-        button.backgroundColor = .systemBlue
+        button.backgroundColor = .systemRed
         button.layer.cornerRadius = ScreenService.getWidth(10)
         return button
     }()
@@ -28,7 +28,11 @@ class SearchDevicesController: BaseViewController<SearchDevicesViewModel> {
 
     var busyIndicator: UIActivityIndicatorView = {
         var view = UIActivityIndicatorView()
-        view.style = .medium
+        if #available(iOS 13.0, *) {
+            view.style = .large
+        } else {
+            view.style = .whiteLarge
+        }
         view.color = .black
         return view
     }()
@@ -39,8 +43,6 @@ class SearchDevicesController: BaseViewController<SearchDevicesViewModel> {
         label.text = "Founded devices:"
         return label
     }()
-
-    var devices: [PeripheralModel] = []
 
     let disposeBag = DisposeBag()
 

@@ -3,13 +3,13 @@ import Foundation
 import RxSwift
 
 class PeriperalService: NSObject, PeripheralServiceDelegate {
-    public static var shared = PeriperalService()
-
-    private var manager: CBCentralManager!
-
     public typealias RemoteDevice = PeripheralModel
 
     public typealias StateManager = CBManagerState
+
+    public static var shared = PeriperalService()
+
+    private var manager: CBCentralManager?
 
     public private(set) var devices: [RemoteDevice]
 
@@ -21,27 +21,11 @@ class PeriperalService: NSObject, PeripheralServiceDelegate {
 
     public private(set) var scanning: BehaviorSubject<Bool>
 
-    public func connect(device: PeripheralModel, options: [String: Any] = [:]) {
-        manager.connect(device.peripheralMode, options: options)
-    }
-
-    public func disconnect(device: PeripheralModel) {
-        manager.cancelPeripheralConnection(device.peripheralMode)
-    }
-
-    public func startScan() {
-        manager.scanForPeripherals(withServices: nil, options: nil)
-    }
-
-    public func stopScan() {
-        manager.stopScan()
-    }
-
-    private init(peripherals: [RemoteDevice] = [],
-                 foundObserver: BehaviorSubject<[RemoteDevice]> = .init(value: []),
-                 connectedObserver: BehaviorSubject<[RemoteDevice]> = .init(value: []),
-                 stateObserver: BehaviorSubject<StateManager> = .init(value: .poweredOff),
-                 isScanningObserver: BehaviorSubject<Bool> = .init(value: false))
+    init(peripherals: [RemoteDevice] = [],
+         foundObserver: BehaviorSubject<[RemoteDevice]> = .init(value: []),
+         connectedObserver: BehaviorSubject<[RemoteDevice]> = .init(value: []),
+         stateObserver: BehaviorSubject<StateManager> = .init(value: .poweredOff),
+         isScanningObserver: BehaviorSubject<Bool> = .init(value: false))
     {
         devices = peripherals
         foundedDevices = foundObserver
@@ -51,9 +35,33 @@ class PeriperalService: NSObject, PeripheralServiceDelegate {
         super.init()
     }
 
-    override convenience init() {
-        self.init()
-        manager = CBCentralManager(delegate: self, queue: nil)
+    public func connect(device: PeripheralModel, options: [String: Any] = [:]) {
+        guard let manager = manager else {
+            return
+        }
+        manager.connect(device.peripheralMode, options: options)
+    }
+
+    public func disconnect(device: PeripheralModel) {
+        guard let manager = manager else {
+            return
+        }
+        manager.cancelPeripheralConnection(device.peripheralMode)
+    }
+
+    public func startScan() {
+        guard let manager = manager else {
+            manager = CBCentralManager(delegate: self, queue: nil)
+            return
+        }
+        manager.scanForPeripherals(withServices: nil, options: nil)
+    }
+
+    public func stopScan() {
+        guard let manager = manager else {
+            return
+        }
+        manager.stopScan()
     }
 
     private func addDevice(_ device: RemoteDevice) {
@@ -75,7 +83,9 @@ class PeriperalService: NSObject, PeripheralServiceDelegate {
 
 extension PeriperalService: CBCentralManagerDelegate {
     public func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        guard manager == central else { return }
+        guard let manager = manager, manager == central else {
+            return
+        }
         stateService.onNext(manager.state)
     }
 
@@ -94,7 +104,9 @@ extension PeriperalService: CBCentralManagerDelegate {
     }
 
     public func centralManager(service: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        guard manager == service else { return }
+        guard manager == service else {
+            return
+        }
 
         let connectedDevice = RemoteDevice(device: peripheral)
         guard let index = devices.firstIndex(where: { $0.id.uuidString == peripheral.identifier.uuidString }), index != -1 else {

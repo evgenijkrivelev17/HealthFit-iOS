@@ -73,7 +73,7 @@ opt_in_rules:
   - unneeded_parentheses_in_closure_argument
   - untyped_error_in_catch
   - unused_import
-  - unused_private_declaration
+  # - unused_private_declaration # this rules doesn't work 
   - vertical_parameter_alignment_on_call
   - vertical_whitespace_closing_braces
   - vertical_whitespace_opening_braces
@@ -87,6 +87,7 @@ excluded:
   - Templates
   - theVillageLedger/Resources
   - Pods
+  - HomeFit/Resources/R.generated.swift
   - R.generated.swift
 
 

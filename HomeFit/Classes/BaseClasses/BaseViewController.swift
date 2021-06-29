@@ -26,5 +26,6 @@ class BaseViewController<ViewModelType: BaseViewModelProtocol>: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
+        bindViewModel()
     }
 }
