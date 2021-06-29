@@ -23,7 +23,7 @@ class ViewController: UIViewController, UITableViewDelegate {
 
     var busyIndicator: UIActivityIndicatorView = {
         var view = UIActivityIndicatorView()
-        view.style = .medium
+        view.style = .whiteLarge
         view.color = .black
         return view
     }()
