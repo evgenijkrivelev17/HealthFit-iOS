@@ -1,28 +1,30 @@
+import CoreBluetooth
 import Foundation
 import RxCocoa
 import RxSwift
 
 public class SearchDevicesViewModel: BaseViewModelProtocol {
     struct Input {
-        var searchDeviceTextField: BehaviorSubject<String>
-        var startScan: PublishSubject<Void>
-        var stopScan: PublishSubject<Void>
-        var goToDevice: BehaviorSubject<Device>
-        var connectDevice: BehaviorSubject<Int>
-        var disconnectDevice: BehaviorSubject<Device>
+        var searchDeviceTextField: Observable<String>
+        var startScan: Observable<Void>
+        var stopScan: Observable<Void>
+        var goToDevice: Observable<Device>
+        var connectDevice: Observable<IndexPath>
+        var disconnectDevice: Observable<IndexPath>
     }
 
     struct Output {
         var devices: Observable<[Device]>
         var isBusy: Observable<Bool>
-        var isEnable: Observable<Bool>
+        var isScanning: Observable<Bool>
+        var enableScanning: Observable<CBManagerState>
     }
 
     typealias Device = PeripheralModel
 
-    typealias InputViewModel = Input
+    typealias InputViewType = Input
 
-    typealias OutputViewModel = Output
+    typealias OutputViewType = Output
 
     var input: Input
 
@@ -30,16 +32,16 @@ public class SearchDevicesViewModel: BaseViewModelProtocol {
 
     var isBusy: Observable<Bool>
 
-    var enableScanning: BehaviorSubject<Bool>
+    var enableScanning: BehaviorSubject<CBManagerState>
 
-    var dispose = DisposeBag()
+    var dispose: DisposeBag
 
     private var peripheralService: PeriperalService
 
     init(inputModel: Input,
          devicesObservable: BehaviorSubject<[Device]>,
          busyObservable: BehaviorSubject<Bool>,
-         enableScanningObservable: BehaviorSubject<Bool>,
+         enableScanningObservable: BehaviorSubject<CBManagerState>,
          deviceService: PeriperalService)
     {
         peripheralService = deviceService
@@ -47,33 +49,41 @@ public class SearchDevicesViewModel: BaseViewModelProtocol {
         isBusy = busyObservable
         enableScanning = enableScanningObservable
         input = inputModel
+        dispose = DisposeBag()
     }
 
     convenience init(input: Input,
+                     peripheralService: PeriperalService = PeriperalService.shared,
                      devices: BehaviorSubject<[Device]> = .init(value: []),
                      isBusy: BehaviorSubject<Bool> = .init(value: false),
-                     enable: BehaviorSubject<Bool> = .init(value: false))
+                     enable: BehaviorSubject<CBManagerState> = .init(value: .poweredOff))
     {
         self.init(inputModel: input,
                   devicesObservable: devices,
                   busyObservable: isBusy,
                   enableScanningObservable: enable,
-                  deviceService: PeriperalService.shared)
+                  deviceService: peripheralService)
     }
 
-    func configure() -> Output {
+    func configure(input: Input) -> Output {
         input.connectDevice.subscribe { [weak self] event in
-            guard let self = self, let index = event.element else {
+            guard let self = self, let indexPath = event.element else {
                 return
             }
-
+            guard let devices = try? self.devices.value() else {
+                return
+            }
+            self.connectDevice(device: devices[indexPath.row])
         }.disposed(by: dispose)
 
         input.disconnectDevice.subscribe { [weak self] event in
-            guard let self = self, let device = event.element else {
+            guard let self = self, let indexPath = event.element else {
                 return
             }
-            self.disconnectDevice(device: device)
+            guard let devices = try? self.devices.value() else {
+                return
+            }
+            self.disconnectDevice(device: devices[indexPath.row])
         }.disposed(by: dispose)
 
         input.startScan.subscribe { [weak self] _ in
@@ -101,16 +111,21 @@ public class SearchDevicesViewModel: BaseViewModelProtocol {
             guard let self = self, let state = event.element else {
                 return
             }
-            if state == .poweredOn {
-                self.enableScanning.onNext(true)
-            } else {
-                self.enableScanning.onNext(false)
-            }
+            self.enableScanning.onNext(state)
         }.disposed(by: dispose)
 
-        return Output(devices: devices.asObservable(),
-                      isBusy: isBusy.asObservable(),
-                      isEnable: enableScanning.asObservable())
+        peripheralService.foundedDevices.subscribe { [weak self] event in
+            guard let self = self, let newDevices = event.element else {
+                return
+            }
+            self.devices.onNext(newDevices)
+        }.disposed(by: dispose)
+
+        let output = Output(devices: devices.asObservable(),
+                            isBusy: isBusy,
+                            isScanning: peripheralService.scanning.asObservable(),
+                            enableScanning: enableScanning.asObservable())
+        return output
     }
 
     private func connectDevice(device: Device) {

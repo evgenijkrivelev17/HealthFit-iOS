@@ -18,6 +18,14 @@ class SearchDevicesController: BaseViewController<SearchDevicesViewModel> {
         return button
     }()
 
+    var stopButton: UIButton = {
+        var button = UIButton()
+        button.setTitle("Stop", for: .normal)
+        button.backgroundColor = .systemBlue
+        button.layer.cornerRadius = ScreenService.getWidth(10)
+        return button
+    }()
+
     var busyIndicator: UIActivityIndicatorView = {
         var view = UIActivityIndicatorView()
         view.style = .medium
@@ -77,17 +85,22 @@ class SearchDevicesController: BaseViewController<SearchDevicesViewModel> {
 
     init(viewModel model: SearchDevicesViewModel) {
         super.init(model: model)
+        bindViewModel()
+    }
 
-        let output = model.configure()
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
+    override func bindViewModel() {
         perehiralsTable.rx.setDelegate(self).disposed(by: disposeBag)
 
-        perehiralsTable.rx.itemSelected.subscribe { [weak self] event in
-            guard let self = self, let index = event.element?.row else {
-                return
-            }
-            self.viewModel.input.connectDevice.onNext(index)
-        }.disposed(by: disposeBag)
+        let output = viewModel.configure(input: SearchDevicesViewModel.Input(searchDeviceTextField: BehaviorSubject<String>.init(value: "sample"),
+                                                                             startScan: scanButton.rx.tap.asObservable(),
+                                                                             stopScan: stopButton.rx.tap.asObservable(),
+                                                                             goToDevice: PublishSubject<PeripheralModel>.init(),
+                                                                             connectDevice: perehiralsTable.rx.itemSelected.asObservable(),
+                                                                             disconnectDevice: PublishSubject<IndexPath>.init()))
 
         _ = output.isBusy.observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] state in
@@ -102,22 +115,15 @@ class SearchDevicesController: BaseViewController<SearchDevicesViewModel> {
             }).disposed(by: disposeBag)
 
         _ = output.devices.map { [weak self] devices in
-            guard let self = self else {
-                return
-            }
             "Founded devices: \(devices.count)"
-        }
-        .bindTo(to: foundDeviceTitle.text)
-        .disposed(by: disposeBag)
+        }.observe(on: MainScheduler.instance)
+            .bind(to: foundDeviceTitle.rx.text)
+            .disposed(by: disposeBag)
 
         output.devices.bind(to: perehiralsTable.rx
             .items(cellIdentifier: PeripheralCell.idCell, cellType: PeripheralCell.self)) { _, model, cell in
                 cell.setData(to: model)
         }.disposed(by: disposeBag)
-    }
-
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
 

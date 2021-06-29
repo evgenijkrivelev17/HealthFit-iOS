@@ -113,7 +113,7 @@ file_length:
 - 600 # error
 
 line_length:
- warning: 180
+ warning: 350
  ignores_comments: true
 
 function_parameter_count:

@@ -7,9 +7,9 @@ public protocol BaseViewControllerProtocol: AnyObject {
 
     var isBusy: Observable<Bool> { get }
 
-    var isLoaded: Observable<Bool> { get }
-
     func setUpUI()
 
     func configure(_ data: [String: AnyObject])
+
+    func bindViewModel()
 }
