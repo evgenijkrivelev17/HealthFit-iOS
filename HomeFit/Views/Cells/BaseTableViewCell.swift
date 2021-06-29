@@ -7,6 +7,7 @@ public class BaseTableViewCell<T>: UITableViewCell, BaseTableViewCellProtocol {
 
     func setData(to data: DataType) {
         self.data = data
+        updateValues()
     }
 
     func updateValues() {}

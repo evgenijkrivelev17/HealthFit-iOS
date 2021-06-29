@@ -10,9 +10,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow(frame: UIScreen.main.bounds)
 
-        var coordinator = AppCoordinator(window: window!)
+        guard let window = window else {
+            return true
+        }
+        let coordinator = AppCoordinator(window: window)
         coordinator.start()
-        window?.makeKeyAndVisible()
         return true
     }
 

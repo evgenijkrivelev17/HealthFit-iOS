@@ -107,15 +107,10 @@ public class PeripheralCell: BaseTableViewCell<PeripheralModel> {
         state.rightAnchor.constraint(equalTo: panel.rightAnchor, constant: -10).isActive = true
     }
 
-//    override func setData(to data: PeripheralModel) {
-//        Data = data
-//        updateValues()
-//    }
-//
-//    override func updateValues() {
-//        guard let data = Data else { return }
-//        name.text = "Name: " + (data.Device.name ?? "Unknown")
-//        powerSignal.text = "Signal: " + data.RSSI!.stringValue
-//        state.text = data.Device.state == .connected ? "Connected" : ""
-//    }
+    override func updateValues() {
+        guard let data = data else { return }
+        name.text = "Name: " + (data.peripheralMode.name ?? "Unknown")
+        powerSignal.text = "Signal: " + data.peripheralRssi.stringValue
+        state.text = data.peripheralMode.state == .connected ? "Connected" : ""
+    }
 }

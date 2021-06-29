@@ -13,7 +13,7 @@ class SearchDevicesController: BaseViewController<SearchDevicesViewModel> {
     var scanButton: UIButton = {
         var button = UIButton()
         button.setTitle("Scan", for: .normal)
-        button.backgroundColor = .systemRed
+        button.backgroundColor = .systemBlue
         button.layer.cornerRadius = ScreenService.getWidth(10)
         return button
     }()
@@ -87,7 +87,6 @@ class SearchDevicesController: BaseViewController<SearchDevicesViewModel> {
 
     init(viewModel model: SearchDevicesViewModel) {
         super.init(model: model)
-        bindViewModel()
     }
 
     required init?(coder _: NSCoder) {
