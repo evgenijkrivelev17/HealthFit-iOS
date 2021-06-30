@@ -85,7 +85,7 @@ excluded:
   - Carthage
   - Generated
   - Templates
-  - theVillageLedger/Resources
+  - HomeFit/Resources
   - Pods
   - HomeFit/Resources/R.generated.swift
   - R.generated.swift

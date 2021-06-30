@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         let coordinator = AppCoordinator(window: window)
         coordinator.start()
+
         return true
     }
 

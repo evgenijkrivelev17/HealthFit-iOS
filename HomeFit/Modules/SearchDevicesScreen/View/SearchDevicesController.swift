@@ -13,7 +13,7 @@ class SearchDevicesController: BaseViewController<SearchDevicesViewModel> {
 
     var scanButton: UIButton = {
         var button = UIButton()
-        button.setTitle(NSLocalizedString("Scan", comment: "") R., for: .normal)
+        button.setTitle(NSLocalizedString("Scan", comment: ""), for: .normal)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = ScreenService.getWidth(10)
         return button

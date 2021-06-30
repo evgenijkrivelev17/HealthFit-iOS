@@ -13,11 +13,11 @@
 		2713901A268CB31C001E0D52 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27139018268CB31C001E0D52 /* Localizable.strings */; };
 		2713901E268CB46D001E0D52 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27139020268CB46D001E0D52 /* Localizable.strings */; };
 		27139023268CB50B001E0D52 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27139025268CB50B001E0D52 /* Localizable.strings */; };
+		27139029268CC4B1001E0D52 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27139028268CC4B1001E0D52 /* R.generated.swift */; };
 		2735600D26847F2B00F34D53 /* BaseTableViewCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2735600C26847F2B00F34D53 /* BaseTableViewCellProtocol.swift */; };
 		2735600F26847FB400F34D53 /* PeripheralServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2735600E26847FB400F34D53 /* PeripheralServiceProtocol.swift */; };
 		27DAD9092689D28E00BE0868 /* SearchDevicesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAD9082689D28E00BE0868 /* SearchDevicesController.swift */; };
 		27DAD90B2689D2C200BE0868 /* SearchDevicesVIewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAD90A2689D2C200BE0868 /* SearchDevicesVIewModel.swift */; };
-		27E230C8268B24030094B08D /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E230C7268B24030094B08D /* R.generated.swift */; };
 		27E230CF268B2DF80094B08D /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E230CE268B2DF80094B08D /* BaseCoordinator.swift */; };
 		3E273A6925F6C17B007BE951 /* ScreenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E273A6825F6C17B007BE951 /* ScreenService.swift */; };
 		3E273A7025F6C35D007BE951 /* PeripheralCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E273A6F25F6C35D007BE951 /* PeripheralCell.swift */; };
@@ -69,11 +69,11 @@
 		27139019268CB31C001E0D52 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = HomeFit/Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2713901F268CB46D001E0D52 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		27139024268CB50B001E0D52 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		27139028268CC4B1001E0D52 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		2735600C26847F2B00F34D53 /* BaseTableViewCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCellProtocol.swift; sourceTree = "<group>"; };
 		2735600E26847FB400F34D53 /* PeripheralServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralServiceProtocol.swift; sourceTree = "<group>"; };
 		27DAD9082689D28E00BE0868 /* SearchDevicesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDevicesController.swift; sourceTree = "<group>"; };
 		27DAD90A2689D2C200BE0868 /* SearchDevicesVIewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDevicesVIewModel.swift; sourceTree = "<group>"; };
-		27E230C7268B24030094B08D /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.generated.swift; path = HomeFit/Resources/R.generated.swift; sourceTree = SOURCE_ROOT; };
 		27E230CE268B2DF80094B08D /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
 		355ECA882579C203B55A1A9F /* Pods_HomeFit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HomeFit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E273A6825F6C17B007BE951 /* ScreenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenService.swift; sourceTree = "<group>"; };
@@ -159,6 +159,7 @@
 		27139010268CB0C9001E0D52 /* Localization */ = {
 			isa = PBXGroup;
 			children = (
+				2713902C268CC6EF001E0D52 /* base */,
 				27139017268CB2DD001E0D52 /* en */,
 				27139015268CB22D001E0D52 /* ru */,
 			);
@@ -179,6 +180,22 @@
 				27139025268CB50B001E0D52 /* Localizable.strings */,
 			);
 			path = en;
+			sourceTree = "<group>";
+		};
+		2713902C268CC6EF001E0D52 /* base */ = {
+			isa = PBXGroup;
+			children = (
+				27139018268CB31C001E0D52 /* Localizable.strings */,
+			);
+			path = base;
+			sourceTree = "<group>";
+		};
+		2713902D268CC76B001E0D52 /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				27139028268CC4B1001E0D52 /* R.generated.swift */,
+			);
+			path = Generated;
 			sourceTree = "<group>";
 		};
 		2714665E2689D1E300DDF1BE /* Modules */ = {
@@ -211,8 +228,8 @@
 		27E230C9268B24EB0094B08D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2713902D268CC76B001E0D52 /* Generated */,
 				27139010268CB0C9001E0D52 /* Localization */,
-				27E230C7268B24030094B08D /* R.generated.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -269,7 +286,6 @@
 		3E28C32B25D1DF3C0066D4B7 = {
 			isa = PBXGroup;
 			children = (
-				27139018268CB31C001E0D52 /* Localizable.strings */,
 				3E28C33625D1DF3C0066D4B7 /* HomeFit */,
 				3E28C35025D1DF400066D4B7 /* HomeFitTests */,
 				3E28C35B25D1DF400066D4B7 /* HomeFitUITests */,
@@ -292,7 +308,6 @@
 		3E28C33625D1DF3C0066D4B7 /* HomeFit */ = {
 			isa = PBXGroup;
 			children = (
-				27E230C9268B24EB0094B08D /* Resources */,
 				2714665E2689D1E300DDF1BE /* Modules */,
 				3E87927625F180FF006A10C9 /* Services */,
 				3EB4517C2664303600ECCA7D /* Protocols */,
@@ -306,6 +321,7 @@
 				3E28C34525D1DF3F0066D4B7 /* LaunchScreen.storyboard */,
 				3E28C34825D1DF3F0066D4B7 /* Info.plist */,
 				3E28C34025D1DF3D0066D4B7 /* HomeFit.xcdatamodeld */,
+				27E230C9268B24EB0094B08D /* Resources */,
 			);
 			path = HomeFit;
 			sourceTree = "<group>";
@@ -407,9 +423,9 @@
 			buildConfigurationList = 3E28C36125D1DF400066D4B7 /* Build configuration list for PBXNativeTarget "HomeFit" */;
 			buildPhases = (
 				C9572F7E3DE90778DAA05A85 /* [CP] Check Pods Manifest.lock */,
+				27973E07268B13D900AA1510 /* R.Swift */,
 				273560122684A71500F34D53 /* SwiftLint */,
 				273560132684BD1300F34D53 /* SwiftFormat */,
-				27973E07268B13D900AA1510 /* R.Swift */,
 				3E28C33025D1DF3C0066D4B7 /* Sources */,
 				3E28C33125D1DF3C0066D4B7 /* Frameworks */,
 				3E28C33225D1DF3C0066D4B7 /* Resources */,
@@ -575,7 +591,7 @@
 		};
 		27973E07268B13D900AA1510 /* R.Swift */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -589,7 +605,7 @@
 			outputPaths = (
 				$SRCROOT/R.generated.swift,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/R.generated.swift\"\n";
 		};
@@ -706,11 +722,11 @@
 				3E28C33C25D1DF3C0066D4B7 /* ViewController.swift in Sources */,
 				3E28C33825D1DF3C0066D4B7 /* AppDelegate.swift in Sources */,
 				3EB45182266430BE00ECCA7D /* BaseViewModelProtocol.swift in Sources */,
+				27139029268CC4B1001E0D52 /* R.generated.swift in Sources */,
 				3E87927825F18115006A10C9 /* PeripheralService.swift in Sources */,
 				27DAD90B2689D2C200BE0868 /* SearchDevicesVIewModel.swift in Sources */,
 				3EF06CF225F0F8DA0012BCA5 /* PeripheralModel.swift in Sources */,
 				2702A624268B3483000F20B3 /* SearchDevicesCoordinator.swift in Sources */,
-				27E230C8268B24030094B08D /* R.generated.swift in Sources */,
 				2702A622268B33DD000F20B3 /* AppCoordinator.swift in Sources */,
 				2735600D26847F2B00F34D53 /* BaseTableViewCellProtocol.swift in Sources */,
 				3E7B8EB9262E22C4001D9BA7 /* BaseTableViewCell.swift in Sources */,
