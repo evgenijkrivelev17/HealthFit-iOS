@@ -10,6 +10,9 @@
 		13B0F49FB9D61C7CAFA2E476 /* Pods_HomeFitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62E9D442EF89D6630693BD47 /* Pods_HomeFitTests.framework */; };
 		2702A622268B33DD000F20B3 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2702A621268B33DD000F20B3 /* AppCoordinator.swift */; };
 		2702A624268B3483000F20B3 /* SearchDevicesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2702A623268B3483000F20B3 /* SearchDevicesCoordinator.swift */; };
+		2713901A268CB31C001E0D52 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27139018268CB31C001E0D52 /* Localizable.strings */; };
+		2713901E268CB46D001E0D52 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27139020268CB46D001E0D52 /* Localizable.strings */; };
+		27139023268CB50B001E0D52 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27139025268CB50B001E0D52 /* Localizable.strings */; };
 		2735600D26847F2B00F34D53 /* BaseTableViewCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2735600C26847F2B00F34D53 /* BaseTableViewCellProtocol.swift */; };
 		2735600F26847FB400F34D53 /* PeripheralServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2735600E26847FB400F34D53 /* PeripheralServiceProtocol.swift */; };
 		27DAD9092689D28E00BE0868 /* SearchDevicesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAD9082689D28E00BE0868 /* SearchDevicesController.swift */; };
@@ -28,7 +31,6 @@
 		3E28C35D25D1DF400066D4B7 /* HomeFitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E28C35C25D1DF400066D4B7 /* HomeFitUITests.swift */; };
 		3E28C37025D1DF790066D4B7 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E28C36F25D1DF790066D4B7 /* HealthKit.framework */; };
 		3E28C37525D1DF8F0066D4B7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E28C37425D1DF8F0066D4B7 /* MapKit.framework */; };
-		3E79583225F3E91800979FD0 /* CBCentralManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E79583125F3E91800979FD0 /* CBCentralManager.swift */; };
 		3E7B8EB9262E22C4001D9BA7 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B8EB8262E22C4001D9BA7 /* BaseTableViewCell.swift */; };
 		3E7F509B2664242F0080E89F /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7F509A2664242F0080E89F /* BaseViewController.swift */; };
 		3E87927825F18115006A10C9 /* PeripheralService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E87927725F18115006A10C9 /* PeripheralService.swift */; };
@@ -60,6 +62,13 @@
 		09C2136E3A55B60D13A886A0 /* Pods-HomeFit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HomeFit.debug.xcconfig"; path = "Target Support Files/Pods-HomeFit/Pods-HomeFit.debug.xcconfig"; sourceTree = "<group>"; };
 		2702A621268B33DD000F20B3 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		2702A623268B3483000F20B3 /* SearchDevicesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDevicesCoordinator.swift; sourceTree = "<group>"; };
+		27139003268CA651001E0D52 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		27139005268CA68E001E0D52 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		2713900D268CAEF4001E0D52 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		2713900E268CAEF4001E0D52 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		27139019268CB31C001E0D52 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = HomeFit/Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		2713901F268CB46D001E0D52 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		27139024268CB50B001E0D52 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2735600C26847F2B00F34D53 /* BaseTableViewCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCellProtocol.swift; sourceTree = "<group>"; };
 		2735600E26847FB400F34D53 /* PeripheralServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralServiceProtocol.swift; sourceTree = "<group>"; };
 		27DAD9082689D28E00BE0868 /* SearchDevicesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDevicesController.swift; sourceTree = "<group>"; };
@@ -86,7 +95,6 @@
 		3E28C36D25D1DF790066D4B7 /* HomeFit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HomeFit.entitlements; sourceTree = "<group>"; };
 		3E28C36F25D1DF790066D4B7 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		3E28C37425D1DF8F0066D4B7 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		3E79583125F3E91800979FD0 /* CBCentralManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBCentralManager.swift; sourceTree = "<group>"; };
 		3E7B8EB8262E22C4001D9BA7 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		3E7F509A2664242F0080E89F /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		3E87927725F18115006A10C9 /* PeripheralService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralService.swift; sourceTree = "<group>"; };
@@ -148,6 +156,31 @@
 			path = Coordinator;
 			sourceTree = "<group>";
 		};
+		27139010268CB0C9001E0D52 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				27139017268CB2DD001E0D52 /* en */,
+				27139015268CB22D001E0D52 /* ru */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
+		27139015268CB22D001E0D52 /* ru */ = {
+			isa = PBXGroup;
+			children = (
+				27139020268CB46D001E0D52 /* Localizable.strings */,
+			);
+			path = ru;
+			sourceTree = "<group>";
+		};
+		27139017268CB2DD001E0D52 /* en */ = {
+			isa = PBXGroup;
+			children = (
+				27139025268CB50B001E0D52 /* Localizable.strings */,
+			);
+			path = en;
+			sourceTree = "<group>";
+		};
 		2714665E2689D1E300DDF1BE /* Modules */ = {
 			isa = PBXGroup;
 			children = (
@@ -178,6 +211,7 @@
 		27E230C9268B24EB0094B08D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				27139010268CB0C9001E0D52 /* Localization */,
 				27E230C7268B24030094B08D /* R.generated.swift */,
 			);
 			path = Resources;
@@ -235,6 +269,7 @@
 		3E28C32B25D1DF3C0066D4B7 = {
 			isa = PBXGroup;
 			children = (
+				27139018268CB31C001E0D52 /* Localizable.strings */,
 				3E28C33625D1DF3C0066D4B7 /* HomeFit */,
 				3E28C35025D1DF400066D4B7 /* HomeFitTests */,
 				3E28C35B25D1DF400066D4B7 /* HomeFitUITests */,
@@ -263,7 +298,6 @@
 				3EB4517C2664303600ECCA7D /* Protocols */,
 				3E7F50992664241B0080E89F /* Classes */,
 				3E273A6D25F6C346007BE951 /* Views */,
-				3E79583025F3E90100979FD0 /* Extensions */,
 				3E28C36D25D1DF790066D4B7 /* HomeFit.entitlements */,
 				3E28C33725D1DF3C0066D4B7 /* AppDelegate.swift */,
 				3E28C33B25D1DF3C0066D4B7 /* ViewController.swift */,
@@ -304,14 +338,6 @@
 				62E9D442EF89D6630693BD47 /* Pods_HomeFitTests.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		3E79583025F3E90100979FD0 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				3E79583125F3E91800979FD0 /* CBCentralManager.swift */,
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		3E7F50992664241B0080E89F /* Classes */ = {
@@ -383,11 +409,11 @@
 				C9572F7E3DE90778DAA05A85 /* [CP] Check Pods Manifest.lock */,
 				273560122684A71500F34D53 /* SwiftLint */,
 				273560132684BD1300F34D53 /* SwiftFormat */,
+				27973E07268B13D900AA1510 /* R.Swift */,
 				3E28C33025D1DF3C0066D4B7 /* Sources */,
 				3E28C33125D1DF3C0066D4B7 /* Frameworks */,
 				3E28C33225D1DF3C0066D4B7 /* Resources */,
 				3A0C80681561A45E18F16B35 /* [CP] Embed Pods Frameworks */,
-				27973E07268B13D900AA1510 /* R.Swift */,
 			);
 			buildRules = (
 			);
@@ -466,6 +492,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 3E28C32B25D1DF3C0066D4B7;
 			productRefGroup = 3E28C33525D1DF3C0066D4B7 /* Products */;
@@ -484,9 +511,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2713901A268CB31C001E0D52 /* Localizable.strings in Resources */,
+				27139023268CB50B001E0D52 /* Localizable.strings in Resources */,
 				3E28C34725D1DF3F0066D4B7 /* LaunchScreen.storyboard in Resources */,
 				3E28C34425D1DF3F0066D4B7 /* Assets.xcassets in Resources */,
 				3E28C33F25D1DF3D0066D4B7 /* Main.storyboard in Resources */,
+				2713901E268CB46D001E0D52 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -545,7 +575,7 @@
 		};
 		27973E07268B13D900AA1510 /* R.Swift */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputFileListPaths = (
@@ -559,7 +589,7 @@
 			outputPaths = (
 				$SRCROOT/R.generated.swift,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/R.generated.swift\"\n";
 		};
@@ -678,7 +708,6 @@
 				3EB45182266430BE00ECCA7D /* BaseViewModelProtocol.swift in Sources */,
 				3E87927825F18115006A10C9 /* PeripheralService.swift in Sources */,
 				27DAD90B2689D2C200BE0868 /* SearchDevicesVIewModel.swift in Sources */,
-				3E79583225F3E91800979FD0 /* CBCentralManager.swift in Sources */,
 				3EF06CF225F0F8DA0012BCA5 /* PeripheralModel.swift in Sources */,
 				2702A624268B3483000F20B3 /* SearchDevicesCoordinator.swift in Sources */,
 				27E230C8268B24030094B08D /* R.generated.swift in Sources */,
@@ -725,10 +754,38 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		27139018268CB31C001E0D52 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				27139019268CB31C001E0D52 /* Base */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		27139020268CB46D001E0D52 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2713901F268CB46D001E0D52 /* ru */,
+			);
+			name = Localizable.strings;
+			path = HomeFit/Resources/Localization;
+			sourceTree = SOURCE_ROOT;
+		};
+		27139025268CB50B001E0D52 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				27139024268CB50B001E0D52 /* en */,
+			);
+			name = Localizable.strings;
+			path = HomeFit/Resources/Localization;
+			sourceTree = SOURCE_ROOT;
+		};
 		3E28C33D25D1DF3D0066D4B7 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				3E28C33E25D1DF3D0066D4B7 /* Base */,
+				27139005268CA68E001E0D52 /* en */,
+				2713900D268CAEF4001E0D52 /* ru */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -737,6 +794,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				3E28C34625D1DF3F0066D4B7 /* Base */,
+				27139003268CA651001E0D52 /* en */,
+				2713900E268CAEF4001E0D52 /* ru */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -748,6 +807,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -809,6 +869,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

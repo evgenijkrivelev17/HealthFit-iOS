@@ -3,42 +3,37 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-public struct PeripheralModel: Equatable {
-    public static func == (lhs: PeripheralModel, rhs: PeripheralModel) -> Bool {
-        return lhs.id.uuidString == rhs.id.uuidString
-    }
-
+public struct PeripheralModel {
     public var id: UUID {
         return device.identifier
     }
 
-    private var device: CBPeripheral
-    public var peripheralMode: CBPeripheral {
-        return device
-    }
+    public private(set) var device: CBPeripheral
 
-    var data: [String: Any] = [:]
-    public var peripheralData: [String: Any] {
-        return data
-    }
+    public private(set) var peripheralData: [String: Any]
 
-    private var rssi: NSNumber
-    public var peripheralRssi: NSNumber {
-        return rssi
-    }
+    public private(set) var peripheralRssi: NSNumber
 
     init(device: CBPeripheral,
          data: [String: Any] = [:],
          rssi: NSNumber = 1)
     {
         self.device = device
-        self.data = data
-        self.rssi = rssi
+        peripheralData = data
+        peripheralRssi = rssi
     }
 
     public mutating func upateValues(_ device: PeripheralModel) {
-        self.device = device.peripheralMode
-        data = device.peripheralData
-        rssi = device.peripheralRssi
+        self.device = device.device
+        peripheralData = device.peripheralData
+        peripheralRssi = device.peripheralRssi
+    }
+}
+
+// MARK: - implementation Equatable
+
+extension PeripheralModel: Equatable {
+    public static func == (lhs: PeripheralModel, rhs: PeripheralModel) -> Bool {
+        return lhs.id.uuidString == rhs.id.uuidString
     }
 }

@@ -6,7 +6,7 @@ protocol BaseViewModelProtocol {
 
     var input: InputViewType { get }
 
-    func configure(input: InputViewType) -> OutputViewType
-
     var isBusy: Observable<Bool> { get }
+
+    func configure(input: InputViewType) -> OutputViewType
 }

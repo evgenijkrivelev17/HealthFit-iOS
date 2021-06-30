@@ -129,10 +129,10 @@ public class SearchDevicesViewModel: BaseViewModelProtocol {
     }
 
     private func connectDevice(device: Device) {
-        peripheralService.connect(device: device)
+        peripheralService.connect(to: device)
     }
 
     private func disconnectDevice(device: Device) {
-        peripheralService.disconnect(device: device)
+        peripheralService.disconnect(to: device)
     }
 }

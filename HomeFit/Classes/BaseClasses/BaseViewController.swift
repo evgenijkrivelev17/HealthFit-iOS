@@ -17,7 +17,9 @@ class BaseViewController<ViewModelType: BaseViewModelProtocol>: UIViewController
         super.init(nibName: nil, bundle: nil)
     }
 
-    func setUpUI() {}
+    func setUpUI() {
+        view.backgroundColor = .white
+    }
 
     func configure(_: [String: AnyObject]) {}
 

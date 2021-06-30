@@ -20,8 +20,8 @@ public protocol PeripheralServiceDelegate: AnyObject {
 
     var scanning: BehaviorSubject<Bool> { get }
 
-    func connect(device: RemoteDevice, options: [String: Any])
-    func disconnect(device: RemoteDevice)
+    func connect(to device: RemoteDevice, with options: [String: Any])
+    func disconnect(to device: RemoteDevice)
 
     func startScan()
     func stopScan()

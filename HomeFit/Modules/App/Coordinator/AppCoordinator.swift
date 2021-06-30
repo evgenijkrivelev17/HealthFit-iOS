@@ -7,13 +7,14 @@ class AppCoordinator: BaseCoordinator<Void> {
 
     init(window: UIWindow) {
         self.window = window
-        super.init(id: UUID(), childCoordinators: [:])
     }
 
     override func start() -> Observable<Void> {
         let searchDevicesCoordinator = SearchDevicesCoordinator()
 
         let navigationController = UINavigationController(rootViewController: searchDevicesCoordinator.rootViewController)
+        navigationController.setNavigationBarHidden(true, animated: false)
+        navigationController.accessibilityFrame = CGRect.zero
 
         window.rootViewController = navigationController
         window.makeKeyAndVisible()

@@ -9,8 +9,6 @@ class PeriperalService: NSObject, PeripheralServiceDelegate {
 
     public static var shared = PeriperalService()
 
-    private var manager: CBCentralManager?
-
     public private(set) var devices: [RemoteDevice]
 
     public private(set) var stateService: BehaviorSubject<CBManagerState>
@@ -20,6 +18,10 @@ class PeriperalService: NSObject, PeripheralServiceDelegate {
     public private(set) var foundedDevices: BehaviorSubject<[PeripheralModel]>
 
     public private(set) var scanning: BehaviorSubject<Bool>
+
+    private var manager: CBCentralManager?
+
+    private var currentConnectedPeripheral: CBPeripheral?
 
     init(peripherals: [RemoteDevice] = [],
          foundObserver: BehaviorSubject<[RemoteDevice]> = .init(value: []),
@@ -35,23 +37,37 @@ class PeriperalService: NSObject, PeripheralServiceDelegate {
         super.init()
     }
 
-    public func connect(device: PeripheralModel, options: [String: Any] = [:]) {
-        guard let manager = manager else {
+    override func observeValue(forKeyPath keyPath: String?, of _: Any?, change _: [NSKeyValueChangeKey: Any]?, context _: UnsafeMutableRawPointer?) {
+        guard let key = keyPath else {
             return
         }
-        manager.connect(device.peripheralMode, options: options)
+        switch key {
+            case "isScanning":
+                changedScanningState()
+            default: break
+        }
     }
 
-    public func disconnect(device: PeripheralModel) {
+    public func connect(to device: PeripheralModel, with options: [String: Any] = [:]) {
         guard let manager = manager else {
             return
         }
-        manager.cancelPeripheralConnection(device.peripheralMode)
+        currentConnectedPeripheral = device.device
+        stopScan()
+        manager.connect(device.device, options: options)
+    }
+
+    public func disconnect(to device: PeripheralModel) {
+        guard let manager = manager else {
+            return
+        }
+        manager.cancelPeripheralConnection(device.device)
     }
 
     public func startScan() {
         guard let manager = manager else {
-            manager = CBCentralManager(delegate: self, queue: nil)
+            manager = CBCentralManager(delegate: self, queue: DispatchQueue.main)
+            addCustomPropertyObserver(to: manager!, observer: self, properties: ["isScanning": [.new]])
             return
         }
         manager.scanForPeripherals(withServices: nil, options: nil)
@@ -69,13 +85,45 @@ class PeriperalService: NSObject, PeripheralServiceDelegate {
         foundedDevices.onNext(devices)
     }
 
-    private func updateDevice(to device: inout RemoteDevice, data: RemoteDevice) {
+    private func updateData(to device: inout RemoteDevice, with data: RemoteDevice) {
         device.upateValues(data)
     }
 
-    private func informConnectDevice(_: RemoteDevice) {
-        let allConnectedDevices = devices.filter { $0.peripheralMode.state == .connected }
+    private func connected(with _: RemoteDevice) {
+        let allConnectedDevices = devices.filter { $0.device.state == .connected }
         connectedDevices.onNext(allConnectedDevices)
+    }
+
+    private func changedScanningState() {
+        guard let service = manager else {
+            return
+        }
+        let state = service.isScanning
+        scanning.onNext(state)
+    }
+
+    private func addCustomPropertyObserver(to manager: CBCentralManager, observer: NSObject, properties: [String: NSKeyValueObservingOptions]) {
+        for prop in properties {
+            manager.addObserver(observer, forKeyPath: prop.key, options: prop.value, context: nil)
+        }
+    }
+
+    private func removeCustomPropertyObserver(to manager: CBCentralManager, observer: NSObject, properties: [String]) {
+        for prop in properties {
+            manager.removeObserver(observer, forKeyPath: prop)
+        }
+    }
+
+    private func failedConnection(to device: CBPeripheral, error: Error?) {
+        print("Problem in connection with \(device). Error: \(error)")
+    }
+
+    deinit {
+        guard let manager = manager else {
+            return
+        }
+        removeCustomPropertyObserver(to: manager, observer: self, properties: ["isScanning"])
+        print("Deinitialize PeripheralsService class")
     }
 }
 
@@ -100,7 +148,7 @@ extension PeriperalService: CBCentralManagerDelegate {
             addDevice(device)
             return
         }
-        updateDevice(to: &oldDevice, data: device)
+        updateData(to: &oldDevice, with: device)
     }
 
     public func centralManager(service: CBCentralManager, didConnect peripheral: CBPeripheral) {
@@ -109,17 +157,30 @@ extension PeriperalService: CBCentralManagerDelegate {
         }
 
         let connectedDevice = RemoteDevice(device: peripheral)
-        guard let index = devices.firstIndex(where: { $0.id.uuidString == peripheral.identifier.uuidString }), index != -1 else {
+        if let index = devices.firstIndex(where: { $0.id.uuidString == peripheral.identifier.uuidString }), index == -1 {
             addDevice(connectedDevice)
-            informConnectDevice(connectedDevice)
+        }
+        connected(with: connectedDevice)
+    }
+
+    public func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
+        guard manager == central else {
             return
         }
-        informConnectDevice(connectedDevice)
+        failedConnection(to: peripheral, error: error)
     }
 }
 
 // MARK: - CBPeripheralManagerDelegate protocol initialize
 
 extension PeriperalService: CBPeripheralManagerDelegate {
-    public func peripheralManagerDidUpdateState(_: CBPeripheralManager) {}
+    public func peripheralManagerDidUpdateState(_ manager: CBPeripheralManager) {
+        guard let service = self.manager else {
+            return
+        }
+        guard service == manager else {
+            return
+        }
+        stateService.onNext(manager.state)
+    }
 }

@@ -109,8 +109,8 @@ public class PeripheralCell: BaseTableViewCell<PeripheralModel> {
 
     override func updateValues() {
         guard let data = data else { return }
-        name.text = "Name: " + (data.peripheralMode.name ?? "Unknown")
+        name.text = "Name: " + (data.device.name ?? "Unknown")
         powerSignal.text = "Signal: " + data.peripheralRssi.stringValue
-        state.text = data.peripheralMode.state == .connected ? "Connected" : ""
+        state.text = data.device.state == .connected ? "Connected" : ""
     }
 }
